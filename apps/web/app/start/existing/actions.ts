@@ -5,6 +5,7 @@ import { cookies } from 'next/headers';
 import { brandAction } from '../actions';
 import { availability } from '../_server/runtime';
 import { agentTeam } from '../_server/agent-team-runtime';
+import { syncKnowledge } from '../_server/knowledge-sync';
 import { setStoredPath } from '../../../lib/aimp/home/path-store';
 import { slugFor, validateExisting, type ExistingErrors } from '../../../lib/aimp/onboarding/existing';
 
@@ -32,8 +33,9 @@ export async function startExistingBusinessAction(raw: unknown): Promise<Existin
   // The front end's path cookie: existing owners see the full workspace (no "Where are you starting from?" question for them).
   (await cookies()).set('aimp_path', 'existing', { path: '/', maxAge: 60 * 60 * 24 * 365, sameSite: 'lax', httpOnly: true });
 
-  const p = agentTeam().saveProfile(businessId, { businessName: b.businessName, industry: b.industry, offer: b.offer, audience: b.audience, timezone: b.timezone, website: b.website, region: 'Australia', facts: [] }, 'owner');
+  const p = agentTeam().saveProfile(businessId, { businessName: b.businessName, industry: b.industry, offer: b.offer, description: b.offer, audience: b.audience, timezone: b.timezone, website: b.website, bookingUrl: b.website, region: 'Australia', facts: [] }, 'owner');
   if (!p.ok) notes.push('Your AI Team needs a couple more details. You can add them on the AI Team page.');
+  else syncKnowledge(businessId);
 
   return { ok: true, businessId, notes };
 }

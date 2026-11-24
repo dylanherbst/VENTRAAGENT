@@ -10,6 +10,8 @@ import { currentSegment, settingsLinks, tabHref, workspaceNavHref, workspaceNavI
 import './workspace-nav.css';
 
 const ICONS: Record<string, string> = {
+  sales: 'M4 5h16v11H9l-5 4V5Zm4 5h8M8 13h5',
+  social: 'M5 4h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Zm7 4.5a3.500 3.500 0 1 0 0 7 3.500 3.500 0 0 0 0-7ZM17 7h.010',
   orders: 'M7 3h10v18l-2.5-1.5L12 21l-2.5-1.5L7 21V3Zm3 5h4m-4 4h4',
   build: 'm12 3 9 5-9 5-9-5 9-5Zm-9 9 9 5 9-5M3 16l9 5 9-5',
   home: 'M4 11.5 12 5l8 6.5V19a1 1 0 0 1-1 1h-4v-5h-6v5H5a1 1 0 0 1-1-1v-7.5Z',
@@ -37,12 +39,12 @@ const Icon = ({ name }: { name: string }) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d={ICONS[name]} /></svg>
 );
 
-// Phone dock order is fixed by the Mobile Bible: Orders, Build, Home, Growth, Search.
+// Growth product phone dock: Home, AI Sales, Social, Marketing, Search (same Mobile Bible styling).
 const DOCK = [
-  { id: 'orders', label: 'Orders', segment: 'orders', segments: ['orders'] },
-  { id: 'build', label: 'Build', segment: 'products', segments: ['offers', 'products', 'brand', 'website', 'domains'] },
   { id: 'home', label: 'Home', segment: 'home', segments: ['', 'home', 'dashboard'] },
-  { id: 'growth', label: 'Growth', segment: 'marketing', segments: ['marketing'] },
+  { id: 'sales', label: 'AI Sales', segment: 'sales', segments: ['sales', 'setter', 'inbox'] },
+  { id: 'social', label: 'Social', segment: 'social', segments: ['social', 'ai-team'] },
+  { id: 'marketing', label: 'Marketing', segment: 'marketing', segments: ['marketing', 'gaps'] },
 ] as const;
 
 export function WorkspaceNav({ business, guide }: { business: string; guide?: Guide }) {
@@ -52,7 +54,7 @@ export function WorkspaceNav({ business, guide }: { business: string; guide?: Gu
   const [open, setOpen] = useState(false);
   const [q, setQ] = useState('');
   const box = useRef<HTMLDivElement>(null);
-  const inSettings = ['settings', 'integrations', 'approvals', 'operator', 'inbox', 'gaps'].includes(current);
+  const inSettings = ['settings', 'profile', 'integrations', 'approvals', 'operator'].includes(current);
 
   useEffect(() => {
     if (!open) return;
@@ -91,9 +93,9 @@ export function WorkspaceNav({ business, guide }: { business: string; guide?: Gu
   const logoBtn = useRef<HTMLButtonElement>(null);
   const hrefFor = (seg: string) => `/app/${business}/${seg}`;
   // The menu is built from workspace-nav-items.ts, so a page added there (like Offer) shows up here without touching this file.
-  const ICON_FOR: Record<string, string> = { home: 'home', offers: 'offers', products: 'products', website: 'website', payments: 'payments', marketing: 'marketing', orders: 'orders',
+  const ICON_FOR: Record<string, string> = { sales: 'sales', social: 'social', profile: 'brand', home: 'home', offers: 'offers', products: 'products', website: 'website', payments: 'payments', marketing: 'marketing', orders: 'orders',
     brand: 'brand', domains: 'domains', integrations: 'integrations', inbox: 'inbox', approvals: 'approvals', operator: 'operator', dashboard: 'dashboard', gaps: 'gaps', settings: 'settings' };
-  const SETUP = ['brand', 'domains', 'integrations'];
+  const SETUP = ['profile', 'integrations'];
   const mainItems = workspaceNavItems.filter((i) => i.ready && i.segment).map((i) => ({ label: i.label, seg: i.segment, icon: ICON_FOR[i.segment] ?? 'dashboard' }));
   const mainSegs = new Set(mainItems.map((i) => i.seg));
   const more = settingsLinks.filter((l) => !mainSegs.has(l.segment)).map((l) => ({ label: l.label, seg: l.segment, icon: ICON_FOR[l.segment] ?? 'dashboard' }));

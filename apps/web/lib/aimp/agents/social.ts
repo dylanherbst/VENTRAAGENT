@@ -69,9 +69,14 @@ export const postsSchema = {
       storyboard: { type: 'array', items: { type: 'object', additionalProperties: false, required: ['at_seconds', 'visual', 'overlay'], properties: { at_seconds: { type: 'number' }, visual: { type: 'string' }, overlay: { type: 'string' } } } } } } } },
 } as const;
 
-export function socialUserPrompt(brief: { businessName: string; offer: string; facts: string[] }, slots: Slot[], handoff: string | null): string {
+export function socialUserPrompt(brief: { businessName: string; offer: string; facts: string[]; description?: string; location?: string; products?: string[]; painPoints?: string[]; usps?: string[]; bookingUrl?: string }, slots: Slot[], handoff: string | null): string {
   return [
     `BUSINESS: ${brief.businessName}`, `OFFER: ${brief.offer}`,
+    brief.description ? `ABOUT: ${brief.description}` : '', brief.location ? `LOCATION: ${brief.location}` : '',
+    brief.products?.length ? `PRODUCTS AND SERVICES:\n${brief.products.map((x) => `- ${x}`).join('\n')}` : '',
+    brief.painPoints?.length ? `CUSTOMER PAIN POINTS (from the owner):\n${brief.painPoints.map((x) => `- ${x}`).join('\n')}` : '',
+    brief.usps?.length ? `WHY CUSTOMERS CHOOSE THEM (owner's words; only repeat, do not exaggerate):\n${brief.usps.map((x) => `- ${x}`).join('\n')}` : '',
+    brief.bookingUrl ? `CALL TO ACTION LINK: ${brief.bookingUrl}` : '',
     `FACTS (the only things you may state as true):\n${brief.facts.length ? brief.facts.map((f) => `- ${f}`).join('\n') : '- (none: make no specific claims)'}`,
     handoff ? `CAMPAIGN HANDOFF from the Marketing agent (keep the organic posts consistent with it, do not copy the ad):\n${handoff}` : '',
     'Write one post for EVERY slot below. Each must suit its platform and format, sound like a person, and differ from the others (no repeated hooks).',

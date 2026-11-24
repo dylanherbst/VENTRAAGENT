@@ -13,7 +13,12 @@ import { mapZernioPost, verifyZernio, type SocialPublisher } from './providers/z
 import { demoPosts, planSlots, platformRules, postsSchema, socialUserPrompt, validatePosts, type Slot } from './social.ts';
 import { authorizeTool, type Flags } from './tools.ts';
 
-export interface BusinessProfile { workspaceId: string; businessName: string; industry: string; offer: string; audience: string; region: string; timezone: string; website: string; facts: string[]; updatedAt: string }
+/** The ONE business profile every agent reads (Sales, Social, Marketing, Growth Manager). Owner-written; agents never rewrite it. */
+export interface BusinessProfile {
+  workspaceId: string; businessName: string; industry: string; offer: string; audience: string; region: string; timezone: string; website: string; facts: string[]; updatedAt: string;
+  description?: string; location?: string; products?: string[]; painPoints?: string[]; competitors?: string[]; usps?: string[]; goals?: string[];
+  bookingUrl?: string; brandVoice?: string; faqs?: { q: string; a: string }[]; adBudgetMonthlyAud?: number; revision?: number;
+}
 export type RunStatus = 'running' | 'succeeded' | 'failed' | 'blocked';
 export interface AgentRun { id: string; workspaceId: string; agent: AgentType | 'orchestrator'; kind: string; status: RunStatus; attempts: number; presetId: string | null; presetVersion: number | null; policyVersion: number; writer: string; demo: boolean; outputRef: string | null; handoffFrom: string | null; usage: { inputTokens: number; outputTokens: number; costUsd: number }; error: string | null; startedAt: string; finishedAt: string | null }
 export type PostState = 'draft' | 'needs_review' | 'approved' | 'scheduled' | 'published' | 'failed' | 'cancelled';
@@ -75,12 +80,27 @@ export function createAgentTeam(d: TeamDeps) {
     const p: BusinessProfile = { workspaceId: ws, businessName: txt(r.businessName, 80), industry: txt(r.industry, 40), offer: txt(r.offer, 400), audience: txt(r.audience, 300), region: txt(r.region, 80) || 'Australia',
       timezone: txt(r.timezone, 60) || 'Australia/Perth', website: txt(r.website, 300),
       facts: (Array.isArray(r.facts) ? r.facts : typeof r.facts === 'string' ? r.facts.split('\n') : []).map((f) => txt(f, 300)).filter(Boolean).slice(0, 20), updatedAt: iso() };
+    // Optional shared-knowledge fields: kept from the previous save when not sent, so one screen never wipes another screen's answers.
+    const prevP = s.profiles.get(ws);
+    const lines = (k: string, n: number, len: number): string[] | undefined => r[k] === undefined ? (prevP?.[k as keyof BusinessProfile] as string[] | undefined) : (Array.isArray(r[k]) ? (r[k] as unknown[]) : String(r[k] ?? '').split('\n')).map((x) => txt(x, len)).filter(Boolean).slice(0, n);
+    const one = (k: string, len: number): string | undefined => r[k] === undefined ? (prevP?.[k as keyof BusinessProfile] as string | undefined) : txt(r[k], len);
+    Object.assign(p, {
+      description: one('description', 800), location: one('location', 120), brandVoice: one('brandVoice', 200), bookingUrl: one('bookingUrl', 300),
+      products: lines('products', 20, 200), painPoints: lines('painPoints', 10, 200), competitors: lines('competitors', 10, 120), usps: lines('usps', 10, 200), goals: lines('goals', 7, 60),
+      faqs: r.faqs === undefined ? prevP?.faqs : (Array.isArray(r.faqs) ? r.faqs : []).slice(0, 20).map((x) => { const f = (x ?? {}) as Record<string, unknown>; return { q: txt(f.q, 200), a: txt(f.a, 600) }; }).filter((f) => f.q && f.a),
+      adBudgetMonthlyAud: r.adBudgetMonthlyAud === undefined ? prevP?.adBudgetMonthlyAud : Math.max(0, Math.min(100_000, Math.round(Number(r.adBudgetMonthlyAud) || 0))),
+      revision: (prevP?.revision ?? 0) + 1,
+    });
+    if (r.facts === undefined && prevP) p.facts = prevP.facts;
+    if (r.audience === undefined && prevP) p.audience = prevP.audience;
+    if (r.website === undefined && prevP) p.website = prevP.website;
     const errors: string[] = [];
     if (!p.businessName) errors.push('Add your business name.');
     if (!p.offer) errors.push('Add what you sell.');
     if (!findPreset(p.industry)) errors.push('Choose your industry.');
     if (!isTz(p.timezone)) errors.push('That time zone is not valid.');
     if (p.website && !/^https:\/\//.test(p.website)) errors.push('Website must start with https://');
+    if (p.bookingUrl && !/^https:\/\//.test(p.bookingUrl)) errors.push('Booking or buy link must start with https://');
     if (errors.length) return no('invalid_profile', errors);
     const prev = s.profiles.get(ws);
     s.profiles.set(ws, p);
@@ -158,7 +178,7 @@ export function createAgentTeam(d: TeamDeps) {
     let campaignId: string | null = null;
     const res = await run(ws, 'marketing', 'marketing.angles', 'marketing.draft_angles', async () => {
       if (!campaignId) {
-        const c = d.marketing.createCampaign(ws, { businessName: p.businessName, niche: findPreset(cfg.presetId)?.name ?? p.industry, offer: p.offer, audience: cfg.audience || p.audience, region: p.region, goal: /sale/i.test(cfg.goals.join(' ')) ? 'sales' : 'leads', channel: 'organic', tone: cfg.brandVoice, facts: p.facts });
+        const c = d.marketing.createCampaign(ws, { businessName: p.businessName, niche: findPreset(cfg.presetId)?.name ?? p.industry, offer: [p.offer, p.products?.length ? `Products and services: ${p.products.join('; ')}` : '', p.painPoints?.length ? `Customer pains: ${p.painPoints.join('; ')}` : '', p.usps?.length ? `Why customers choose us: ${p.usps.join('; ')}` : '', p.competitors?.length ? `Competitors: ${p.competitors.join(', ')}` : ''].filter(Boolean).join('. ').slice(0, 400), audience: cfg.audience || p.audience, region: p.location || p.region, goal: /sale/i.test([...cfg.goals, ...(p.goals ?? [])].join(' ')) ? 'sales' : 'leads', channel: 'organic', tone: p.brandVoice || cfg.brandVoice, facts: p.facts });
         if (!c.ok) throw new ProviderError('invalid_brief', 0, null, false);
         campaignId = c.value.id;
       }

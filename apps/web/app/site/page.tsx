@@ -19,10 +19,10 @@ export default function SitePage() {
       <section className="vs-hero vs-section" aria-labelledby="hero-title">
         <div className="vs-ambient" aria-hidden="true" />
         <div className="vs-wrap">
-          <span className="vs-eyebrow">Your AI launchpad for financial freedom</span>
-          <h1 id="hero-title">Build your business.<br />Let AI handle the rest.</h1>
-          <HeroLine fallback="Launch your ideas, create products, find customers, answer calls, and book appointments — all from one intelligent platform." />
-          <div className="vs-actions"><GetStartedButton from="hero" /><a className="vs-btn vs-btn-ghost" href="#ai-team">Explore VENTRA</a></div>
+          <span className="vs-eyebrow">Your business. Powered by an AI growth team.</span>
+          <h1 id="hero-title">Stop doing everything yourself.<br />Hire your own AI growth team.</h1>
+          <HeroLine fallback="Three intelligent AI agents working together to generate leads, grow your social media and automate your marketing — without the cost of hiring an entire team." />
+          <div className="vs-actions"><a className="vs-btn vs-btn-primary" href="/start/existing">Activate your AI team</a><a className="vs-btn vs-btn-ghost" href="#ai-team">Meet your AI agents</a></div>
           <div className="vs-stage" aria-label="VENTRA dashboard preview">
             <div className="vs-glass vs-dash">
               <div className="vs-dash-top"><span className="vs-dots" aria-hidden="true"><i /><i /><i /></span><b>VENTRA</b> · Today</div>
@@ -116,9 +116,9 @@ export default function SitePage() {
 
       {/* 10. Final CTA */}
       <section className="vs-final" aria-labelledby="final-title"><div className="vs-ambient" aria-hidden="true" /><div className="vs-wrap">
-        <h2 id="final-title">Your business deserves a smarter way to grow.</h2>
-        <p className="vs-lead" style={{ margin: '18px auto 0' }}>Start building, selling, and growing with VENTRA.</p>
-        <div className="vs-actions"><GetStartedButton from="final" /></div>
+        <h2 id="final-title">Your business. Powered by an AI growth team.</h2>
+        <p className="vs-lead" style={{ margin: '18px auto 0' }}>More leads, a steady social feed and smarter marketing, with you approving what matters.</p>
+        <div className="vs-actions"><a className="vs-btn vs-btn-primary" href="/start/existing">Activate your AI team</a></div>
       </div></section>
     </main>
     <Footer />

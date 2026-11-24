@@ -4,6 +4,7 @@
 import { availability, checkBusiness } from '../../../start/_server/runtime';
 import { agentTeam, signedAssetPath } from '../../../start/_server/agent-team-runtime';
 import type { Platform } from '../../../../lib/aimp/agents/presets';
+import { syncKnowledge } from '../../../start/_server/knowledge-sync';
 import type { TeamView } from './view';
 
 const ACTOR = 'owner';
@@ -43,7 +44,7 @@ const s = (v: unknown, max = 100) => String(v ?? '').slice(0, max);
 
 export async function loadTeamAction(business: string): Promise<Out> { return act(business, () => undefined); }
 export async function saveProfileAction(business: string, raw: unknown): Promise<Out> {
-  return act(business, (w) => { const r = agentTeam().saveProfile(w, raw, ACTOR); return r.ok ? { message: 'Business saved.' } : fail(r); });
+  return act(business, (w) => { const r = agentTeam().saveProfile(w, raw, ACTOR); if (r.ok) syncKnowledge(w); return r.ok ? { message: 'Business saved. All three agents use it.' } : fail(r); });
 }
 export async function saveConfigAction(business: string, agent: 'marketing' | 'social', raw: unknown): Promise<Out> {
   return act(business, (w) => { if (agent !== 'marketing' && agent !== 'social') return { message: 'Unknown agent.' }; const r = agentTeam().saveConfig(w, agent, raw, ACTOR); return r.ok ? { message: `${agent === 'marketing' ? 'Marketing' : 'Social'} settings saved.` } : fail(r); });

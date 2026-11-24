@@ -9,14 +9,14 @@ import { CATS, formOf, label, payloadOf, PLATFORMS, toggle } from './team-helper
 import './team.css';
 import '../ai-surfaces.css';
 
-type Tab = 'team' | 'ads' | 'posts' | 'settings' | 'results' | 'setup';
+export type Tab = 'team' | 'ads' | 'posts' | 'settings' | 'results' | 'setup';
 type Post = TeamView['posts'][number];
 const STATE: Record<string, string> = { draft: 'Draft', needs_review: 'Needs review', approved: 'Approved', scheduled: 'Scheduled', published: 'Published', failed: 'Failed', cancelled: 'Cancelled' };
 const APPROACH: Record<string, string> = { pattern_interrupt: 'Pattern interrupt', value_contrast: 'Value contrast', curiosity_teaching: 'Curiosity + teaching', identification_objection: 'Objection buster', specific_proof: 'Show-me proof' };
 
-export function TeamClient({ business, initial }: { business: string; initial: TeamView }) {
+export function TeamClient({ business, initial, startTab }: { business: string; initial: TeamView; startTab?: Tab }) {
   const [v, setV] = useState(initial);
-  const [tab, setTab] = useState<Tab>(initial.profile ? 'team' : 'setup');
+  const [tab, setTab] = useState<Tab>(initial.profile ? (startTab ?? 'team') : 'setup');
   const [busy, setBusy] = useState(false);
   const run = async (p: Promise<TeamView | null>) => {
     setBusy(true);

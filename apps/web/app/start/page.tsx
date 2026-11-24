@@ -1,31 +1,30 @@
 import type { Metadata } from 'next';
 import { GlassButton, GlassIcon, OnboardingLayout } from '../design-system/aimp-glass';
 import { site } from '../../lib/aimp/site-config';
-import { DemoFastForwardHeader } from './demo-fast-forward';
 import { startRoutes } from './flow';
 import { primaryEntry } from '../../lib/aimp/entry';
 
 export const metadata: Metadata = { title: `Welcome · ${site.name}` };
 
-// Welcome: open wave area above, centred heading and intro, then the two actions and a short reassurance.
+// Growth welcome: for existing businesses. Same layout as before; the startup quiz is parked (lib/aimp/growth/product.ts).
 export default function StartWelcome() {
   return (
     <OnboardingLayout
       align="end"
       text="center"
-      header={<DemoFastForwardHeader />}
       footer={
         <>
-          <GlassButton variant="primary" href={startRoutes.account} icon={<GlassIcon name="spark" size={22} tone="deep" />}>{primaryEntry.label}</GlassButton>
-          <GlassButton variant="secondary" href="/start/existing">I already have a business</GlassButton>
+          <GlassButton variant="primary" href={primaryEntry.href} icon={<GlassIcon name="spark" size={22} tone="deep" />}>{primaryEntry.label}</GlassButton>
+          <GlassButton variant="secondary" href="/site#ai-team">Meet your AI agents</GlassButton>
           <GlassButton variant="secondary" href={`${startRoutes.account}?mode=login`}>I already have an account</GlassButton>
-          <p className="plg-note start-legal">Free to start, no card needed. Nothing is published or charged without your approval.</p>
+          <p className="plg-note start-legal">Nothing is posted, sent or charged without your approval. No earnings promises.</p>
         </>
       }
     >
       <div className="plg-stack" data-gap="3">
-        <h1 className="plg-title start-welcome-title">Welcome to {site.name}</h1>
-        <p className="plg-lede">Find a small online business that fits your budget and your time, then build it step by step.</p>
+        <p className="plg-eyebrow">Your business. Powered by an AI growth team.</p>
+        <h1 className="plg-title start-welcome-title">Stop doing everything yourself. Hire your own AI growth team.</h1>
+        <p className="plg-lede">Three AI agents working together to generate leads, grow your social media and automate your marketing, without the cost of hiring an entire team.</p>
       </div>
     </OnboardingLayout>
   );

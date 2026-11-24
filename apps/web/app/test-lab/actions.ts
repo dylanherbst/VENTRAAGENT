@@ -1,15 +1,16 @@
 'use server';
-// Test Lab: builds ONE filled-in mock customer on the demo runtime so every feature can be tried without typing. It drives the same
-// actions a person clicking through would trigger (brand, product, listing, store, publish, test purchases, Inbox, competitors).
-// Everything is demo data: payments and email are fixtures and nothing leaves this server. Lost on restart, like the rest of the demo.
-import { demoFastForwardAction, storeAction, testPurchaseAction } from '../start/actions';
-import { availability, runtime } from '../start/_server/runtime';
-import { inboxFor } from '../start/_server/inbox-runtime';
-import type { InboxRuntime } from '../start/_server/inbox-runtime';
+// Growth Test Lab: builds ONE filled-in mock EXISTING business on the demo runtime (no idea quiz, no shop), using the same actions
+// the onboarding uses: business record, shared profile, Sales agent setup, test Instagram account, three DMs, competitor research.
+// Everything is demo data; nothing leaves this server. Lost on restart.
+import { availability } from '../start/_server/runtime';
+import { startExistingBusinessAction } from '../start/existing/actions';
+import { agentTeam } from '../start/_server/agent-team-runtime';
+import { sandbox } from '../start/_server/setter-runtime';
+import { syncKnowledge } from '../start/_server/knowledge-sync';
 import { replaceCompetitors } from '../app/[business]/gaps/_server/store';
-import { BUYERS, rememberMockCustomer } from './lab-state';
-import type { MockCustomer } from './lab-state';
+import { signForTest, simulatedPayload } from '../../lib/aimp/setter/index';
 import { EXAMPLE_COMPETITORS } from '../../lib/aimp/gaps/analyse';
+import { BUYERS, rememberMockCustomer, type MockCustomer } from './lab-state';
 
 export type LabReply = { ok: true; customer: MockCustomer } | { ok: false; message: string };
 export async function seedMockCustomerAction(): Promise<LabReply> {
@@ -18,46 +19,40 @@ export async function seedMockCustomerAction(): Promise<LabReply> {
   const steps: MockCustomer['steps'] = [];
   const step = (label: string, ok: boolean, note: string) => { steps.push({ label, ok, note }); return ok; };
 
-  const ff = await demoFastForwardAction();
-  if (!ff.ok || !ff.businessId) return { ok: false, message: ff.message || 'Could not build the mock customer.' };
-  const businessId = ff.businessId;
-  step('Business, brand, product and listing', true, 'Built with the same actions as the guided setup.');
+  const b = await startExistingBusinessAction({ businessName: 'Lash Lab Joondalup', industry: 'beauty', offer: 'Lash extensions, lifts and brow tints', audience: 'Women in Joondalup aged 25 to 45', website: '', timezone: 'Australia/Perth' });
+  if (!b.ok) return { ok: false, message: b.message };
+  const businessId = b.businessId;
+  step('Business record and brand draft', true, 'Made by the same action as "I already have a business".');
 
-  let slug: string | null = null;
-  try {
-    const loaded = await storeAction(businessId, { kind: 'load' });
-    slug = loaded.state.site?.slug ?? null;
-    const rev = loaded.state.site?.draft.revision;
-    if (rev === undefined) step('Publish the shop', false, 'No shop draft was found.');
-    else {
-      const pub = await storeAction(businessId, { kind: 'publish', note: 'Test Lab first publish', expectedRevision: rev });
-      step('Publish the shop', pub.ok, pub.ok ? 'The shop is live in this demo.' : pub.message);
+  const t = agentTeam();
+  const cur = t.profile(businessId)!;
+  const saved = t.saveProfile(businessId, {
+    ...cur, description: 'Lash and brow studio in Joondalup. One artist per client, appointments until 8pm on weekdays.', location: 'Joondalup, WA',
+    products: ['Classic lash set A$120', 'Hybrid lash set A$140', 'Lash lift and tint A$85', 'Brow tint A$25'], painPoints: ['Lashes that fall out within a week', 'No appointments after work', 'Not sure which style suits them'],
+    usps: ['Same artist every visit', 'Open until 8pm on weekdays', 'Free patch test before your first set'], competitors: ['Glow Beauty Bar', 'Lash Lounge Perth'],
+    facts: ['Free patch test before your first set', 'Open until 8pm on weekdays'], goals: ['Get more bookings', 'Grow social media'], bookingUrl: 'https://example.com/book',
+    faqs: [{ q: 'How long does a classic set take?', a: 'About 90 minutes.' }, { q: 'Do you do refills?', a: 'Yes, within 3 weeks of your set.' }],
+  }, 'owner');
+  syncKnowledge(businessId);
+  step('Shared business profile', saved.ok, saved.ok ? 'Products, prices, pain points, reasons to choose, competitors, proof, goals and FAQs. All three agents read it.' : 'Could not save the profile.');
+
+  const acc = await t.connectStart(businessId, 'instagram', '', 'owner');
+  step('Test Instagram account', acc.ok, acc.ok ? 'Mock account: nothing can reach a real Instagram.' : 'Could not add it.');
+
+  const sb = sandbox(businessId);
+  if (sb) {
+    let n = 0;
+    for (const [who, text] of [['900000000000011', 'hi how much is a hybrid set?'], ['900000000000012', 'do you have anything after 6pm on thursday'], ['900000000000013', 'can I talk to a real person please']] as const) {
+      const raw = simulatedPayload(sb.igAccountId, [{ from: who, text, mid: `lab-${businessId}-${++n}`, ts: Date.now() }]);
+      try { await sb.setter.receive(raw, signForTest(raw, sb.appSecret)); } catch { /* counted below */ }
     }
-  } catch { step('Publish the shop', false, 'Publishing failed. Nothing else was affected.'); }
+    await sb.setter.flushDue(sb.ws);
+    step('Three customer DMs', sb.store.conversations(sb.ws).length === 3, 'Price question, booking question and a request for a person (that one comes straight to you).');
+  } else step('Three customer DMs', false, 'The test inbox is full.');
 
-  for (const email of BUYERS) {
-    try {
-      const r = await testPurchaseAction(businessId, email);
-      step(`Test order for ${email}`, r.ok, r.ok ? `Paid and delivered once (${r.summary.deliveries.grants} download, replay sent again).` : r.message);
-    } catch { step(`Test order for ${email}`, false, 'The test purchase failed.'); }
-  }
+  try { replaceCompetitors(businessId, EXAMPLE_COMPETITORS); step('Competitor research', true, 'Worked example loaded.'); } catch { step('Competitor research', false, 'Could not load the example.'); }
 
-  try {
-    const inbox = inboxFor(runtime() as unknown as InboxRuntime);
-    const msgs: [string, string][] = [
-      [BUYERS[0]!, 'Hi, I bought the planner but I cannot find my download. Where is my order?'],
-      [BUYERS[1]!, 'This was not what I expected. Can I get a refund please?'],
-      ['curious.visitor@example.test', 'Do you make a version for left-handed people, or a custom colour?'],
-    ];
-    let ok = 0;
-    for (const [fromEmail, message] of msgs) { const r = await inbox.add(businessId, { fromEmail, message }); if (r.ok) ok++; }
-    step('Inbox messages', ok === msgs.length, `${ok} of ${msgs.length} test messages added with drafted replies waiting for approval.`);
-  } catch { step('Inbox messages', false, 'Could not add the test messages.'); }
-
-  try { replaceCompetitors(businessId, EXAMPLE_COMPETITORS); step('Competitor gaps', true, 'Worked example loaded.'); }
-  catch { step('Competitor gaps', false, 'Could not load the example.'); }
-
-  const customer: MockCustomer = { businessId, shopSlug: slug, seededAt: new Date().toISOString(), buyers: BUYERS, steps };
+  const customer: MockCustomer = { businessId, shopSlug: null, seededAt: new Date().toISOString(), buyers: BUYERS, steps };
   rememberMockCustomer(customer);
   return { ok: true, customer };
 }

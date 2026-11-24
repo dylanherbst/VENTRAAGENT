@@ -1,5 +1,5 @@
 {
-  "name": "ventraa",
+  "name": "aimoneyprinter-growth",
   "private": true,
   "type": "module",
   "engines": {
@@ -9,7 +9,7 @@
   "packageManager": "npm@11.19.0",
   "scripts": {
     "test:local-integration": "node --experimental-strip-types scripts/local-integration.mjs",
-    "dev": "npm --prefix apps/web run dev",
+    "dev": "npm --prefix apps/web run dev -- -p 3140",
     "build": "npm --prefix apps/web run build",
     "start": "npm --prefix apps/web run start",
     "lint": "npm --prefix apps/web run lint",
@@ -19,8 +19,6 @@
     "coordinator:run": "scripts/agents/ventra-coordinator run --budget 60",
     "coordinator:status": "scripts/agents/ventra-coordinator status",
     "master": "chmod +x scripts/agents/ventra-master scripts/agents/ventra-coord scripts/agents/ventra-coordinator && scripts/agents/ventra-master",
-    "coord": "bash scripts/agents/ventra-coord",
-    "studio": "npm --prefix apps/studio run dev",
-    "studio:build": "npm --prefix apps/studio run build"
+    "coord": "bash scripts/agents/ventra-coord"
   }
 }

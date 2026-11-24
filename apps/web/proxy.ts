@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { legacyRedirect } from './lib/aimp/hosts/legacy';
+import { growthRedirect } from './lib/aimp/growth/product';
 import { requestHeadersFor, routeForHost } from './lib/aimp/hosts/resolve';
 
 // Multi-tenant storefront routing (plan §D01/§D05, AMP-032). The decision itself is the pure `routeForHost`:
@@ -16,7 +17,10 @@ export function proxy(request: NextRequest) {
   });
   const headers = requestHeadersFor(request.headers, route);
   if (route.action === 'pass') {
-    // Old VENTRA pages (and the old root) go to the guided start. See lib/aimp/hosts/legacy.ts.
+    // Growth product: startup-only pages are parked and go to onboarding or Home (lib/aimp/growth/product.ts).
+    const parked = growthRedirect(request.nextUrl.pathname);
+    if (parked) return NextResponse.redirect(new URL(parked, request.url), 307);
+    // Old VENTRA pages go to onboarding. See lib/aimp/hosts/legacy.ts.
     const to = legacyRedirect(request.nextUrl.pathname, request.headers.get('host'), { AIMP_SHOW_LEGACY: process.env.AIMP_SHOW_LEGACY });
     if (to) return NextResponse.redirect(new URL(to, request.url), 307);
     return NextResponse.next({ request: { headers } });

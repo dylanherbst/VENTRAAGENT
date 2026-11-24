@@ -661,10 +661,8 @@ test('an allowed reissue runs the real service: one new link is emailed and the 
 });
 
 // ---- wiring in the owner workspace ----
-test('Orders is a link in the workspace bar and both pages, the action and the styles exist; an unbuilt page is never a link', () => {
-  const orders = workspaceNavItems.find((i) => i.label === 'Orders');
-  assert.ok(orders);
-  assert.equal(workspaceNavHref('biz-a', orders), '/app/biz-a/orders');
+test('Orders is parked (not in the bar) but its pages, action and styles are kept for later; an unbuilt page is never a link', () => {
+  assert.ok(!workspaceNavItems.some((i) => i.label === 'Orders'));
   // Website and Payments became links with AMP-087 and AMP-088 (checked in aimp-app-workspace-nav.test.ts).
   assert.equal(workspaceNavHref('biz-a', { label: 'Later', segment: 'later', ready: false }), null);
   for (const f of ['page.tsx', 'orders-view.tsx', 'actions.ts', 'orders.css', '[orderId]/page.tsx', '[orderId]/order-detail-view.tsx']) {

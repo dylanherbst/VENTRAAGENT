@@ -26,7 +26,7 @@ export function ExistingFlow() {
     try {
       const r = await startExistingBusinessAction(input);
       if (!r.ok) { setErrors(r.errors); setMessage(r.message); return; }
-      router.push(`/app/${r.businessId}/home`);
+      router.push(`/app/${r.businessId}/activate`);
     } catch { setMessage('Something went wrong. Nothing was saved. Please try again.'); }
     finally { setBusy(false); }
   }
@@ -35,13 +35,13 @@ export function ExistingFlow() {
     <OnboardingLayout
       align="end"
       header={<OnboardingHeader onBack={() => router.push('/start')} backLabel="Back to welcome" />}
-      footer={<GlassButton variant="primary" disabled={busy} icon={<GlassIcon name="spark" size={22} tone="deep" />} onClick={() => (document.getElementById('start-existing-form') as HTMLFormElement | null)?.requestSubmit()}>{busy ? 'Setting up…' : 'Open my workspace'}</GlassButton>}
+      footer={<GlassButton variant="primary" disabled={busy} icon={<GlassIcon name="spark" size={22} tone="deep" />} onClick={() => (document.getElementById('start-existing-form') as HTMLFormElement | null)?.requestSubmit()}>{busy ? 'Setting up…' : 'Next: your customers'}</GlassButton>}
     >
       <form id="start-existing-form" className="plg-stack" data-gap="4" onSubmit={submit} noValidate>
         <div className="plg-stack" data-gap="2">
-          <p className="plg-eyebrow">I already have a business</p>
+          <p className="plg-eyebrow">Step 1 of 6</p>
           <h1 className="plg-title">Tell us about your business</h1>
-          <p className="plg-lede">Five quick answers. You go straight to your workspace: add products when you want, and use your shop, payments, social posts, ads and inbox.</p>
+          <p className="plg-lede">Five quick answers. Next we read your website, get to know your customers, connect your accounts and switch on your AI team.</p>
         </div>
         <GlassField label="Business name" name="businessName" value={f.businessName} onChange={set('businessName')} error={errors.businessName} maxLength={80} autoComplete="organization" required />
         <GlassSelect label="What kind of business is it?" name="industry" value={f.industry} onChange={set('industry')} error={errors.industry}>

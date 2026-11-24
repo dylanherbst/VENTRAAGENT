@@ -215,8 +215,8 @@ test('the /start demo business (no order, delivery, visit, post or cost source) 
   // Payments are not connected for a /start business: that is a real required action, linked to the page that shows it.
   const pay = vm.attention.items.find((i) => i.id.startsWith('seller:'));
   assert.ok(pay);
-  assert.equal(pay.href, '/app/demo-biz/payments');
-  assert.equal(pay.linkLabel, 'Open Payments');
+  assert.equal(pay.href, null, 'Payments is parked in the growth product');
+  assert.equal(pay.linkLabel, 'Page coming soon');
   assert.ok(MISSING_WIRING.length >= 4);
 });
 
@@ -494,17 +494,16 @@ test('AMP-137: a first-call-only approvals failure on the uncached overview path
 test('each required action links to the workspace page that fixes it, and only to pages that exist', async () => {
   const { vm } = await fullDashboard();
   const by = (prefix: string) => { const i = vm.attention.items.find((x) => x.id.startsWith(prefix)); assert.ok(i, prefix); return i; };
-  assert.equal(by('delivery:a3').href, '/app/biz-a/orders');
-  assert.equal(by('delivery:a3').linkLabel, 'Open Orders');
-  assert.equal(by('money:e-partial').href, '/app/biz-a/orders');
-  assert.equal(by('seller:').href, '/app/biz-a/payments');
+  // Growth product: shop pages (Orders, Payments) are parked, so their items are never links to a page that redirects away.
+  assert.equal(by('delivery:a3').href, null);
+  assert.equal(by('money:e-partial').href, null);
+  assert.equal(by('seller:').href, null);
   assert.match(vm.attention.title, /^Needs your attention \(\d+\)$/);
   assert.deepEqual(vm.attention.items.map((i) => i.rank), vm.attention.items.map((_, n) => n + 1));
   for (const i of vm.attention.items) assert.ok(i.href === null ? i.linkLabel === COMING_SOON : i.href.startsWith('/app/biz-a'), i.id);
 
-  assert.deepEqual(attentionLink('/app/biz-a/website', 'biz-a'), { href: '/app/biz-a/website', linkLabel: 'Open Website' });
-  assert.deepEqual(attentionLink('/app/biz-a/products', 'biz-a'), { href: '/app/biz-a/products', linkLabel: 'Open Products' });
-  assert.deepEqual(attentionLink('/app/biz-a/orders/o-1', 'biz-a'), { href: '/app/biz-a/orders', linkLabel: 'Open Orders' });
+  assert.deepEqual(attentionLink('/app/biz-a/sales', 'biz-a'), { href: '/app/biz-a/sales', linkLabel: 'Open AI Sales' });
+  assert.deepEqual(attentionLink('/app/biz-a/products', 'biz-a').href, null, 'parked');
   assert.deepEqual(attentionLink('/app/biz-a', 'biz-a'), { href: '/app/biz-a', linkLabel: 'Open Overview' });
   assert.deepEqual(attentionLink('/app/biz-a/marketing', 'biz-a'), { href: '/app/biz-a/marketing', linkLabel: 'Open Marketing' });
   for (const dead of ['/app/biz-a/settings', '/app/biz-a/analytics', '/app/biz-b/orders', '/app/biz-abc/orders', 'https://example.test/app/biz-a/orders', '/start']) {

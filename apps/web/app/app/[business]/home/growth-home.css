@@ -1,0 +1,33 @@
+/* Growth Home. Glass tokens from the app; status colours: purple = AI working, blue = loading, green = done, red = needs you. */
+.gh { display: grid; gap: 16px; }
+.gh-agents { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); }
+.gh-agent { display: flex; gap: 12px; align-items: flex-start; padding: 14px 16px; border-radius: var(--amg-panel-radius, 18px); border: 1px solid var(--amg-line, rgb(63 54 90 / .14));
+  background: linear-gradient(160deg, color-mix(in srgb, var(--amg-pearl, #fff) 70%, transparent), var(--amg-pearl, #fff)); box-shadow: var(--amg-shadow, none); text-decoration: none; color: var(--amg-ink, #241340); }
+.gh-agent span:last-child { display: grid; gap: 2px; }
+.gh-agent em { font-style: normal; font-size: .8rem; font-weight: 700; }
+.gh-agent small { color: var(--amg-muted, #5a5170); }
+.gh-dot { width: 12px; height: 12px; border-radius: 50%; margin-top: 5px; flex: none; background: var(--amg-muted, #8a83a0); }
+.gh-agent[data-light="working"] .gh-dot { background: var(--amg-accent, #573496); animation: gh-pulse 1.4s ease-in-out infinite; }
+.gh-agent[data-light="done"] .gh-dot { background: var(--amg-done, #35a872); }
+.gh-agent[data-light="needs_you"] .gh-dot { background: var(--amg-attn, #e9546c); }
+.gh-agent[data-light="working"] em { color: var(--amg-accent, #573496); }
+.gh-agent[data-light="needs_you"] em { color: var(--amg-attn-ink, #8d3044); }
+.gh-agent[data-light="done"] em { color: var(--amg-done-ink, #1c6a46); }
+@keyframes gh-pulse { 50% { opacity: .35; } }
+@media (prefers-reduced-motion: reduce) { .gh-agent[data-light="working"] .gh-dot { animation: none; } }
+.gh-plan { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+.gh-plan li { display: flex; gap: 12px; justify-content: space-between; align-items: center; flex-wrap: wrap; padding: 10px 12px; border-radius: 12px; border: 1px solid var(--amg-line, rgb(63 54 90 / .14)); }
+.gh-plan li[data-needs] { border-left: 4px solid var(--amg-attn, #e9546c); }
+.gh-plan span { display: grid; gap: 2px; }
+.gh-plan small, .gh-small { color: var(--amg-muted, #5a5170); font-size: .85rem; margin: 0; }
+.gh-btn { display: inline-flex; align-items: center; min-height: 40px; padding: 8px 16px; border-radius: 999px; border: 1px solid var(--amg-accent, #573496); background: var(--amg-accent, #573496); color: #fff; font: inherit; font-weight: 600; text-decoration: none; cursor: pointer; }
+.gh-btn[data-status="working"] { background: var(--amg-blue, #3d6fd6); border-color: var(--amg-blue, #3d6fd6); }
+.gh-btn:disabled { cursor: progress; }
+.gh-run { display: inline-flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.gh-note { font-size: .85rem; color: var(--amg-muted, #5a5170); }
+.gh-stats { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr)); }
+.gh-stat a, .gh-stat { display: grid; gap: 2px; text-decoration: none; color: inherit; }
+.gh-stat strong { font-size: 1.6rem; font-variant-numeric: tabular-nums; }
+.gh-stat span { font-size: .85rem; color: var(--amg-muted, #5a5170); }
+.gh-activity { margin: 0; padding-left: 18px; display: grid; gap: 4px; font-size: .875rem; }
+.gh-activity time { color: var(--amg-muted, #5a5170); font-variant-numeric: tabular-nums; }

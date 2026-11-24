@@ -1,3 +1,11 @@
+# AIMONEYPRINTER-GROWTH
+
+An AI growth team for existing businesses: AI Sales, Social Media and Marketing agents, coordinated by a Growth Manager. It is a separate product built from AiMoneyPrinter; the startup journey is parked here and still lives in the original repo.
+
+Start with PROJECT_PLAN.md, TASK_TRACKER.md and LAUNCH_CHECKLIST.md. To run it on the Mac, double-click **Run Growth Test Lab.command** (http://127.0.0.1:3160/test-lab).
+
+---
+
 # VENTRA
 
 Recovered Next.js/React TypeScript workspace at `/Users/dylan/Developer/VENTRA-CLEAN`. This checkout has one code-writing developer. Older repositories are read-only recovery references.
