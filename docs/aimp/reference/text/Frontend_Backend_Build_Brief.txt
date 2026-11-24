@@ -1,0 +1,1245 @@
+AiMoneyPrinter
+Customer services and frontend +
+backend build brief
+Product scope: Proposed customer experience based on the Master Business Plan, the AMP backlog and
+the Figma agent maps. The inventory includes the first release, later improvements, expansion models and
+the platform features that affect the interface. Release labels are design and build priorities. Confirm
+shipped capabilities before enabling them in the app.
+
+Design goal: Let a customer with minimal time, budget and technical experience choose a business and let
+AiMoneyPrinter build, launch and operate it. Ask for the exact input needed when an action depends on the
+owner. Keep everything else moving.
+
+Audience: Store owner, their shoppers and subscribers, and the AiMoneyPrinter team that handles
+operational exceptions. The Chief of Staff development dashboard is an internal surface. The Business
+Operator and its activity are customer-facing.
+
+
+Contents
+1. Customer use case                                                                                        2
+
+2. Proposed navigation and screens                                                                          3
+
+3. Full customer-service and feature inventory                                                              4
+
+4. Detailed workspaces from the agent maps                                                                 10
+
+5. Expansion features in the roadmap                                                                       12
+
+6. Design acceptance checklist                                                                             13
+
+Product references                                                                                         13
+
+7. Frontend and backend ownership by feature                                                               14
+
+8. Shared contracts and build order                                                                        18
+
+9. Tools and skills for both agents                                                                        19
+
+
+
+
+AiMoneyPrinter / Product and engineering handoff                                                           01
+AiMoneyPrinter                                                                         FRONTEND + BACKEND BUILD BRIEF
+
+
+
+
+1. Customer use case
+Mia, a first-time store owner in Perth. She has two hours a week, a budget of A$100 and no coding
+experience. She wants a downloadable-product business. The numbers and sample products below are
+illustrative.
+
+  Moment              Mia or her buyer does        AiMoneyPrinter does             What the designer needs to
+                                                                                   show
+
+  1. Discover         Mia signs in and enters      Saves setup progress and        Mobile intake, progress, ranked
+                      budget, hours,               researches five feasible        shortlist, demand sources, fit,
+                      interests and skills.        ideas.                          costs, owner workload and likely
+                                                                                   routes to buyers.
+
+  2. Choose           Mia picks a wedding          Provisions one business,        Idea comparison, sample product,
+                      planning kit. She can        chooses a blueprint and         illustrative break-even,
+                      preview the offer            starts independent jobs.        confirmation and a resumable
+                      before committing.                                           build view.
+
+  3. Build            Mia checks the preview       Creates a brand, renders a      Real file preview, quality status,
+                      if prompted and can          buyer-ready PDF, sets a         change preview, store preview and
+                      request an edit.             suggested price, checks the     completed deliverables.
+                                                   files and builds a storefront
+                                                   and marketing drafts.
+
+  4. Connect          Mia completes seller         Prepares the store and          A single actionable prompt, the
+  and launch          verification and             creative while connections      exact step it unlocks, and progress
+                      authorises Pinterest if      are pending. Publishes when     on work that can continue. Show
+                      she wants automatic          the configured release          when the site is live and checkout
+                      publishing.                  checks and authorisations       or posting is still pending.
+                                                   pass.
+
+  5. Attract          A shopper sees a Pin         Publishes eligible content,     Published content history, live
+                      or search result and         tracks the source, saves        destination, buyer-facing sample
+                      visits the product           consent and starts eligible     form and opt-in confirmation.
+                      page. They may opt in        follow-up.
+                      for a sample.
+
+  6. Sell and         A shopper buys the kit       Confirms payment, creates       Buyer checkout, payment pending
+  deliver             and opens their              the order, delivers the         and success screens, secure
+                      download.                    correct file and sends a        download and owner order
+                                                   receipt or delivery email.      timeline.
+
+  7. Support          A shopper loses the          Verifies buyer access,          Buyer recovery and support,
+                      link. Mia only steps in if   reissues the link, logs the     owner ticket, handoff summary,
+                      an exception requires        interaction and escalates       refund status.
+                      her.                         unusual refunds or disputes.
+
+  8. Improve          Mia opens the app and        Summarises the funnel,          Daily brief, one recommendation
+                      sees that visitors view      proposes a better product       with supporting evidence,
+                      the kit but few start        sample or page variant and      experiment preview, result and
+                      checkout. She can            measures the result.            rollback.
+                      review the suggested
+                      change.
+
+
+
+AiMoneyPrinter / Product and engineering handoff                                                                         02
+AiMoneyPrinter                                                                           FRONTEND + BACKEND BUILD BRIEF
+
+
+
+  Moment              Mia or her buyer does        AiMoneyPrinter does              What the designer needs to
+                                                                                    show
+
+  9. Pause or         Mia pauses posting or        Pauses eligible future work,     Explain the scope of the pause,
+  exit                closes the business.         surfaces existing orders, and    show current commitments and
+                                                   supports export or               display export or closure progress.
+                                                   disconnect as appropriate.
+
+Design the main journey and these branch scenarios: no credible idea data, failed file QA, payment
+onboarding pending, live store with checkout unavailable, social permission expires, buyer payment is
+delayed, delivery email fails, download link expires, support needs a human, zero traffic, traffic with no
+sales, opt-out, and usage limit reached.
+
+
+2. Proposed navigation and screens
+Mobile owner navigation: Home · Store · Growth · Inbox · More. Use a guided Build My Business flow
+before a store exists. Route contextual screens from these five destinations. Desktop can use the same
+destinations in a sidebar. Make Home the place to resume an unfinished build and see what needs the
+owner today.
+
+  Surface                          Screens and drill-downs to design
+
+  Public AiMoneyPrinter site       Home and product demo, how it works, examples, pricing and plan comparison,
+                                   FAQ, sign-up, sign-in and recovery, contact, privacy and terms.
+
+  Discovery and guided build       Account and workspace, setup questions, research loading, five-idea results,
+                                   side-by-side comparison, idea detail and sources, brand or product sample,
+                                   illustrative costs, choice confirmation, build timeline, one-action prompts, preview,
+                                   publish and launch confirmation.
+
+  Home and Business                Business overview, daily brief, key metrics, progress, automation activity, required
+  Operator                         actions, approval detail and history, usage and limits, operational health, AI
+                                   Business Advisor, resume and failure recovery.
+
+  Store                            Site preview and editor, page list, mobile/desktop views, SEO settings, versions and
+                                   rollback, domains, products, product editor and preview, price and bundles, file
+                                   library, orders, order detail, payment readiness, delivery and refunds.
+
+  Growth                           Strategy and research, content calendar, creative workspace and review, assets,
+                                   connected channels, publishing queue and published detail, SEO and landing
+                                   pages, opt-in forms and lead magnets, email flows and segments, campaign
+                                   reporting, experiments, ads and partnerships when available.
+
+  Inbox and customers              Unified inbox and category filters, conversation, AI draft and handoff, lead pipeline,
+                                   customer and lead record, consent and activity, support tickets, review themes,
+                                   bookings and call history when enabled.
+
+  More                             Profile and workspace, business details, payment and payout settings,
+                                   integrations, plans and usage, notifications, policy settings, exports, pause or close
+                                   business, help and feedback. Portfolio and team permissions when supported.
+
+
+
+
+AiMoneyPrinter / Product and engineering handoff                                                                            03
+AiMoneyPrinter                                                                            FRONTEND + BACKEND BUILD BRIEF
+
+
+
+  Surface                          Screens and drill-downs to design
+
+  Shopper storefront               Home, catalogue and product page, samples and opt-in, about and support, cart or
+                                   buy-now flow, hosted checkout handoff, confirmation and delivery, download
+                                   recovery, order help, policies and unsubscribe. Include personalisation or member
+                                   access only when the store uses those models.
+
+  Internal support                 Tenant and store search, usage and plan details, job failures and traces, QA review,
+                                   fraud or cost alerts, recovery tools, support case and audit trail. The customer
+                                   interface shows the relevant status and action.
+
+Design language: Use the established light white and lavender direction, soft wave background where it
+fits, glass cards and restrained peach-to-purple selection accents. Give forms, tables, financial information
+and status text clear contrast. Keep the main action obvious on mobile. Use plain labels such as Connect
+payments, View my store, Review draft, and Fix delivery.
+
+
+3. Full customer-service and feature inventory
+IDs A01 through I12 match the Master Business Plan for cross-checking. First release below means the
+initial digital-download journey. Next and Expansion are proposed follow-on releases. The visual and
+personalised product engine was described as a second launch engine in the master plan. This handoff
+places it after the first downloadable store has been proven, in line with the more recent Figma rollout.
+
+
+
+A. Account, onboarding and business setup
+
+  ID         Feature                               What the customer can do or see
+
+  A01        Authentication and customer           Create an account, sign in or out, recover access, update profile
+             workspace                             and resume an existing workspace. Design session expiry,
+                                                   invitation or access denied, account export and deletion.
+
+  A02        Goal, budget and available-time       Enter startup budget, time, interests, skills, location, business
+             assessment                            preferences and an aspirational income goal. Save and edit
+                                                   answers. Show what those inputs affect.
+
+  A03        Guided business setup                 Follow Discover Build Launch Grow. Show current step,
+                                                   completed work, drafts, the next owner action and paused
+                                                   dependencies. Restore progress after closing the app.
+
+  A04        Business and legal setup              Enter seller details and jurisdiction. Show applicable registration
+             assistant                             and tax setup prompts, business contact information, editable
+                                                   policy drafts and checklist progress. Route declarations and identity
+                                                   steps to the owner. Next.
+
+
+
+B. Opportunity research and business choice
+
+  ID         Feature                               What the customer can do or see
+
+  B01        AI Opportunity Finder                 See five supported niche ideas. Each card shows buyer, problem,
+                                                   product format, startup and running costs, workload, potential
+                                                   channel and first-buyer route.
+
+
+
+AiMoneyPrinter / Product and engineering handoff                                                                       04
+AiMoneyPrinter                                                                           FRONTEND + BACKEND BUILD BRIEF
+
+
+
+  ID         Feature                               What the customer can do or see
+
+  B02        Opportunity scoring and               Compare fit by evidence, automation, cost, effort, differentiation
+             confidence                            and repeat purchase potential. Expose source confidence and
+                                                   missing evidence. Keep fit scores distinct from earnings estimates.
+
+  B03        Competitor and product                Explore dated sources, competing offers, indicative prices,
+             research                              keywords, market gaps and suggested differentiation. Provide a
+                                                   clear insufficient-evidence state.
+
+  B04        Business Blueprint Library            Show what the chosen model will create, which workflow steps it
+                                                   supports, what the owner must connect and what is included in the
+                                                   plan. Use the blueprint internally to provision a reproducible
+                                                   business.
+
+  B05        Business preview and financial        Preview a sample brand, product and storefront. Show expected
+             simulation                            setup and recurring costs, illustrative contribution per sale and
+                                                   break-even volume when calculable. Surface assumptions and
+                                                   sensitivity to fees, volume or price. Richer simulator next.
+
+
+
+C. Brand, product and catalogue
+
+  ID         Feature                               What the customer can do or see
+
+  C01        AI brand and identity creator         Generate and edit a name, identity, logo concepts, colours,
+                                                   typography, positioning, tone, domain suggestions and social
+                                                   graphics. Show availability checks when supported.
+
+  C02        Digital Document and Template         Generate real downloadable planners, worksheets, trackers, kits,
+             Factory                               spreadsheet tools and design bundles as supported. See a file
+                                                   preview, formats, instructions, listing assets and version history.
+
+  C03        Visual and personalised product       Create printable art and made-to-order files. Buyers enter options
+             factory                               or upload a photo. Sellers see a preview, quality status, retries,
+                                                   regeneration limits and exceptions. Second engine.
+
+  C04        Product catalogue and bundle          Generate related products, images, listing copy, categories, tags
+             generator                             and catalogue recommendations. Design draft, review, active and
+                                                   retired states. Add bundle and upsell controls when enabled.
+
+  C05        Product pricing and margins           Review price suggestions and comparable listings. See fees, unit
+                                                   production cost, expected contribution, break-even and price or
+                                                   discount impact. Approve or edit prices within plan rules.
+
+  C06        Private digital asset storage         Manage masters, public previews, file versions, ownership and
+                                                   licence information. Show download history, access controls and
+                                                   storage usage. Buyers receive secure links for their purchased
+                                                   version.
+
+  C07        Continuous product                    Show performance evidence, buyer questions, suggested variants
+             improvement                           or changes, version comparison, preview and rollback. Next.
+
+  C08        Scheduled digital membership          Schedule recurring packs, member notifications, archives and
+             product releases                      access rules. Show members’ active, expired and cancelled states.
+                                                   Expansion.
+
+
+
+AiMoneyPrinter / Product and engineering handoff                                                                         05
+AiMoneyPrinter                                                                            FRONTEND + BACKEND BUILD BRIEF
+
+
+
+
+D. Website, storefront and domains
+
+  ID         Feature                               What the customer can do or see
+
+  D01        AI multi-tenant site generation       Use the in-house generator to create a branded homepage,
+                                                   catalogue, product pages, about, contact, checkout entry,
+                                                   confirmation and policy pages from approved store data.
+
+  D02        Mobile-first storefront design        Preview responsive templates, product cards, navigation, imagery,
+             system                                text and calls to action. Support accessible interactions, readable
+                                                   typography and predictable checkout across screen sizes.
+
+  D03        One-click publishing and              Preview, validate, approve where required, publish, pause and
+             rollback                              restore previous versions. Show draft, preview, publishing, live,
+                                                   paused and failed states. Keep the last live version available if an
+                                                   update fails.
+
+  D04        Natural-language website editor       Ask AI to edit copy, layout, imagery or featured products. Show
+                                                   changes before publication, support undo and keep version
+                                                   history. Next.
+
+  D05        Subdomains and custom                 Assign and preview a managed store subdomain, handle slug
+             domains                               conflicts and show HTTPS status. Add custom domain connection,
+                                                   verification, DNS instructions and troubleshooting. Custom
+                                                   domains next.
+
+  D06        Built-in technical SEO                Generate titles, descriptions, clean URLs, product schema,
+                                                   sitemaps, canonical links, alt text and internal links. Expose
+                                                   page-specific SEO and indexing status where supported.
+
+  D07        Store conversion optimisation         Review product and checkout performance, bundles, offer tests,
+                                                   recommendations, mobile friction and eligible cart recovery.
+                                                   Preview and roll back changes. Next.
+
+
+
+E. Payments, sales and delivery
+
+  ID         Feature                               What the customer can do or see
+
+  E01        Merchant payment onboarding           Connect the seller payment account, complete verification, check
+                                                   missing requirements, see payment readiness and view payout
+                                                   status. Keep AiMoneyPrinter subscription billing distinct from
+                                                   merchant proceeds.
+
+  E02        Customer checkout                     Give shoppers a mobile buy-now or checkout flow with price,
+                                                   applicable tax, discounts, delivery information, confirmation and
+                                                   payment failure or cancellation recovery.
+
+  E03        Verified order-processing             Show pending, paid, failed, refunded, disputed and fulfilled states
+             engine                                with timestamps. Represent delayed payments accurately and
+                                                   show one order or fulfilment when provider events repeat.
+
+
+
+
+AiMoneyPrinter / Product and engineering handoff                                                                          06
+AiMoneyPrinter                                                                           FRONTEND + BACKEND BUILD BRIEF
+
+
+
+  ID         Feature                               What the customer can do or see
+
+  E04        Automatic download fulfilment         Show buyer confirmation and delivery email, secure access to the
+                                                   purchased file, expired-link recovery, resend and order timeline.
+                                                   Surface delivery retries and exceptions to the seller.
+
+  E05        Order-triggered personalised          Collect options or uploads, start generation after verified payment,
+             fulfilment                            track production and QA, show a delay or escalation, deliver the
+                                                   result and support cancellation or refund handling where
+                                                   applicable. Second engine.
+
+  E06        Refunds, exchanges and order          Search and filter orders, reissue links, review customer requests,
+             support                               see refund or dispute status, escalate exceptions and record
+                                                   decisions. Basic handling first. Fuller case management next.
+
+  E07        Bundles, upsells and recurring        Add related items, packages, coupons and eligible upsells. Support
+             payments                              recurring billing, member access, renewal, failed renewal and
+                                                   cancellation for membership stores. Bundles next. Membership
+                                                   expansion.
+
+
+
+F. Marketing, sales and customer acquisition
+
+  ID         Feature                               What the customer can do or see
+
+  F01        Automated marketing strategy          Review target buyer, offer, positioning, evidence, channel fit, goals,
+                                                   seasonal opportunities and a 30-day plan. See which actions are
+                                                   automatic and which are waiting on an account.
+
+  F02        AI content and creative studio        Generate Pins, graphics, carousels, captions, long-form posts,
+                                                   scripts, clips, voiceover, thumbnails, product demos, newsletter
+                                                   copy, lead magnets and variants. Preview, edit, regenerate,
+                                                   approve or export assets.
+
+  F03        One-click social account              Connect, test, reconnect or disconnect authorised accounts. Show
+             connection                            available permissions, supported formats and eligibility, plus an
+                                                   export path for disconnected channels.
+
+  F04        Social posting and scheduling         See calendar, queue, local timezone, review rules, publish status,
+             engine                                live URL, errors, retries and pause. Show provider-confirmed
+                                                   publication and let users update future schedules.
+
+  F05        Pinterest organic traffic engine      Create boards and product Pins, add tagged destination links,
+                                                   schedule authorised content and surface Pin and store results.
+                                                   Show pending access or ready-to-export assets when needed.
+
+  F06        Instagram, Facebook and TikTok        Add eligible posting, comments, inbound messaging and analytics.
+             expansion                             Design per-network restrictions, reconnection and format
+                                                   requirements. YouTube, LinkedIn and X can appear for relevant
+                                                   stores when supported. Next.
+
+  F07        SEO marketing autopilot               Maintain landing pages, search content, keyword and rank
+                                                   tracking, indexing visibility, on-page improvements and content
+                                                   repurposing. Basic SEO first. Ongoing optimisation next.
+
+
+
+
+AiMoneyPrinter / Product and engineering handoff                                                                            07
+AiMoneyPrinter                                                                          FRONTEND + BACKEND BUILD BRIEF
+
+
+
+  ID         Feature                               What the customer can do or see
+
+  F08        Opt-in lead capture                   Create forms, free samples, source tags and CRM entries. Show
+                                                   consent records, lead source and handoff to nurture or inbox.
+                                                   Buyers see accessible signup and unsubscribe flows.
+
+  F09        Automated email follow-up             Build welcome, newsletter, education, launch, eligible cart
+                                                   recovery, post-purchase, review and win-back journeys. Support
+                                                   segmentation, frequency caps, approval, suppression, unsubscribe
+                                                   and delivery analytics. Next.
+
+  F10        Inbound AI sales assistant            Triage chats, eligible DMs and email. Draft answers from approved
+                                                   product facts, qualify leads, show high-intent alerts and guide
+                                                   buyers to checkout or booking. Let the owner take over. Next.
+
+  F11        Growth performance optimiser          Connect campaign, visit, view, checkout, order and refund records
+                                                   where attribution is available. Show a hypothesis, one suggested
+                                                   action, experiment outcome and rollback. Next.
+
+  F12        Paid advertising autopilot            Prepare creatives and audiences, connect approved ad accounts,
+                                                   request a capped budget, show spend, conversion and acquisition
+                                                   cost, pause at limits and surface performance. Expansion.
+
+
+
+G. Business Operator, automation and support
+
+  ID         Feature                               What the customer can do or see
+
+  G01        Business Operator orchestration       See build and operating jobs, which team ran them, results,
+                                                   checkpoints and dependencies. Open the affected record from the
+                                                   activity item.
+
+  G02        Automation permissions and            Set permitted channels, posting cadence, generation limits and
+             approval centre                       which actions can run automatically. Review launch, money or
+                                                   account decisions, see the consequence and approve or decline.
+
+  G03        Activity and notification centre      See products generated, sites published, posts scheduled, orders
+                                                   delivered, jobs failed, accounts disconnected and actions required.
+                                                   Configure channels and notification preferences.
+
+  G04        Failure recovery and retries          Explain temporary errors, next retry, permanent blockers and
+                                                   recovery options. Resume from a checkpoint and show affected
+                                                   work and work that can continue.
+
+  G05        Scheduled management                  See daily checks, weekly reports, monthly reviews, scheduled
+             routines                              content, queue and next run times. Next.
+
+  G06        AI Business Advisor                   Ask questions about business performance. Show the observed
+                                                   evidence, assumptions, suggested experiment and what it would
+                                                   change. Next.
+
+  G07        Customer support operator             Handle FAQs, order status and secure link reissue. Show a human
+                                                   handoff for unusual issues, refund disputes, failed custom orders
+                                                   or low confidence. Basic order recovery first. AI support next.
+
+
+
+
+AiMoneyPrinter / Product and engineering handoff                                                                         08
+AiMoneyPrinter                                                                             FRONTEND + BACKEND BUILD BRIEF
+
+
+
+  ID         Feature                               What the customer can do or see
+
+  G08        AI usage and cost guardrails          Display usage, plan allowance, estimated costs and reset period.
+                                                   Explain what is paused at limits and what requires approval to
+                                                   proceed.
+
+
+
+H. Business dashboard, analytics and portfolio
+
+  ID         Feature                               What the customer can do or see
+
+  H01        Simple business dashboard             See store status, visitors, orders, delivery, revenue, refunds,
+                                                   scheduled posts, automation activity and the next required action.
+                                                   Include first-sale and no-data states.
+
+  H02        Cost and margin tracking              Show revenue, fees, refunds, generation, subscriptions, ads and
+                                                   other recorded expenses. Provide order contribution and
+                                                   estimated operating profit with missing inputs clearly marked.
+                                                   Basic first. Advanced next.
+
+  H03        Campaign attribution                  Compare known sources, campaigns and products. Expose tagged
+                                                   links, conversion funnel, revenue by channel and unattributed
+                                                   orders. Next.
+
+  H04        Operational health status             See whether the website, checkout, delivery, connected accounts,
+                                                   publishing and budget are healthy. Link each issue to the recovery
+                                                   action. Next.
+
+  H05        Multiple businesses and               Switch stores, compare aggregate performance, manage distinct
+             portfolio view                        settings and pause or retire each business independently.
+                                                   Expansion.
+
+
+
+I. Platform services with frontend implications
+
+  ID         Feature                               What the designer should account for
+
+  I01        Subscription billing                  Plan comparison, trial or upgrade, renewals, payment method,
+                                                   invoices, credits, usage limits and cancellation. Show the
+                                                   subscription separately from the seller’s store sales.
+
+  I02        Tenant isolation                      Current business context, permissions and access-denied states for
+                                                   stores, files, orders, connected accounts and private previews.
+
+  I03        Secure API links                      Status, scopes, connection errors, expiry, reauthorisation and
+                                                   revocation. Use provider-hosted flows and keep secrets out of
+                                                   customer-visible screens.
+
+  I04        Job observability                     Customer-friendly status and recovery. Internal trace, attempts and
+                                                   provider errors for support diagnostics.
+
+  I05        Product standards                     Explain failed file, originality, policy or claim checks. Provide
+                                                   regeneration, replacement, review and escalation paths.
+
+
+
+
+AiMoneyPrinter / Product and engineering handoff                                                                        09
+AiMoneyPrinter                                                                            FRONTEND + BACKEND BUILD BRIEF
+
+
+
+  ID         Feature                               What the designer should account for
+
+  I06        Audit and approval trail              Show who authorised a publish, price, policy or spend change,
+                                                   when, and which version was approved.
+
+  I07        Platform admin                        Internal views for tenants, plan status, provider cost, incidents and
+                                                   support. Include a linked customer-safe status when relevant.
+
+  I08        Support workflows                     Report a bug, track a case, request billing help, recover access and
+                                                   submit feedback. Show where the case went and its state.
+
+  I09        Abuse prevention                      Represent rate limits, quota exhaustion, suspicious activity,
+                                                   restricted generation or manual review with an actionable recovery
+                                                   path.
+
+  I10        Backup and recovery                   Show published versions, rollback results, recoverable files and
+                                                   recovery status when a restore affects a customer.
+
+  I11        Privacy and data control              Manage consent, notification preferences, export, retention and
+                                                   deletion. Indicate the scope, progress and consequences of owner
+                                                   actions.
+
+  I12        Feature flags                         Reveal only capabilities available to the plan, store blueprint, role
+                                                   and connections. If an unavailable item is shown, label why and
+                                                   what unlocks it. Expanded controls next.
+
+
+
+
+4. Detailed workspaces from the agent maps
+
+Marketing and growth
+
+  Workspace                        Controls, content and results
+
+  Research and Content             Trends, audience questions, competitor and keyword evidence, campaign strategy,
+                                   post writer and email writer. Turn product alerts, seasonal dates and support
+                                   insights into a 30-day calendar by audience, offer and funnel stage. Show sources
+                                   and content ownership.
+
+  Creative Studio                  Source video or product asset, video breakdown, clip cutter, video maker, graphic
+                                   designer, visual maker, voiceover, editor, captions, thumbnails, mockups and
+                                   format-specific variants. Include an Approval Desk for rights, music, claims, brand
+                                   and accessibility checks. Show flagged items, review and export.
+
+  Distribution and                 Scheduler, short-form poster, long-form poster, comments and eligible DMs, and
+  Community                        escalation. Show platform format requirements, local posting time, failed and
+                                   retried posts, provider-confirmed live URL and engagement. Triage hostile
+                                   comments and requests for a person. Show a viral spike as a follow-up
+                                   opportunity.
+
+  Email and Nurture                Newsletter, sequences, lead magnets, segment builder and win-back. Show new,
+                                   returning, VIP and at-risk segments, triggers, waiting periods, preview, test send,
+                                   stop rules, frequency and suppression. Measure delivery, clicks and purchases with
+                                   confidence and missing-data states.
+
+
+
+
+AiMoneyPrinter / Product and engineering handoff                                                                           10
+AiMoneyPrinter                                                                           FRONTEND + BACKEND BUILD BRIEF
+
+
+
+  Workspace                        Controls, content and results
+
+  Leads and Booking                Lead catcher, scorer, call booker, reminders and payment links. Store and display
+                                   source, consent, reason for score, next action, reminders, availability, appointment
+                                   status and checkout outcome. Add booking features when the business model
+                                   enables them.
+
+  Search and Website               SEO writer, rank tracker, page updater, content repurposer and lead forms. Show
+                                   search visibility, indexing, product-page suggestions, SEO briefs, updates,
+                                   publishing and rollback. Test page links, forms and checkout path.
+
+  Analytics and Feedback           Post analyst, call tracker, revenue tracker, email analyst and feedback into the next
+                                   plan. Show the path from creative to visit, form or booking, checkout, paid order,
+                                   refund and margin. Link each experiment to the observations that prompted it.
+
+  Paid Media and                   Prepare ad creative, audiences, tracking checks, proposed spend and a partner or
+  Partnerships                     referral plan. Show connection, budget approval, spend cap, performance, pause
+                                   and stop. If included later, track partner or referral assets, source links and
+                                   outcomes.
+
+  Experiments                      Create one hypothesis, a baseline, metric, comparison window, stop condition and
+                                   rollback. Show what changed, whether enough observations were collected and
+                                   what to do next.
+
+
+
+Inbox, sales, voice and customer care
+• Content Strategist: Video Breakdown, Instagram and Reels, X and LinkedIn, Newsletter, Clip Cutter,
+   Visual Maker. Show approved assets and tagged links going to lead generation.
+
+• Lead Agent: Business Finder, Lead Scorer, Website Auditor, Email Writer and Lead Log. Show the buyer
+   niche or relevant B2B prospect, source, authorised audit or store funnel observations, score and draft
+   outreach. Only enable outreach through supported, permissioned channels. Hand qualified leads to
+   Inbox with context.
+
+• Inbox Agent: Morning Sort, Draft Writer, Hot Lead Alert and Call Booker. Show four inbox queues such as
+   buying intent, support, routine and noise. Include draft review, send eligibility, takeover, checkout links
+   or available calendar slots. Pass tickets to Support with conversation and order context when available.
+
+• Support Rep: 24/7 Answers, Business Knowledge, Hand-Off, Reviews and Questions. Show approved
+   knowledge, verified order lookup, link recovery, complaint handling, human handoff and feedback that
+   returns to Content and Product.
+
+• Voice Receptionist for enabled stores: Call answering and routing, permitted missed-call text-back,
+   appointment booking, lead qualification, FAQ and business knowledge, CRM logging and follow-up, and
+   call reporting. Design number and calendar connection, test call, after-hours and escalation settings, call
+   timeline, summary and transcript where enabled, booking confirmation, reschedule, cancel, reminders
+   and full-calendar states.
+
+• Business knowledge: Editable business information, products and services, prices, hours, service areas,
+   FAQs, scripts, staff directory, promotions, objections, refund and cancellation rules, brand voice and
+   escalation settings. Show last updated version and what surfaces use it.
+
+• Operations: Daily brief, scheduled jobs and next run, document intake and organisation, missing
+   document alerts, payout and fee reconciliation, monthly reporting, policy drafts and business closeout.
+
+
+
+AiMoneyPrinter / Product and engineering handoff                                                                           11
+AiMoneyPrinter                                                                            FRONTEND + BACKEND BUILD BRIEF
+
+
+
+   Show owner-readable issues and relevant records for follow-up.
+
+
+Automation controls and exceptions
+The customer should see what happened, what is currently running and the exact action that would
+unblock a task. Relevant examples include identity verification, expired account access, unlicensed assets,
+risky copy, low credits, high-intent replies, refunds, a full calendar and requests for a person. An
+unsubscribe cancels pending promotional follow-up. For temporary failures, show the next retry and saved
+progress. For paused work, show the affected tasks and what is still running.
+
+Design these key actions: Approve, Decline, Edit and review, Reconnect, Retry, Pause, Resume, Take
+over, and Contact support. Show the affected store and the scope of the change. For spending, show the
+amount, cap, time period, channel and how to pause. Approval and audit views should show the proposal,
+decision, timestamp and outcome.
+
+
+5. Expansion features in the roadmap
+  Feature                          Extra screens or states
+
+  Personalised downloads           Personalisation options, private buyer uploads, preview if enabled, generation
+  and printable art                status, regeneration, delivery, refund or manual review.
+
+  Memberships and digital          Plan selection, recurring billing, gated library, content release calendar, access
+  subscriptions                    history, renewals, failed renewals and cancellation.
+
+  Print-on-demand                  Supplier connection, product variants and mockups, production and delivery
+                                   timeline, tracking, supplier costs, failed order and returns.
+
+  Template-based micro-tools       Tool preview, access plans, usage, deployment and version history, update,
+                                   downtime and support.
+
+  Portfolio and multiple           Switcher, comparison and portfolio summary, separate credentials, budgets and
+  stores                           activity, store pause and retirement.
+
+  International rollout            Locale, currency, dates and timezones, supported seller and payout locations,
+                                   country-specific settings and availability states.
+
+  Outcome-based idea               Show what evidence drives ranking, the sample size and the assumptions. Provide
+  recommendations                  an insufficient-data state.
+
+  Agency or team access            Invitations, roles, business-level permissions and relevant audit history.
+  where supported
+
+  Paid ads and additional          Ad account connection, creative preview, measurement setup, approval and
+  channels                         budget caps. Network-specific authorisation, eligibility and publishing states.
+
+  Service-business blueprint       Intake and quote request when applicable, lead qualification, appointments,
+                                   receptionist, reminders and handoff. Show which actions can be completed
+                                   automatically under owner rules.
+
+
+
+
+AiMoneyPrinter / Product and engineering handoff                                                                        12
+AiMoneyPrinter                                                                 FRONTEND + BACKEND BUILD BRIEF
+
+
+
+
+6. Design acceptance checklist
+• First design flow: Onboarding five ideas select build progress product and store preview
+   connect payments publish buyer checkout download owner’s first-sale view first campaign.
+
+• First set of alternate screens: Product generation failed, payments pending, social connection expired,
+   payment delayed or failed, delivery retry, expired download, consent withdrawn and owner approval
+   required.
+
+• Shared components: Idea card, evidence and confidence details, progress step, preview shell, business
+   context, provider connection card, status badge, approval card, order timeline, asset preview, campaign
+   calendar row, lead or conversation card, report metric, empty state and failure panel.
+
+• State coverage: Loading and long-running, draft, ready for review, scheduled, published, no data, partial
+   data, paused, permission missing, blocked, failed, retrying, recovered, cancelled and completed. Use
+   clear messages and recovery actions. Keep test and demo data distinguishable from live results.
+
+• Responsive and accessible: Start at mobile width. Check desktop layouts for side-by-side comparisons,
+   calendars, orders and analytics. Include keyboard navigation, focus, readable contrast, labelled fields
+   and status that uses text as well as colour.
+
+• Customer effort: Surface one primary next action and a way to inspect details. Ask only for the
+   information needed for the active step. For independently progressing tasks, show status in the
+   background so the owner can leave and return.
+
+• Financial information: Distinguish gross sales, fees, refunds, payouts and estimated profit. Label
+   scenario inputs and example data. Show provider readiness and fees where known.
+
+• Design handoff: Mark each screen with its release tier and feature IDs. Annotate the trigger, who can act,
+   what data appears, main interaction, success and failure, and the route that follows.
+
+
+Product references
+• AiMoneyPrinter Master Business Plan
+
+• Master business flow
+
+• Agent teams and working lines
+
+• Marketing engine and feedback loop
+
+• Sales, voice and operations
+
+• Repeatable setup and event contracts
+
+
+
+
+AiMoneyPrinter / Product and engineering handoff                                                             13
+AiMoneyPrinter                                                                         FRONTEND + BACKEND BUILD BRIEF
+
+
+
+
+7. Frontend and backend ownership by
+feature
+The frontend agent owns the user journey, responsive components, accessibility and display states. The
+backend agent owns validated data, authorisation, jobs, integrations and persisted outcomes. Both use the
+feature ID and the same screen, API and event definitions. Add these fields to each AMP tracker item:
+frontend owner, backend owner, contract link, fixture, test route, dependencies, required evidence level,
+and current blocker.
+
+  Feature         Backend delivery                                    Shared screen contract or test
+
+  A01             Auth callbacks, sessions, workspace                 Sign in, refresh, resume, session expiry and
+                  membership, tenant resolution, export/deletion      denied access.
+                  jobs.
+
+  A02             Validate and save the intake answers by             Partial save, resume, invalid values and edits.
+                  workspace and version.
+
+  A03             Store current stage, checkpoints, pending           Refresh and return to the correct step,
+                  actions and job dependencies.                       including parallel work.
+
+  A04             Store seller and jurisdiction data, policy drafts   Draft, action required, submitted, ready, and
+                  and completion status. Use provider or official     unsupported jurisdiction.
+                  redirects where needed.
+
+  B01             Run bounded research against supported              Search running, five ideas, partial evidence,
+                  blueprints and save five results with sources.      failed run and retry.
+
+  B02             Calculate fit and confidence from a versioned       Compare fit and confidence with clear input
+                  rubric and evidence coverage.                       labels.
+
+  B03             Persist source links, dates, comparisons,           Evidence drawer and unavailable or conflicting
+                  keywords and differentiation hypotheses.            sources.
+
+  B04             Version blueprint definitions, declared             Preview only supported outputs and one
+                  capabilities, tool permissions and provisioning     business per confirmed selection.
+                  rules.
+
+  B05             Generate a non-published preview and calculate      Sample and break-even are clearly illustrative.
+                  scenarios using explicit assumptions.
+
+  C01             Generate validated identity and brand assets,       Review or edit a brand and preview the linked
+                  save version and preview references.                store and product.
+
+  C02             Generate structured content, render actual files,   Preview the exact file version the customer can
+                  validate and version them.                          publish.
+
+  C03             Store uploads privately, validate inputs, queue     Upload validation, production progress and
+                  generation and enforce retry or cost limits.        manual review.
+
+  C04             Store product, listing, category, bundle and        Save, approve, archive and show resulting
+                  lifecycle records.                                  catalogue changes.
+
+
+
+
+AiMoneyPrinter / Product and engineering handoff                                                                        14
+AiMoneyPrinter                                                                         FRONTEND + BACKEND BUILD BRIEF
+
+
+
+  Feature         Backend delivery                                   Shared screen contract or test
+
+  C05             Compute prices and fees server-side, record        Edited price and checkout agree. Missing costs
+                  assumptions, enforce approved price.               are labelled.
+
+  C06             Separate public previews from private masters.     Wrong store or expired link returns an
+                  Verify entitlement and issue expiring              actionable safe result.
+                  downloads.
+
+  C07             Store product experiment variants, quality         Preview, compare, publish and roll back a
+                  results and previous versions.                     variant.
+
+  C08             Schedule release jobs and calculate member         Release calendar, active library, expired and
+                  entitlements from billing state.                   cancelled access.
+
+  D01             Convert validated store configuration into the     Two stores display their own content through
+                  existing renderer's data model. Resolve site by    the same renderer.
+                  host and published version.
+
+  D02             Provide stable template, theme and asset           Mobile and desktop templates render real,
+                  contracts. Return layout-compatible content.       missing and long content.
+
+  D03             Validate and atomically publish a version. Track   Failed publish preserves last live version.
+                  preview, pause and rollback.
+
+  D04             Translate natural-language requests into           Preview and undo before republishing.
+                  supported draft changes and save diffs.
+
+  D05             Reserve unique slugs, map hosts and track          Conflict, verifying, ready and reconnect or
+                  ownership, DNS and TLS readiness.                  troubleshooting.
+
+  D06             Generate metadata, sitemaps, canonical links       Preview remains private. Published URL and
+                  and public indexing rules.                         metadata agree.
+
+  D07             Record funnel events and experiment versions,      Distinguish traffic, conversion, partial results
+                  eligibility and rollback.                          and insufficient data.
+
+  E01             Create seller onboarding sessions and derive       Checkout, payouts and missing requirements
+                  merchant readiness from provider state.            use separate indicators.
+
+  E02             Resolve product, seller, currency and amount on    Buy now, provider redirect, cancel, return and
+                  the server and create checkout.                    pending payment.
+
+  E03             Verify webhook signature and paid status,          Delayed, failed and replayed events never
+                  persist seller-scoped order and reconcile          create duplicate fulfilment.
+                  duplicates.
+
+  E04             Create an entitlement to the purchased version,    Buyer downloads or recovers a link. Owner
+                  send delivery and record attempts.                 sees delivery progress.
+
+  E05             Collect scoped buyer input, trigger custom         Production and delivery states reflect actual
+                  generation after payment and handle failure.       status.
+
+  E06             Authorise refund or replacement, reconcile         Request, review, refund pending, resolved and
+                  provider outcomes and audit decisions.             disputed.
+
+
+
+
+AiMoneyPrinter / Product and engineering handoff                                                                        15
+AiMoneyPrinter                                                                        FRONTEND + BACKEND BUILD BRIEF
+
+
+
+  Feature         Backend delivery                                    Shared screen contract or test
+
+  E07             Apply eligible bundle or coupon prices and          One-off purchases, renewal failure and
+                  reconcile subscription entitlements.                cancellation behave consistently.
+
+  F01             Persist evidence-backed campaign plan,              Strategy view shows connected or waiting
+                  audience, channels, goal and schedule.              tasks.
+
+  F02             Generate versioned assets and run rights,           Preview, regenerate, reject, approve and
+                  claims and format checks.                           export.
+
+  F03             Handle provider authorisation, scoped tokens,       Connect, test, expired access, reconnect and
+                  connection readiness and revocation.                disconnect.
+
+  F04             Persist schedules, provider response and live       Scheduled, publishing, confirmed, failed and
+                  URL. Retry transient failures and reconcile         paused.
+                  ambiguous results before sending again.
+
+  F05             Manage eligible Pinterest publishing and read       Export state remains usable when live access is
+                  supported reporting data.                           unavailable.
+
+  F06             Add channel-specific permissions, supported         Unsupported capability, revoked permission
+                  formats, posting and inbound events.                and content errors per channel.
+
+  F07             Persist SEO reports, monitored keywords and         Review, publish or revert a change.
+                  versioned page suggestions.
+
+  F08             Capture opt-ins, source, consent version and        Test submit, double opt-in if configured and
+                  unsubscribe or suppression events.                  withdraw consent.
+
+  F09             Schedule eligible sequences and enforce             Journey preview, test send, stopped,
+                  suppression, caps and exit rules at send time.      unsubscribed and reporting.
+
+  F10             Route allowed conversations and validated           Owner takeover, high-intent alert,
+                  drafts. Store score, handoff and supported          disconnection and no-authority state.
+                  booking or checkout action.
+
+  F11             Join reliable analytics and order data. Store       Show unknown attribution and support undo.
+                  experiment hypothesis, changes and outcome.
+
+  F12             Gate connected ad actions on approved budget        Review audience, cap and time window. Pause
+                  and track spend and outcomes.                       or stop at limits.
+
+  G01             Dispatch validated jobs per business and persist    Activity view maps jobs to real outputs and
+                  workflow transitions.                               links.
+
+  G02             Evaluate automation policy and record               Approve, decline or review with the
+                  approvals for the correct business and version.     consequence visible.
+
+  G03             Persist activity and notification preferences and   Unread and read state, filtering, timestamp
+                  dedupe outbound alerts.                             and record link.
+
+  G04             Bound retries, checkpoint outputs, distinguish      Exact next action, next retry and dependent or
+                  retryable errors and resume safely.                 continuing work.
+
+  G05             Create timezone-aware schedules and persist         Schedule, pause, update and last run.
+                  next run and last outcome.
+
+
+
+AiMoneyPrinter / Product and engineering handoff                                                                       16
+AiMoneyPrinter                                                                           FRONTEND + BACKEND BUILD BRIEF
+
+
+
+  Feature         Backend delivery                                     Shared screen contract or test
+
+  G06             Query business-scoped evidence and return a          Distinguish observation, hypothesis and
+                  structured explanation and proposed action.          approval.
+
+  G07             Check buyer access, use approved knowledge           FAQ, secure link recovery and human handoff.
+                  and route exceptions to a support case.
+
+  G08             Track costs, quotas, retry budget and plan           Remaining usage, reset, what paused and how
+                  entitlement. Enforce limits at execution.            to resume.
+
+  H01             Return dashboard aggregates keyed to the             First sale, zero traffic, no history and partial
+                  business and period.                                 reporting.
+
+  H02             Reconcile orders, refunds, fees, payouts and         Distinguish sales, payout and estimated
+                  measured costs.                                      operating profit.
+
+  H03             Persist source and campaign event links plus         Channel drill-down, date filters and unknown
+                  unattributed orders.                                 source.
+
+  H04             Evaluate checks for store, checkout, fulfilment,     Issue links to the recovery action.
+                  integrations and spend.
+
+  H05             Enforce per-business scopes and aggregate            Switch stores without stale data from the
+                  only authorised portfolio data.                      previous selection.
+
+  I01             Reconcile software subscription events and           Upgrade, renewal, invoice, cancellation, and
+                  enforce entitlements separately from seller          usage are consistent.
+                  sales.
+
+  I02             Enforce tenant checks server-side and apply          Negative two-store tests cover files, orders,
+                  database and storage access policies.                domains and jobs.
+
+  I03             Store credentials securely, scope provider           Show status and permission needs without
+                  access and support revocation and rotation.          revealing secrets.
+
+  I04             Persist attempts, trace IDs, provider errors and     Owner sees concise status, support can
+                  recovery outcomes.                                   correlate the trace.
+
+  I05             Validate files, product claims and required policy   Failed review offers regeneration, replacement
+                  checks before exposure.                              or escalation.
+
+  I06             Record actor, decision, time, scope and              Audit history shows what actually happened.
+                  approved version.
+
+  I07             Authorise internal admin access to tenants,          Admin routes are role-gated. Owner sees
+                  costs, incidents and recovery.                       customer-safe status.
+
+  I08             Store support cases and link affected orders,        Open, waiting, escalated, resolved and
+                  billing or jobs.                                     follow-up.
+
+  I09             Apply quotas, throttles and review flags to          Show why an action paused and what restores
+                  expensive or risky actions.                          access.
+
+  I10             Restore recoverable records and roll back            Verify successful restore and failed restore
+                  published artefacts.                                 with prior state visible.
+
+
+
+
+AiMoneyPrinter / Product and engineering handoff                                                                          17
+AiMoneyPrinter                                                                           FRONTEND + BACKEND BUILD BRIEF
+
+
+
+  Feature          Backend delivery                                    Shared screen contract or test
+
+  I11              Enforce retention, suppression, export and          Show confirmation, pending, complete and
+                   deletion by scope.                                  errors.
+
+  I12              Evaluate feature availability per environment,      UI and server agree on disabled and unlocked
+                   plan, role, connection and blueprint.               features.
+
+Expanded blueprint contracts: Personalised products add buyer input, file upload, production and review.
+Memberships add renewal events and access grants. Print-on-demand adds supplier orders, tracking and
+returns. Micro-tools add hosted access, billing and version history. International rollout adds locale,
+currency and seller eligibility. Outcome-based ranking adds sample size and confidence. Team access adds
+invitations and role grants. Service businesses add quote or booking states, voice/SMS authorisation,
+calendar availability and scoped call history.
+
+
+8. Shared contracts and build order
+
+Agree these before building dependent screens
+
+  Contract                         What both agents agree on
+
+  Screen and feature ID            Name, route, app surface, Figma frame, actor, stage, primary action and
+                                   accessibility needs.
+
+  Read model                       Stable record IDs, tenant context, status, last updated, what is available and
+                                   required next action. Use existing schemas or a shared TypeScript runtime schema
+                                   such as Zod. Add OpenAPI if a separate client needs it.
+
+  Mutation and permissions         What input is valid, role and business scope, result, retry behaviour, and whether
+                                   confirmation or an external account is required. The backend evaluates
+                                   permissions again before execution.
+
+  Workflow and event               Define producer, consumer, persisted event, schema version, business ID, trace ID
+                                   and action key. Save output references before scheduling dependent work. Keep
+                                   transient worker status separate from store, payment and fulfilment status.
+
+  Fixtures and errors              Share stable examples for success, no data, waiting, retry, expired access and
+                                   forbidden. Design safe customer messages and actions. Keep operational detail in
+                                   restricted logs.
+
+  Test evidence                    Link PR and commit, test URL, acceptance steps, result and Local, Provider Test or
+                                   Live level. Both agents run the same scenario before marking the feature verified.
+
+
+
+Canonical states to agree first
+
+  Domain                           Proposed values or categories
+
+  Business build                   Draft, queued, running, waiting for owner, retrying, failed, complete, cancelled.
+
+  Store and checkout               Draft, preview, publishing, live, paused, failed. Checkout has its own readiness,
+                                   which can be pending while the site is live.
+
+
+
+
+AiMoneyPrinter / Product and engineering handoff                                                                        18
+AiMoneyPrinter                                                                          FRONTEND + BACKEND BUILD BRIEF
+
+
+
+  Domain                           Proposed values or categories
+
+  Order and delivery               Payment pending, paid, failed, refunded, disputed. Fulfilment tracks queued,
+                                   processing, delivered, retrying and failed separately.
+
+  Marketing                        Draft, review, approved, scheduled, sending, provider confirmed, failed, paused
+                                   and suppressed.
+
+  Connections                      Disconnected, authorising, needs action, ready, expired and revoked.
+
+Keep labels readable in the UI and use existing backend enums if they already cover the agreed states.
+Translate provider events into application states in provider adapters. Keep each state tied to an action or
+relevant explanation.
+
+
+
+Divide work and join it early
+1. Joint kickoff. Audit the active AiMoneyPrinter repo or worktree, identify existing VENTRA reuse and
+   agree on the first contract for onboarding, business provisioning, products, store versions, payment and
+   fulfilment. Use Claude Sonnet for coding and test code.
+
+2. Frontend lane. Build the owner and shopper journeys using shared fixtures and the Figma frames.
+   Cover loading, empty, owner action, fail, retry and complete. Publish the exact local routes for review.
+
+3. Backend lane. Implement the same contracts using a versioned business blueprint, isolated business
+   data, secure storage and the existing durable runner if it meets requirements. Integrate one payment
+   and one organic provider path. Keep production and test credentials separate.
+
+4. Integrate each feature. Move the screen from fixtures to the actual API without changing the agreed
+   shape. Review contract changes together and update schemas, fixtures and UI states in the same
+   change.
+
+5. First acceptance run. Provision two separate test stores. Render a real product, publish a test
+   storefront, complete a Stripe test payment, replay it, verify one correct delivery, and confirm the
+   customer sees the state change. Test interrupted jobs, unpaid and delayed payment, wrong-store
+   access, provider disconnect and opt-out.
+
+6. Blockers. If verification, credentials, provider approval or authorised spend requires Dylan, flag the exact
+   task, action, unlock and next task. Use fixtures or test mode for independent work. Keep live verification
+   pending until it is demonstrated.
+
+
+9. Tools and skills for both agents
+Use the same project-scoped connections and the same repo instructions for the two agents. Skills describe
+how the team works. Connectors provide development access to tools. Runtime SDKs and APIs belong to
+the application. Verify what is already configured before adding anything.
+
+  Tool                   Frontend use                Backend use                           When to use
+
+  Figma MCP              Read frames,                Read the same screens and             Start here for design
+                         components, variables       check which API fields,               handoff. Point agents at
+                         and responsive states.      transitions and error cases each      the same file and node
+                                                     needs.                                links.
+
+
+
+
+AiMoneyPrinter / Product and engineering handoff                                                                      19
+AiMoneyPrinter                                                                          FRONTEND + BACKEND BUILD BRIEF
+
+
+
+  Tool                   Frontend use               Backend use                            When to use
+
+  Playwright Test        Verify mobile and          Verify the browser, API, data and      Use Playwright Test for
+  and optional           desktop journeys, focus,   webhook outcomes from the              repeatable CI. Use MCP for
+  Playwright MCP         inputs and error states.   same user journey.                     exploratory review where
+                                                                                           helpful.
+
+  Supabase MCP           Inspect authorised         Inspect migrations, schema and         Project-scoped staging
+                         staging schema and         related diagnostics. Run               connection, read-only for
+                         example states to          changes through versioned repo         shared inspection.
+                         design fixtures.           migrations.
+
+  Stripe test tools      Preview seller,            Test Connect, signature                Use a sandbox or test
+  and optional           checkout, delayed          verification, delayed events,          credentials and the Stripe
+  Stripe MCP             payment, receipt and       refunds, reconciliation and            CLI for webhook tests.
+                         payout states with test    replay.                                Scope any MCP
+                         records.                                                          permissions to required
+                                                                                           tasks.
+
+  Trigger.dev            Compare visible            Trace scheduling, attempts,            Reuse the existing runner
+  dashboard if           progress and recovery      concurrency, retries and               if it already covers these
+  selected               with real run status.      duplicate protection.                  needs.
+
+  Sentry MCP if          Trace client crashes and   Correlate server failures and job      Optional for shared
+  Sentry is already      the failing interaction.   traces with the same issue.            diagnostics. Use restricted
+  used                                                                                     access and scrub sensitive
+                                                                                           data.
+
+  Shared schemas         Generate realistic         Validate inputs and outputs and        Use the existing contract
+  and fixtures           screen states from the     run the same success and error         approach or shared Zod
+                         agreed contract. Use       cases.                                 schemas as the default.
+                         MSW or the repo's
+                         existing mocking tools
+                         when helpful.
+
+
+
+
+AiMoneyPrinter / Product and engineering handoff                                                                         20
+AiMoneyPrinter                                                                 FRONTEND + BACKEND BUILD BRIEF
+
+
+
+Repo skills to make shared
+• Feature contract in .claude/skills/amp-feature-contract/SKILL.md. Require one feature ID, screen link,
+   data shape, permissions, states, event payload, fixture and acceptance scenario before independent
+   implementation. Keep the source contract next to the code.
+
+• Design to implementation in .claude/skills/amp-design-handoff/SKILL.md. Read the exact Figma
+   frames, map them to app components and API fields, and check empty, error, pending and approval
+   states. Use the existing design system.
+
+• End-to-end verification in .claude/skills/amp-e2e/SKILL.md. Run the customer journey across browser,
+   API, database and provider test events, then record test route, evidence level and exact blocker if any.
+
+• Put the shared workflow, commands and links in CLAUDE.md. Use project-scoped MCP configuration for
+   tools both agents need. Store credentials in the designated environment or credential store and use
+   narrowly scoped development or staging access.
+
+
+Documentation
+• Claude Code skills and MCP setup
+
+• Figma MCP for Claude Code
+
+• Playwright Test and Microsoft Playwright MCP
+
+• Supabase MCP and Stripe MCP
+
+• Trigger.dev and Sentry MCP
+
+• Zod and Mock Service Worker
+
+
+
+
+AiMoneyPrinter / Product and engineering handoff                                                              21
+

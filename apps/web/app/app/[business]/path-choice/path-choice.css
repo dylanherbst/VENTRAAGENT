@@ -1,0 +1,11 @@
+.pc { max-inline-size: 760px; margin: 12vh auto 0; padding: 0 20px; text-align: center; color: #1f1a2b; }
+.pc h1 { font-size: clamp(26px, 4vw, 38px); margin: 0 0 8px; letter-spacing: -.02em; }
+.pc-sub { margin: 0 0 28px; color: #5b5470; }
+.pc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+.pc-card { all: unset; box-sizing: border-box; cursor: pointer; display: grid; gap: 8px; text-align: start; padding: 24px; border-radius: 28px;
+  background: linear-gradient(180deg, rgb(255 255 255 / .66), rgb(255 255 255 / .48)); backdrop-filter: blur(24px) saturate(1.5);
+  box-shadow: 0 10px 30px rgb(120 90 170 / .14); transition: transform .15s ease, box-shadow .15s ease; }
+.pc-card:hover, .pc-card:focus-visible { transform: translateY(-2px); box-shadow: 0 14px 36px rgb(120 90 170 / .22); outline: 2px solid var(--aimp-glow, #19c37d); outline-offset: 2px; }
+.pc-card b { font-size: 19px; }
+.pc-card span { color: #4a4360; line-height: 1.45; }
+.pc-card[data-glow] { box-shadow: 0 0 0 2px var(--aimp-glow, #19c37d), 0 0 28px rgb(25 195 125 / .35); }

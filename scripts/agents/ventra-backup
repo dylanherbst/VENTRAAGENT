@@ -1,0 +1,47 @@
+#!/bin/bash
+# ventra-backup create|verify|list  -- versioned, secret-free backups of the VENTRA repository.
+#   create: git bundle (all branches, full history) + tarball of tracked-and-untracked project files
+#           that are not ignored, excluding .env*, keys, node_modules and build output.
+#   verify: re-clones the newest bundle into a temp folder and checks the HEAD commit and file count.
+# Backups go to ~/Backups/ventra (never inside a repository). Existing backups are never deleted or overwritten.
+set -euo pipefail
+repo="${VENTRA_REPO:-$(git rev-parse --show-toplevel 2>/dev/null || echo "$HOME/Developer/VENTRA-FEATURES")}"
+dest="${VENTRA_BACKUP_DIR:-$HOME/Backups/ventra}"
+cmd="${1:-list}"
+mkdir -p "$dest"; chmod 700 "$dest"
+case "$cmd" in
+  create)
+    stamp="$(date +%Y%m%d-%H%M%S)"; head="$(git -C "$repo" rev-parse --short HEAD)"
+    base="$dest/ventra-$stamp-$head"
+    [ -e "$base.bundle" ] && { echo "Refusing to overwrite $base.bundle" >&2; exit 1; }
+    git -C "$repo" bundle create "$base.bundle" --all >/dev/null 2>&1
+    # Working-tree files git would track (not ignored), minus anything secret-shaped.
+    git -C "$repo" ls-files -co --exclude-standard -z \
+      | grep -zvE '(^|/)(\.env[^/]*|.*\.(pem|key|p12)|\.npmrc|\.mcp\.json|SOUL\.md|IDENTITY\.md|USER\.md|DREAMS\.md|memory/.*)$' \
+      | (cd "$repo" && xargs -0 tar -czf "$base.files.tar.gz" 2>/dev/null)
+    # Coordinator and dashboard state (task runs, approvals, audit, config), without the approval signing key.
+    dash="${VENTRA_DASHBOARD_HOME:-$HOME/.ventra-dashboard}"
+    [ -d "$dash" ] && tar -czf "$base.dashboard.tar.gz" --exclude='approval.key' --exclude='coordinator/*.json' --exclude='coordinator/*.log' -C "$(dirname "$dash")" "$(basename "$dash")" 2>/dev/null || true
+    chmod 600 "$base".*
+    printf '%s\n' "$head" > "$base.head"
+    echo "Created: $base.bundle ($(du -h "$base.bundle" | cut -f1)) and $base.files.tar.gz ($(du -h "$base.files.tar.gz" | cut -f1))"
+    ;;
+  verify)
+    last="$(ls -1t "$dest"/*.bundle 2>/dev/null | head -1 || true)"
+    [ -n "$last" ] || { echo "No backup found in $dest" >&2; exit 1; }
+    tmp="$(mktemp -d)"; trap 'rm -rf "$tmp"' EXIT
+    git bundle verify "$last" >/dev/null 2>&1 || { echo "FAIL: bundle is corrupt: $last" >&2; exit 1; }
+    git clone -q "$last" "$tmp/restore" 2>/dev/null || { echo "FAIL: restore clone failed" >&2; exit 1; }
+    want="$(cat "${last%.bundle}.head")"
+    got="$(git -C "$tmp/restore" rev-parse --short HEAD 2>/dev/null || true)"
+    tar -tzf "${last%.bundle}.files.tar.gz" >/dev/null 2>&1 || { echo "FAIL: files archive unreadable" >&2; exit 1; }
+    n="$(tar -tzf "${last%.bundle}.files.tar.gz" | wc -l | tr -d ' ')"
+    if git -C "$tmp/restore" cat-file -e "$want" 2>/dev/null; then
+      echo "PASS: restored $(basename "$last"); commit $want present, bundle HEAD $got, archive has $n files."
+    else
+      echo "FAIL: commit $want not found in restored clone" >&2; exit 1
+    fi
+    ;;
+  list) ls -lhT "$dest" | tail -n +2 ;;
+  *) echo "usage: ventra-backup create|verify|list" >&2; exit 2 ;;
+esac

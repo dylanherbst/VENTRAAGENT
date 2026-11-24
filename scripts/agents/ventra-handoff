@@ -1,0 +1,63 @@
+#!/bin/bash
+# VENTRA one-writer lock and Git handoff snapshot for the VENTRA-FEATURES checkout.
+# Lock file lives in the checkout's git dir (never committed). Format: "owner pid epoch".
+REPO="${VENTRA_REPO:-/Users/dylan/Developer/VENTRA-FEATURES}"
+GITDIR="$(git -C "$REPO" rev-parse --absolute-git-dir 2>/dev/null)" || { echo "Not a git repo: $REPO" >&2; exit 2; }
+LOCK="$GITDIR/ventra-agent.lock"
+MAX_AGE=$((12*3600))
+OWNER=""; PID=""; TS=""
+[ -f "$LOCK" ] && read -r OWNER PID TS < "$LOCK"
+num() { [[ "$1" =~ ^[0-9]+$ ]]; }
+age() { local t; num "$TS" && t="$TS" || t="$(stat -f %m "$LOCK" 2>/dev/null || echo 0)"; echo $(( $(date +%s) - t )); }
+dead() { num "$PID" && ! kill -0 "$PID" 2>/dev/null; }
+describe() { echo "$OWNER (pid ${PID:-unknown}, $(( $(age) / 60 )) min old)"; }
+
+case "$1" in
+  acquire)
+    who="${2:?usage: ventra-handoff acquire claude|codex [pid]}"; mypid="${3:-$PPID}"
+    if [ -f "$LOCK" ]; then
+      if dead; then echo "Reclaiming stale lock from $OWNER (pid $PID no longer running)."
+      elif [ "$OWNER" != "$who" ]; then
+        echo "BLOCKED: $(describe) holds the VENTRA checkout. Finish or stop it, then: ventra-handoff recover" >&2; exit 1
+      fi
+    fi
+    echo "$who $mypid $(date +%s)" > "$LOCK"; echo "Lock held by $who." ;;
+  release)
+    arg="${2:?usage: ventra-handoff release <owner>|--force}"
+    if [ -f "$LOCK" ] && [ "$arg" != "--force" ] && [ "$OWNER" != "$arg" ] && ! dead; then
+      echo "Not released: lock belongs to $OWNER. Use --force only if you are sure it is stuck." >&2; exit 1
+    fi
+    rm -f "$LOCK"; echo "Lock released." ;;
+  recover)
+    if [ ! -f "$LOCK" ]; then echo "No lock. Nothing to recover."
+    elif dead; then rm -f "$LOCK"; echo "Removed stale lock ($OWNER, pid $PID not running)."
+    elif [ "$(age)" -gt "$MAX_AGE" ]; then echo "Lock is over 12h old but pid $PID is alive: $(describe). If that session is truly gone: ventra-handoff release --force"
+    else echo "Lock is live: $(describe). Do not force it while that session is working." ; exit 1; fi ;;
+  status)
+    if [ -f "$LOCK" ]; then dead && echo "Lock: STALE ($(describe)) - run: ventra-handoff recover" || echo "Lock: $(describe)"; else echo "Lock: free"; fi
+    echo "Branch: $(git -C "$REPO" branch --show-current)  HEAD: $(git -C "$REPO" log -1 --format='%h %s')"
+    echo "Uncommitted entries: $(git -C "$REPO" status --porcelain | wc -l | tr -d ' ')" ;;
+  snapshot)
+    f="$REPO/HANDOFF.md"; [ -f "$f" ] || { echo "HANDOFF.md missing" >&2; exit 1; }
+    tmp="$(mktemp)"; {
+      echo "<!-- git-state:start -->"
+      echo "_Generated $(date '+%Y-%m-%d %H:%M') by \`ventra-handoff snapshot\`. Do not hand-edit this block._"
+      echo "- Branch: \`$(git -C "$REPO" branch --show-current)\`"
+      echo "- HEAD: \`$(git -C "$REPO" log -1 --format='%h %s')\`"
+      echo "- Lock: $([ -f "$LOCK" ] && describe || echo free)"
+      echo "- Uncommitted changes:"; echo '```text'; git -C "$REPO" status --porcelain | grep -v -E '^\?\? (DREAMS|IDENTITY|SOUL|USER)\.md|^\?\? memory/' | head -40; echo '```'
+      echo "- Diff stat vs HEAD:"; echo '```text'; git -C "$REPO" diff --stat HEAD | tail -15; echo '```'
+      echo "- Recent commits:"; echo '```text'; git -C "$REPO" log --oneline -5; echo '```'
+      echo "<!-- git-state:end -->"
+    } > "$tmp"
+    python3 - "$f" "$tmp" <<'PY'
+import sys,re
+f,t=sys.argv[1],sys.argv[2]
+s=open(f).read(); b=open(t).read().rstrip("\n")
+pat=re.compile(r"<!-- git-state:start -->.*?<!-- git-state:end -->",re.S)
+s=pat.sub(lambda m:b,s) if pat.search(s) else s.rstrip("\n")+"\n\n## Git state (auto)\n\n"+b+"\n"
+open(f,"w").write(s)
+PY
+    rm -f "$tmp"; echo "HANDOFF.md git state updated." ;;
+  *) echo "usage: ventra-handoff acquire <claude|codex> [pid] | release <owner>|--force | recover | status | snapshot" >&2; exit 2 ;;
+esac

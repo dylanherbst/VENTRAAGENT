@@ -1,0 +1,42 @@
+/* AiMoneyPrinter glass workspace tokens (Desktop Carousel UI Bible 1.1, Mobile UX Bible 1.2). Scoped to .amg so nothing leaks to other routes.
+   Colours are the Bible's: lavender #B487EF, peach #FFB48E, mint #8BDCB8, pale blue #A8D9F7; mobile wash purple #AD90D6 to peach #F8C2A9. */
+.amg {
+  --amg-pearl: #faf9fa;
+  --amg-ink: #241340;
+  --amg-ink-soft: #3f365a;
+  --amg-muted: #5a5170;
+  --amg-accent: #573496;
+  --amg-line: rgb(63 54 90 / .14);
+  --amg-lavender: #b487ef;
+  --amg-peach: #ffb48e;
+  --amg-mint: #8bdcb8;
+  --amg-blue: #a8d9f7;
+  --amg-dot: #635664;
+  --amg-wash-top: #ad90d6;
+  --amg-wash-mid: #c494a3;
+  --amg-wash-end: #f8c2a9;
+  /* Status glows (Mobile Bible p10): halo / label ink */
+  --amg-attn: #e9546c; --amg-attn-ink: #8d3044;
+  --amg-load: #498bf1; --amg-load-ink: #244d98;
+  --amg-done: #35a872; --amg-done-ink: #1f634b;
+  --amg-work: #9660ea; --amg-work-ink: #573496;
+  --amg-panel-radius: 16px;
+  --amg-bar-radius: 24px;
+  --amg-shadow: 0 14px 30px -14px rgb(52 35 90 / .28), 0 3px 8px rgb(52 35 90 / .08);
+  --amg-rim: inset 0 1px 1px rgb(255 255 255 / .95), inset 0 -1px 1px rgb(120 110 150 / .12);
+  --amg-ease: cubic-bezier(.22, .72, .2, 1);
+  --amg-dock-h: 74px;
+}
+/* The fading dot grid: 5px spacing, fine grey-lilac dot, solid at the top and gone by halfway. Lower canvas stays clear. */
+.amg-dots {
+  position: fixed; inset: 0; z-index: -1; pointer-events: none; background: #faf9fa;
+}
+.amg-dots::before {
+  content: ""; position: absolute; inset: 0 0 auto 0; height: 55vh;
+  background-image: radial-gradient(circle, rgb(99 86 100 / .34) 0.9px, transparent 1.2px); background-size: 5px 5px;
+  -webkit-mask-image: linear-gradient(#000, transparent 92%); mask-image: linear-gradient(#000, transparent 92%);
+}
+@media (prefers-reduced-transparency: reduce) { .amg-dots::before { opacity: .5; } }
+
+/* Grainient background (app-backdrop.tsx): fixed behind everything, never catches clicks (the effect reads the pointer from the window). */
+.aimp-backdrop { position: fixed; inset: 0; z-index: -1; pointer-events: none; background: #faf9fa; }

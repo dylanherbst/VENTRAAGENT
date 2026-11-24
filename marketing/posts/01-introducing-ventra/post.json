@@ -1,0 +1,35 @@
+{
+  "outDir": "~/Developer/VENTRA-MARKETING/posts/01-introducing-ventra",
+  "items": [
+    { "template": "carousel", "name": "slide-01", "theme": "dark", "slots": {
+      "eyebrow": "Introducing VENTRA", "title": "Your AI *front office*", "page": "01 / 06",
+      "body": "For service businesses that lose work to missed calls and slow replies.",
+      "points": ["Answers your calls", "Replies to your enquiries", "Books the work in"],
+      "cta": "Swipe →", "label": "" } },
+    { "template": "carousel", "name": "slide-02", "theme": "dark", "slots": {
+      "eyebrow": "The problem", "title": "On the tools *or* on the phone?", "page": "02 / 06",
+      "body": "When you're with a client, the next enquiry waits. And while it waits, the customer is free to ask someone else.",
+      "points": ["Calls ring out", "Messages sit unread", "Enquiries go cold"],
+      "cta": "Swipe →", "label": "" } },
+    { "template": "carousel", "name": "slide-03", "theme": "dark", "slots": {
+      "eyebrow": "AI Receptionist", "title": "Answers the *phone*", "page": "03 / 06",
+      "body": "Built to pick up, understand what the caller needs and book them in, or take a message for you.",
+      "points": ["Answers and books calls", "Reschedules or cancels", "Hands the call to you when needed"],
+      "cta": "Swipe →", "label": "" } },
+    { "template": "carousel", "name": "slide-04", "theme": "dark", "slots": {
+      "eyebrow": "AI Setter", "title": "Replies to *enquiries*", "page": "04 / 06",
+      "body": "Built to reply quickly, ask the questions you'd ask and offer times that suit.",
+      "points": ["Replies in minutes, not hours", "Asks the right questions", "Offers times and books"],
+      "cta": "Swipe →", "label": "" } },
+    { "template": "carousel", "name": "slide-05", "theme": "dark", "slots": {
+      "eyebrow": "You stay in charge", "title": "Your rules, your *calendar*", "page": "05 / 06",
+      "body": "Choose how much it does on its own.",
+      "points": ["Automatic: it books for you", "Owner approval: it asks you first", "Enquiry only: it takes the details"],
+      "cta": "Swipe →", "label": "" } },
+    { "template": "carousel", "name": "slide-06", "theme": "dark", "slots": {
+      "eyebrow": "Where we are", "title": "Launching *soon*", "page": "06 / 06",
+      "body": "Both are in sandbox testing today, not live yet. We're building VENTRA in Australia and sharing the progress here.",
+      "points": ["AI Receptionist: sandbox testing", "AI Setter: sandbox testing", "Launch news on this page"],
+      "cta": "Follow for the launch", "label": "" } }
+  ]
+}

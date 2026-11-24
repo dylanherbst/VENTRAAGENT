@@ -1,0 +1,57 @@
+import assert from 'node:assert/strict';
+// Explicit test runner paths keep Playwright optional for the application's runtime.
+const { chromium } = await import(process.env.PLAYWRIGHT_MODULE || 'playwright-core');
+const browser = await chromium.launch({executablePath: process.env.CHROME_EXECUTABLE, headless: true});
+try {
+ const page = await browser.newPage();
+ await page.goto(process.env.QA_BASE_URL || 'http://127.0.0.1:3107/tools/course-creator');
+ await page.getByLabel('Course title',{exact:true}).fill('Browser tested course');
+ await page.getByLabel('Summary',{exact:true}).fill('Learn practical skills');
+ await page.getByRole('button',{name:'Add lesson',exact:true}).click();
+ await page.getByLabel('Lesson title',{exact:true}).fill('First lesson');
+ await page.getByLabel('Lesson content',{exact:true}).fill('Practice and reflect');
+ await page.getByRole('button',{name:'Save course',exact:true}).click();
+ assert.match(await page.locator('main main [role=status]').first().innerText(), /Course saved/);
+ await page.reload();
+ await page.getByLabel('Lesson content',{exact:true}).waitFor();
+ assert.equal(await page.getByLabel('Lesson content',{exact:true}).inputValue(),'Practice and reflect');
+ await page.getByRole('button',{name:'Preview course',exact:true}).click();
+ await page.getByRole('region',{name:'Learner preview'}).waitFor();
+ const workspace = '11111111-1111-1111-1111-111111111111';
+ let saved;
+ let conflict = false;
+ await page.route('**/api/workspace', route => route.fulfill({json:{workspaces:[{id:workspace,name:'Test workspace'}]}}));
+ await page.route('**/api/workspace/courses**', async route => {
+  if (route.request().method() === 'GET') return route.fulfill({json:{courses:saved ? [saved] : []}});
+  if (conflict) return route.fulfill({status:409,json:{error:'Revision conflict. Refresh and load again.'}});
+  const body = route.request().postDataJSON();
+  assert.equal(body.workspace,workspace);
+  saved = {id:body.id,data:body.course,revision:body.revision+1};
+  return route.fulfill({json:{saved:true,revision:saved.revision}});
+ });
+ const account = page.getByRole('region',{name:'Account courses',exact:true});
+ await account.getByRole('button',{name:'Connect account',exact:true}).click();
+ await page.getByRole('combobox',{name:/^Account workspace/}).selectOption(workspace);
+ await account.getByRole('button',{name:'Refresh account courses',exact:true}).click();
+ await account.getByRole('status').filter({hasText:'0 account courses'}).waitFor();
+ await account.getByRole('button',{name:'Save new account copy',exact:true}).click();
+ await account.getByRole('status').filter({hasText:'New account copy saved'}).waitFor();
+ await page.getByLabel('Course title',{exact:true}).fill('Unsaved change');
+ page.on('dialog', dialog => dialog.accept());
+ await account.getByRole('button',{name:'Load account course',exact:true}).click();
+ await account.getByRole('status').filter({hasText:'Loaded revision 1'}).waitFor();
+ assert.equal(await page.getByLabel('Course title',{exact:true}).inputValue(),'Browser tested course');
+ await page.getByLabel('Course title',{exact:true}).fill('Account update');
+ await account.getByRole('button',{name:'Update loaded account course',exact:true}).click();
+ await account.getByRole('status').filter({hasText:'revision 2'}).waitFor();
+ conflict = true;
+ await page.getByLabel('Course title',{exact:true}).fill('Keep on conflict');
+ await account.getByRole('button',{name:'Update loaded account course',exact:true}).click();
+ await account.getByRole('status').filter({hasText:'Revision conflict'}).waitFor();
+ assert.equal(await page.getByLabel('Course title',{exact:true}).inputValue(),'Keep on conflict');
+ await page.reload();
+ await page.getByLabel('Lesson content',{exact:true}).waitFor();
+ assert.equal(await page.getByLabel('Course title',{exact:true}).inputValue(),'Browser tested course');
+ console.log('PASS mocked account: connect, list, create, load, update, conflict and browser draft isolation');
+ console.log('PASS real Chrome: author, save, reload persistence and learner preview');
+} finally { await browser.close(); }

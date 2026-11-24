@@ -1,0 +1,156 @@
+/* Store templates, art direction (rebuilt 22 Nov 2026). Loaded after store.css.
+   Each template = its own typeface pair (fonts.ts) + palette + ONE signature element (data-sig). Everything else stays quiet.
+   No all-caps labels, no gradient washes, no hover lifts. Static decoration only; nothing moves on its own. */
+
+.st[data-tpl] h1, .st[data-tpl] h2, .st[data-tpl] .st-h3, .st[data-tpl] h3, .st[data-tpl] .st-logo, .st[data-tpl] .st-card-title { font-family: var(--st-font); }
+.st[data-hero='center'] h1, .st[data-hero='stack'] h1, .st[data-hero='banner'] h1, .st[data-hero='minimal'] h1 { margin-left: auto; margin-right: auto; }
+.st[data-hero='center'] .st-hero-actions, .st[data-hero='stack'] .st-hero-actions, .st[data-hero='banner'] .st-hero-actions, .st[data-hero='minimal'] .st-hero-actions { justify-content: center; }
+
+/* Decorations (tilts, stickers, fans) must never cause sideways scrolling on a phone. */
+.st[data-tpl] { overflow-x: clip; }
+.st[data-tpl] .st-logo { white-space: nowrap; }
+@media (max-width: 480px) {
+  .st[data-tpl] .st-header-inner { gap: .2rem .9rem; flex-wrap: wrap; padding-top: .55rem; padding-bottom: .4rem; }
+  .st[data-tpl] .st-header nav { gap: .9rem; font-size: .88rem; }
+  .st[data-tpl] .st-logo { font-size: 1.02rem; }
+}
+
+/* ---------- Type per template: weight, tracking and scale chosen for each face ---------- */
+.st[data-tpl='clean-launch'] { --st-h1: clamp(2.4rem, 6.5vw, 4.2rem); --st-h1-lh: .98; }
+.st[data-tpl='clean-launch'] h1 { font-weight: 800; letter-spacing: -.035em; font-stretch: 92%; }
+.st[data-tpl='sage-studio'] { --st-h1: clamp(2.3rem, 6vw, 3.8rem); }
+.st[data-tpl='sage-studio'] h1 { font-weight: 450; letter-spacing: -.02em; font-variation-settings: 'SOFT' 100, 'opsz' 144; }
+.st[data-tpl='sage-studio'] h2 { font-weight: 500; font-variation-settings: 'SOFT' 100; }
+.st[data-tpl='blush-boutique'] h1, .st[data-tpl='blush-boutique'] h2 { font-weight: 400; letter-spacing: -.01em; }
+.st[data-tpl='midnight-shop'] { --st-h1: clamp(2.2rem, 6vw, 3.9rem); --st-h1-lh: 1; }
+.st[data-tpl='midnight-shop'] h1 { font-weight: 700; letter-spacing: -.025em; }
+.st[data-tpl='paper-and-ink'] { --st-h1: clamp(2rem, 5vw, 3.1rem); --st-h1-lh: 1.12; }
+.st[data-tpl='paper-and-ink'] h1 { font-weight: 400; font-style: italic; max-width: 22ch; }
+.st[data-tpl='paper-and-ink'] h2 { font-weight: 400; font-style: italic; }
+.st[data-tpl='paper-and-ink'] .st-lead, .st[data-tpl='paper-and-ink'] .st-prose { font-size: 1.12rem; line-height: 1.7; }
+.st[data-tpl='sunny-bundle'] { --st-h1: clamp(1.9rem, 5.4vw, 3.2rem); --st-h1-lh: 1.05; }
+.st[data-tpl='sunny-bundle'] h1 { font-weight: 700; letter-spacing: -.02em; }
+.st[data-tpl='sunny-bundle'] h2 { font-weight: 600; font-size: clamp(1.2rem, 3vw, 1.6rem); }
+.st[data-tpl='ocean-planner'] { --st-h1: clamp(2.2rem, 6vw, 3.8rem); --st-h1-lh: .98; }
+.st[data-tpl='ocean-planner'] h1, .st[data-tpl='ocean-planner'] h2 { font-weight: 800; font-stretch: 118%; letter-spacing: -.02em; }
+.st[data-tpl='terracotta-craft'] { --st-h1: clamp(2.3rem, 6vw, 3.9rem); }
+.st[data-tpl='terracotta-craft'] h1, .st[data-tpl='terracotta-craft'] h2 { font-weight: 400; letter-spacing: -.015em; }
+.st[data-tpl='mono-minimal'] { --st-h1: clamp(3rem, 10vw, 7rem); --st-h1-lh: .92; }
+.st[data-tpl='mono-minimal'] h1 { font-weight: 400; letter-spacing: -.03em; max-width: 14ch; }
+.st[data-tpl='mono-minimal'] h2 { font-weight: 400; font-size: clamp(1.8rem, 4vw, 2.6rem); }
+.st[data-tpl='berry-pop'] { --st-h1: clamp(2.3rem, 7vw, 4rem); --st-h1-lh: 1.02; }
+.st[data-tpl='berry-pop'] h1, .st[data-tpl='berry-pop'] h2 { font-weight: 600; letter-spacing: -.01em; }
+.st[data-tpl='forest-study'] { --st-h1: clamp(2.2rem, 5.8vw, 3.6rem); }
+.st[data-tpl='forest-study'] h1, .st[data-tpl='forest-study'] h2 { font-weight: 400; }
+.st[data-tpl='sky-soft'] h1 { font-weight: 800; letter-spacing: -.02em; }
+.st[data-tpl='sky-soft'] h2 { font-weight: 700; }
+.st[data-tpl='gold-standard'] { --st-h1: clamp(2.5rem, 7vw, 4.6rem); --st-h1-lh: 1; }
+.st[data-tpl='gold-standard'] h1 { font-weight: 500; font-style: italic; letter-spacing: -.01em; }
+.st[data-tpl='gold-standard'] h2 { font-weight: 500; font-size: clamp(1.7rem, 4vw, 2.3rem); }
+.st[data-tpl='lemon-fresh'] { --st-h1: clamp(2.2rem, 6vw, 3.6rem); --st-h1-lh: 1; }
+.st[data-tpl='lemon-fresh'] h1 { font-weight: 700; letter-spacing: -.035em; }
+.st[data-tpl='lavender-glow'] { --st-h1: clamp(2.2rem, 6vw, 3.7rem); --st-h1-lh: 1.02; }
+.st[data-tpl='lavender-glow'] h1 { font-weight: 700; letter-spacing: -.03em; }
+
+/* ---------- Signatures: one memorable element per template ---------- */
+
+/* big-price: the price is the headline's partner, set as large as the headline itself. */
+.st[data-sig='big-price'] .st-hero-actions { flex-direction: column; align-items: flex-start; gap: 1rem; margin-top: 1.5rem; }
+.st[data-sig='big-price'] .st-hero-price { order: -1; display: grid; gap: .25rem; }
+.st[data-sig='big-price'] .st-hero-price-num { font-family: var(--st-font); font-weight: 800; font-size: clamp(3.5rem, 12vw, 7.5rem); line-height: .85; letter-spacing: -.05em; color: var(--st-accent); font-variant-numeric: lining-nums tabular-nums; }
+.st[data-sig='big-price'] .st-hero { border-bottom: 1px solid var(--st-line); }
+
+/* tilted-cover: a planner left on a desk, large and turned, overlapping the hero edge. */
+.st[data-sig='tilted-cover'] .st-hero-art { max-width: 400px; }
+.st[data-sig='tilted-cover'] .st-hero-art > .st-cover:first-child { transform: rotate(-5deg); box-shadow: 0 30px 50px -28px color-mix(in srgb, var(--st-ink) 55%, transparent); }
+@media (min-width: 820px) { .st[data-sig='tilted-cover'] .st-hero { padding-bottom: 6rem; } .st[data-sig='tilted-cover'] .st-hero-art { margin-bottom: -5rem; } }
+
+/* sticker: a round label answers "how do I get it?" for gift buyers. */
+.st[data-sig='sticker'] .st-sticker { display: grid; place-items: center; position: absolute; top: -18px; right: -14px; z-index: 2; width: 108px; aspect-ratio: 1; padding: .8rem; border-radius: 50%;
+  background: var(--st-accent); color: var(--st-accent-ink); font-family: var(--st-font); font-size: 1rem; line-height: 1.1; text-align: center; transform: rotate(10deg); }
+
+/* fanned-covers: three products fanned out like app windows, to show range. */
+.st[data-sig='fanned-covers'] .st-hero-art { display: block !important; max-width: 380px; aspect-ratio: 300 / 380; margin-top: 1rem; }
+.st[data-sig='fanned-covers'] .st-hero-art > .st-cover { position: absolute; inset: 0; display: block; border: 1px solid var(--st-line); }
+.st[data-sig='fanned-covers'] .st-hero-art > .st-cover:nth-child(1) { z-index: 3; }
+.st[data-sig='fanned-covers'] .st-hero-art > .st-cover:nth-child(2) { z-index: 2; transform: translate(14%, 4%) rotate(7deg) scale(.94); opacity: .9; }
+.st[data-sig='fanned-covers'] .st-hero-art > .st-cover:nth-child(3) { z-index: 1; transform: translate(-14%, 6%) rotate(-7deg) scale(.9); opacity: .75; }
+@media (min-width: 820px) { .st[data-sig='fanned-covers'] .st-hero-inner { grid-template-columns: 1.1fr .9fr; } }
+
+/* contents: products listed like a book's contents page, with dotted leaders to the price. */
+.st[data-sig='contents'] .st-grid { gap: 0; border-top: 1px solid var(--st-ink); }
+.st[data-sig='contents'] .st-card { flex-direction: row; background: none; border: 0; border-bottom: 1px solid var(--st-line); border-radius: 0; }
+.st[data-sig='contents'] .st-card .st-cover { display: none; }
+.st[data-sig='contents'] .st-card-body { display: grid; grid-template-columns: auto 1fr auto; align-items: baseline; gap: .2rem .75rem; padding: 1rem 0; }
+.st[data-sig='contents'] .st-card-title { grid-column: 1; grid-row: 1; font-size: 1.2rem; font-weight: 400; }
+.st[data-sig='contents'] .st-card-meta { grid-column: 2; grid-row: 1; border-bottom: 1px dotted var(--st-muted); color: transparent; min-width: 2rem; align-self: end; margin-bottom: .35em; }
+.st[data-sig='contents'] .st-price { grid-column: 3; grid-row: 1; margin: 0; }
+.st[data-sig='contents'] .st-card-summary { grid-column: 1 / -1; display: block; }
+
+/* colour-block: a solid colour slab behind the hero product and a bundle that fills with colour. */
+.st[data-sig='colour-block'] .st-hero-art { padding: 1.5rem 1.5rem 0 0; }
+.st[data-sig='colour-block'] .st-hero-art::before { content: ''; position: absolute; inset: 0 0 12% 18%; background: var(--st-accent); border-radius: var(--st-r-lg, 20px); }
+.st[data-sig='colour-block'] .st-hero-art > .st-cover { position: relative; }
+.st[data-sig='colour-block'] .st-bundle { background: var(--st-accent); border-color: var(--st-accent); color: var(--st-accent-ink); }
+.st[data-sig='colour-block'] .st-bundle :is(h3, a, .st-price, .st-save, .st-muted, .st-list) { color: var(--st-accent-ink); }
+.st[data-sig='colour-block'] .st-bundle .st-btn-primary { background: var(--st-accent-ink); color: var(--st-accent); border-color: var(--st-accent-ink); }
+
+/* graph-paper: the hero sits on graph paper. */
+.st[data-sig='graph-paper'] .st-hero { background-image: linear-gradient(var(--st-line) 1px, transparent 1px), linear-gradient(90deg, var(--st-line) 1px, transparent 1px); background-size: 28px 28px; background-position: -1px -1px; border-bottom: 2px solid var(--st-ink); }
+.st[data-sig='graph-paper'] .st-hero-copy { background: var(--st-bg); padding: 1rem 1.25rem 1.25rem 0; }
+
+/* tape: covers taped down onto kraft paper. */
+.st[data-sig='tape'] .st-cover { position: relative; overflow: visible; border: 0; }
+.st[data-sig='tape'] .st-cover svg { border-radius: 2px; }
+.st[data-sig='tape'] .st-cover::before { content: ''; position: absolute; z-index: 1; top: -10px; left: 50%; width: 38%; height: 24px; transform: translateX(-50%) rotate(-3deg);
+  background: color-mix(in srgb, var(--st-surface) 70%, transparent); box-shadow: 0 1px 2px color-mix(in srgb, var(--st-ink) 15%, transparent); }
+.st[data-sig='tape'] .st-card { overflow: visible; padding-top: 10px; }
+.st[data-sig='tape'] .st-hero-art > .st-cover:first-child { transform: rotate(2deg); }
+
+/* frame: a heavy black frame around the whole shop; huge type does the rest. */
+.st[data-sig='frame'] { border: 12px solid var(--st-ink); }
+.st[data-sig='frame'] .st-hero { border-bottom: 1px solid var(--st-ink); padding-top: clamp(3rem, 9vw, 7rem); padding-bottom: clamp(3rem, 8vw, 6rem); }
+.st[data-sig='frame'] .st-hero-copy { max-width: none; }
+.st[data-sig='frame'] .st-btn { border-radius: 0; }
+
+/* tilted-cards: worksheets pinned at angles on a classroom wall. */
+.st[data-sig='tilted-cards'] .st-grid { gap: 1.5rem; }
+.st[data-sig='tilted-cards'] .st-grid > .st-card:nth-child(3n + 1) { transform: rotate(-1.6deg); }
+.st[data-sig='tilted-cards'] .st-grid > .st-card:nth-child(3n + 2) { transform: rotate(1.2deg); }
+.st[data-sig='tilted-cards'] .st-grid > .st-card:nth-child(3n) { transform: rotate(-.6deg); }
+.st[data-sig='tilted-cards'] .st-hero-art > .st-cover:first-child { transform: rotate(-3deg); }
+
+/* notebook: a ruled notebook page with a red margin line. */
+.st[data-sig='notebook'] .st-hero { background:
+  linear-gradient(90deg, transparent 0 calc(max(1rem, (100% - 1120px) / 2 + 1.5rem) - 14px), #d9776b calc(max(1rem, (100% - 1120px) / 2 + 1.5rem) - 14px) calc(max(1rem, (100% - 1120px) / 2 + 1.5rem) - 12px), transparent 0),
+  repeating-linear-gradient(to bottom, transparent 0 31px, var(--st-line) 31px 32px); }
+.st[data-sig='notebook'] .st-lead { line-height: 32px; }
+
+/* shelf: one product stands on a shelf. */
+.st[data-sig='shelf'] .st-hero-art { max-width: 240px; padding-bottom: 18px; }
+.st[data-sig='shelf'] .st-hero-art::after { content: ''; position: absolute; left: -30%; right: -30%; bottom: 0; height: 14px; border-radius: 3px; background: color-mix(in srgb, var(--st-ink) 14%, var(--st-surface));
+  box-shadow: 0 10px 24px -12px color-mix(in srgb, var(--st-ink) 45%, transparent); }
+.st[data-sig='shelf'] .st-hero-art > .st-cover:first-child { box-shadow: 0 14px 18px -14px color-mix(in srgb, var(--st-ink) 50%, transparent); }
+
+/* certificate: the offer sits inside a double-ruled border. */
+.st[data-sig='certificate'] .st-hero-copy { max-width: 46rem; margin: 0 auto; padding: clamp(2rem, 6vw, 3.5rem) clamp(1.25rem, 5vw, 3rem); border: 3px double var(--st-accent); outline: 1px solid color-mix(in srgb, var(--st-accent) 50%, transparent); outline-offset: 8px; }
+.st[data-sig='certificate'] .st-hero-price-num { color: var(--st-accent); font-family: var(--st-font); font-size: 1.6rem; }
+
+/* banner-strip: reasons to buy run as one bold strip. */
+.st[data-sig='banner-strip'] .st-trust { background: var(--st-accent) !important; }
+.st[data-sig='banner-strip'] .st-trust :is(h2, .st-h3) { color: var(--st-accent-ink); font-family: var(--st-font); font-size: 1.15rem; }
+.st[data-sig='banner-strip'] .st-trust p { color: color-mix(in srgb, var(--st-accent-ink) 82%, transparent); }
+
+/* arch: the product framed in an arched window. */
+.st[data-sig='arch'] .st-hero-art { max-width: 340px; padding: 14px; }
+.st[data-sig='arch'] .st-hero-art::before { content: ''; position: absolute; inset: 0; border: 1.5px solid var(--st-accent); border-radius: 999px 999px var(--st-r-lg, 26px) var(--st-r-lg, 26px); }
+.st[data-sig='arch'] .st-hero-art > .st-cover:first-child { border-radius: 999px 999px var(--st-r, 20px) var(--st-r, 20px); border: 0; }
+
+/* Respect people who ask for less motion: the tilts are static, but flatten them anyway for a calmer page. */
+@media (prefers-reduced-motion: reduce) {
+  .st[data-sig='tilted-cards'] .st-grid > .st-card { transform: none !important; }
+}
+
+/* The plain 'minimal' hero shrinks its headline; templates set their own scale instead. */
+.st[data-tpl][data-hero='minimal'] .st-hero-copy h1 { font-size: var(--st-h1, clamp(1.7rem, 4.5vw, 2.4rem)); }
+.st[data-head='bar'] .st-header nav > * { color: var(--st-accent-ink); }

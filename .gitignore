@@ -1,0 +1,63 @@
+node_modules/
+.next/
+.next-build/
+.next-qa-fixed/
+out/
+build/
+dist/
+coverage/
+*.log
+.DS_Store
+.env
+.env.*
+!.env.example
+!.env.*.example
+*.pem
+*.key
+.npmrc
+.mcp.json
+.claude/settings.local.json
+.claude/*.local.*
+.claude/projects/
+.vercel/
+.supabase/
+# Local Supabase CLI metadata (never stage)
+supabase/.temp/
+supabase/.branches/
+# Existing private research and skills: do not stage by default
+/docs/*
+!/docs/agents/
+!/docs/DESIGN.md
+!/docs/aimp/
+# Approved app UI spec, reference renders and library files (tracked); the big PDF/ZIP exports are not
+!/docs/design/
+/docs/design/*.pdf
+/docs/design/*.zip
+/docs/design/.spec-bundle.tgz
+/.claude/skills/*
+!/.claude/skills/ventra-*/
+!/.claude/skills/web-design-guidelines
+*.tsbuildinfo
+
+# Local build/QA output directories
+.next-*/
+
+# Recovery safety
+.env
+.env.*
+!.env.example
+!.env.sample
+node_modules/
+.next*
+dist/
+build/
+coverage/
+
+# Serena code-navigation cache (local)
+.serena/
+
+# AiMoneyPrinter: generated 3D build outputs and the old VENTRA worktree link backup
+assets-src/plant/out/
+.git-ventra-worktree-link.bak
+# The plant-lab build PAGE is source code, not build output (it was caught by the build/ rule above).
+!apps/web/app/plant-lab/build/

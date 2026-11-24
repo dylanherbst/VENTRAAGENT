@@ -1,0 +1,57 @@
+/* Screen-specific layout for the /start flow. Appearance comes from the Peach & Lavender Glass library
+   (design-system/aimp-glass); only spacing and arrangement live here. */
+.start-welcome-title { font-size: calc(var(--plg-size-heading) + 4px); }
+.start-legal { text-align: center; text-wrap: balance; padding-inline: var(--plg-space-2); }
+.start-form { margin-block-start: var(--plg-space-1); }
+.start-submit { margin-block-start: var(--plg-space-2); }
+.start-switch { text-align: center; margin-block: calc(var(--plg-space-3) * -1); }
+/* Provider buttons sit side by side where the labels fit, and stack on narrow screens. */
+.start-providers { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(190px, 100%), 1fr)); gap: 10px; }
+.start-notice-body { display: flex; gap: var(--plg-space-3); align-items: flex-start; color: var(--plg-plum); font-size: 15px; }
+.start-notice-body:focus { outline: none; }
+.start-notice-body > .plg-icon { margin-block-start: 1px; }
+.start-saved { min-block-size: 1.45em; text-align: center; }
+.start-summary { overflow: hidden; }
+.start-summary-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; column-gap: var(--plg-space-3); padding: 8px 8px 8px 18px; }
+.start-summary-row + .start-summary-row { border-block-start: 1px solid rgb(63 54 90 / .16); }
+.start-summary-row > dt { grid-column: 1; font-size: var(--plg-size-small); font-weight: 650; color: var(--plg-text); }
+.start-summary-row > dd { grid-column: 1; color: var(--plg-plum); font-weight: 600; overflow-wrap: anywhere; }
+.start-summary-row > .start-summary-action { grid-column: 2; grid-row: 1 / span 2; font-weight: 400; }
+
+/* ---------- Journey pages (ideas to payments): arrangement only ---------- */
+/* Brand: a small sample painted with the customer's own colours (set inline as --bs-* from the form). */
+.brand-sample { display: grid; gap: 6px; justify-items: start; padding: 18px; border-radius: 16px; border: 1px solid rgb(63 54 90 / .22); background: var(--bs-bg, var(--plg-white)); color: var(--bs-text, var(--plg-plum)); }
+.brand-sample[data-empty="true"] { opacity: .6; }
+.brand-sample-name { font-family: var(--plg-font-display); font-size: 20px; font-weight: 650; line-height: 1.2; color: inherit; overflow-wrap: anywhere; }
+.brand-sample-tag { font-size: 14px; color: inherit; overflow-wrap: anywhere; }
+.brand-sample-btn { margin-block-start: 6px; padding: 8px 16px; border-radius: 999px; background: var(--bs-primary, var(--plg-plum)); color: var(--bs-on, var(--plg-white)); font-size: 14px; font-weight: 650; box-shadow: 0 0 0 2px var(--bs-accent, transparent); }
+.brand-colours { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(200px, 100%), 1fr)); gap: var(--plg-space-3); }
+.brand-chip { display: block; inline-size: 20px; block-size: 20px; border-radius: 50%; border: 1px solid var(--plg-control-border); }
+.brand-checks { display: grid; }
+.brand-checks > li { display: flex; align-items: center; justify-content: space-between; gap: var(--plg-space-3); padding-block: 8px; font-size: 15px; color: var(--plg-plum); }
+.brand-checks > li + li { border-block-start: 1px solid rgb(63 54 90 / .16); }
+/* Check lists (product QA): label left, result badge right. */
+.start-checks { display: grid; }
+.start-checks > li { display: flex; align-items: center; justify-content: space-between; gap: var(--plg-space-3); padding-block: 8px; font-size: 15px; color: var(--plg-plum); }
+.start-checks > li + li { border-block-start: 1px solid rgb(63 54 90 / .16); }
+/* Store: a simplified preview painted with the draft's real theme variables (--st-* from renderConfig). */
+.store-preview { display: grid; gap: 14px; padding: 16px; border-radius: 16px; border: 1px solid var(--st-line, #e9e6ef); background: var(--st-bg, #fff); color: var(--st-ink, #1d1b26); font-family: var(--st-font, inherit); overflow: hidden; }
+.store-preview-demo { margin: -16px -16px 0; padding: 6px 16px; background: var(--st-ink); color: var(--st-bg); font-size: 12.5px; }
+.store-preview-logo { font-size: 17px; font-weight: 700; color: inherit; }
+.store-preview-hero { display: grid; gap: 6px; justify-items: start; padding: 16px; border-radius: 12px; background: var(--st-soft); }
+.store-preview-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--st-muted); }
+.store-preview-heading { font-size: 22px; font-weight: 700; line-height: 1.2; color: var(--st-ink); overflow-wrap: anywhere; }
+.store-preview-sub { font-size: 14px; line-height: 1.45; color: var(--st-muted); overflow-wrap: anywhere; }
+.store-preview-cta { margin-block-start: 6px; padding: 8px 16px; border-radius: 999px; background: var(--st-accent); color: var(--st-accent-ink); font-size: 14px; font-weight: 650; }
+.store-preview-products { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(220px, 100%), 1fr)); gap: 12px; }
+.store-preview-products > li { display: grid; gap: 4px; padding: 12px; border: 1px solid var(--st-line); border-radius: 12px; background: var(--st-surface); }
+.store-preview-cover { display: grid; place-items: center; block-size: 96px; padding: 8px; border-radius: 8px; background: var(--st-soft); color: var(--st-ink); font-weight: 650; font-size: 14px; text-align: center; overflow-wrap: anywhere; }
+.store-preview-title { font-weight: 700; font-size: 15px; color: var(--st-ink); overflow-wrap: anywhere; }
+.store-preview-price { font-size: 14px; font-weight: 650; color: var(--st-ink); }
+
+/* Light/dark switch, top right, above every onboarding screen (including the sign-in capsule). */
+.start-theme { position: fixed; z-index: 300; inset-block-start: max(14px, env(safe-area-inset-top)); inset-inline-end: 14px; }
+
+/* Primary buttons in onboarding: solid purple with white text (the app skin alone would leave white text on a white pill). */
+.start-shell .plg-btn[data-variant="primary"] { background: linear-gradient(135deg, #5b3aa8, #8a5cf0); color: #fff; border-color: rgb(255 255 255 / .35); box-shadow: 0 12px 28px -12px rgb(87 52 150 / .7); }
+.start-shell .plg-btn[data-variant="primary"]:disabled, .start-shell .plg-btn[data-variant="primary"][aria-disabled="true"] { opacity: .6; }

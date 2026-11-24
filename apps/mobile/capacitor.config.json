@@ -1,0 +1,7 @@
+{
+  "appId": "com.aimoneyprinter.app",
+  "appName": "AiMoneyPrinter",
+  "webDir": "www",
+  "server": { "androidScheme": "https", "cleartext": false },
+  "ios": { "contentInset": "always" }
+}

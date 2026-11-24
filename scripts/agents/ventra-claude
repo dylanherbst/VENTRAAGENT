@@ -1,0 +1,10 @@
+#!/bin/bash
+# Start Claude Code (Chief of Staff) in VENTRA-FEATURES with the Telegram channel.
+# The Telegram plugin is disabled globally and enabled only here, because a second
+# plugin server for the same bot kills the first one (takes over the bot).
+REPO="${VENTRA_REPO:-/Users/dylan/Developer/VENTRA-FEATURES}"
+ventra-handoff acquire claude $$ || exit 1
+trap 'ventra-handoff release claude' EXIT
+cd "$REPO" || exit 1
+claude --settings '{"enabledPlugins":{"telegram@claude-plugins-official":true}}' \
+  --channels plugin:telegram@claude-plugins-official "$@"

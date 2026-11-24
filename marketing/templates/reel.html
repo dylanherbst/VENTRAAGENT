@@ -1,0 +1,106 @@
+<!doctype html>
+<!-- Reel scene player. CSS 540x960, captured at deviceScaleFactor 2 -> 1080x1920 frames (see marketing/reel.mjs).
+     Deterministic: reel.mjs calls window.__seek(seconds) before each frame, so there are no dropped frames.
+     window.__VENTRA__ = {
+       theme, duration,
+       label: "Concept demonstration",            // required unless the reel is real product footage
+       scenes:   [{ start, end, eyebrow, title, body }],
+       captions: [{ start, end, text }]            // burned into the frames
+     } -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Hanken+Grotesk:wght@400;500;600;700&display=block">
+<link rel="stylesheet" href="base.css">
+<style>
+  :root { --w: 540px; --h: 960px; }
+  .brand { position: absolute; top: 70px; left: 0; right: 0; justify-content: center; }
+  .label-concept { top: 104px; left: 50%; transform: translateX(-50%); }
+  .scene {
+    position: absolute; left: var(--pad); right: var(--pad); top: 190px; bottom: 330px;
+    display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; gap: 18px;
+    opacity: 0; will-change: opacity, transform;
+  }
+  .scene .title { font-size: 50px; }
+  .scene .card { padding: 24px 24px; width: 100%; }
+  .caption {
+    position: absolute; left: 36px; right: 36px; bottom: 200px; min-height: 64px;
+    display: flex; align-items: center; justify-content: center; text-align: center;
+    padding: 12px 18px; border-radius: 18px;
+    background: rgba(10, 10, 10, 0.66); border: 1px solid rgba(255, 255, 255, 0.16);
+    font-family: var(--font-body); font-weight: 600; font-size: 21px; line-height: 1.3; color: var(--white);
+    opacity: 0;
+  }
+  .orb { transition: none; }
+</style>
+</head>
+<body>
+<div class="canvas" data-theme="dark">
+  <div class="orb orb--peri" id="orbA" style="width:340px;height:340px;left:-120px;top:160px"></div>
+  <div class="orb orb--peach" id="orbB" style="width:280px;height:280px;right:-100px;bottom:220px;opacity:.4"></div>
+  <div class="grain"></div>
+  <div class="brand"><img src="../../apps/web/public/brand/ventra-mark.png" alt="">VENTRA</div>
+  <div class="label-concept" id="label"></div>
+  <div id="scenes"></div>
+  <div class="caption" id="caption"></div>
+</div>
+<script>
+(function () {
+  var D = window.__VENTRA__ || {
+    duration: 5,
+    label: "Concept demonstration",
+    scenes: [
+      { start: 0, end: 2.6, eyebrow: "5:02 pm", title: "A call comes in.<br>You are <em>on the tools</em>." },
+      { start: 2.4, end: 5, eyebrow: "AI Receptionist", title: "It gets <em>answered</em>.", body: "The caller is helped and booked in." }
+    ],
+    captions: [
+      { start: 0.2, end: 2.5, text: "A customer calls while you are busy." },
+      { start: 2.6, end: 4.9, text: "VENTRA answers and books the job." }
+    ]
+  };
+  function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+  function fmt(s) {
+    // Data values are plain text (*word* accent, newline break); the built-in sample above uses trusted HTML.
+    if (window.__VENTRA__) return esc(s).replace(/\*([^*]+)\*/g, "<em>$1</em>").replace(/\n/g, "<br>");
+    return s;
+  }
+  var canvas = document.querySelector(".canvas");
+  if (D.theme) canvas.setAttribute("data-theme", D.theme);
+  document.getElementById("label").textContent = D.label || "";
+  var host = document.getElementById("scenes");
+  var nodes = (D.scenes || []).map(function (s) {
+    var el = document.createElement("div");
+    el.className = "scene";
+    el.innerHTML =
+      (s.eyebrow ? '<div class="eyebrow">' + fmt(s.eyebrow) + "</div>" : "") +
+      '<h1 class="title">' + fmt(s.title || "") + "</h1>" +
+      (s.body ? '<div class="glass card"><p class="body">' + fmt(s.body) + "</p></div>" : "");
+    host.appendChild(el);
+    return { el: el, s: s };
+  });
+  var cap = document.getElementById("caption");
+  var orbA = document.getElementById("orbA"), orbB = document.getElementById("orbB");
+  var FADE = 0.35;
+  function ease(x) { x = Math.max(0, Math.min(1, x)); return x * x * (3 - 2 * x); }
+  function vis(t, a, b) { return Math.min(ease((t - a) / FADE), ease((b - t) / FADE)); }
+  window.__duration = D.duration || 5;
+  window.__seek = function (t) {
+    nodes.forEach(function (n) {
+      var v = vis(t, n.s.start, n.s.end);
+      n.el.style.opacity = v;
+      n.el.style.transform = "translateY(" + ((1 - v) * 18).toFixed(2) + "px)";
+    });
+    var c = (D.captions || []).find(function (c) { return t >= c.start && t <= c.end; });
+    if (c) { if (cap.textContent !== c.text) cap.textContent = c.text; cap.style.opacity = vis(t, c.start, c.end); }
+    else { cap.style.opacity = 0; }
+    orbA.style.transform = "translate(" + (Math.sin(t * 0.6) * 24).toFixed(2) + "px," + (Math.cos(t * 0.5) * 30).toFixed(2) + "px)";
+    orbB.style.transform = "translate(" + (Math.cos(t * 0.45) * 28).toFixed(2) + "px," + (Math.sin(t * 0.55) * 22).toFixed(2) + "px)";
+  };
+  window.__seek(0);
+  document.documentElement.setAttribute("data-filled", "1");
+})();
+</script>
+</body>
+</html>

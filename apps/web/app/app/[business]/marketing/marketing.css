@@ -1,0 +1,13 @@
+/* Marketing overview (AMP-129). Only layout details the glass library does not cover; colours and spacing come from its tokens. */
+.amk-link { display: inline-flex; align-items: center; min-block-size: 44px; }
+.amk-wrap { overflow-wrap: anywhere; }
+.amk-actions { display: flex; flex-wrap: wrap; gap: var(--plg-space-2); }
+.amk-list { display: grid; gap: var(--plg-space-4); list-style: none; padding: 0; margin: 0; }
+.amk-item { display: grid; gap: 6px; min-inline-size: 0; padding-block-end: var(--plg-space-4); border-block-end: 1px solid var(--plg-control-border); overflow-wrap: anywhere; }
+.amk-item:last-child { padding-block-end: 0; border-block-end: 0; }
+.amk-item h3 { font-size: 17px; line-height: 1.3; }
+.amk-meta { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 15px; color: var(--plg-plum); }
+.amk-meta > span { min-inline-size: 0; overflow-wrap: anywhere; }
+.amk-soon { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 12px; }
+.amk-confirm { display: grid; gap: 10px; min-inline-size: 0; padding: 16px; border-radius: 16px; border: 2px solid var(--plg-plum); background: rgb(255 255 255 / .7); }
+.amk-confirm:focus-visible { outline: 3px solid var(--plg-plum); outline-offset: 2px; }

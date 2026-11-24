@@ -1,0 +1,167 @@
+#!/bin/bash
+# ventra-coordinator: run ONE Master Coordinator cycle (docs/agents/COORDINATOR.md) as a Claude Code session.
+#
+#   ventra-coordinator run [--run-id ID] [--budget MINUTES] [--repo PATH] [--out DIR] [--model NAME]
+#   ventra-coordinator status
+#
+# Started every 30 minutes by the Agent Dashboard service (dashboard-multiproduct/src/coordinator.mjs) and from
+# Terminal by the owner. Guarantees:
+#   - one coordinator at a time: refuses to start while a live coordinator (or any other live lock owner) holds the
+#     VENTRA one-writer lock; a dead owner's lock is reclaimed by ventra-handoff's own pid check, never forced;
+#   - the lock is released on every exit path;
+#   - the whole Claude result (JSON) and stderr are kept under --out, and the last stdout line is a one-line JSON
+#     record the dashboard stores.
+set -uo pipefail
+
+REPO="${VENTRA_REPO:-$HOME/Developer/VENTRA-FEATURES}"
+OUT="${VENTRA_COORDINATOR_OUT:-$HOME/.ventra-dashboard/coordinator}"
+BUDGET=90
+MODEL="${VENTRA_COORDINATOR_MODEL:-opus}"
+MAX_COST=""
+RUN_ID=""
+CMD="${1:-}"; shift || true
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --run-id) RUN_ID="$2"; shift 2 ;;
+    --budget) BUDGET="$2"; shift 2 ;;
+    --repo) REPO="$2"; shift 2 ;;
+    --out) OUT="$2"; shift 2 ;;
+    --model) MODEL="$2"; shift 2 ;;
+    --max-cost) MAX_COST="$2"; shift 2 ;;
+    *) echo "unknown option: $1" >&2; exit 2 ;;
+  esac
+done
+[[ "$BUDGET" =~ ^[0-9]+$ ]] && [ "$BUDGET" -ge 5 ] && [ "$BUDGET" -le 240 ] || { echo "--budget must be 5..240 minutes" >&2; exit 2; }
+[ -z "$MAX_COST" ] || [[ "$MAX_COST" =~ ^[0-9]+(\.[0-9]+)?$ ]] || { echo "--max-cost must be a USD amount" >&2; exit 2; }
+[ -n "$RUN_ID" ] || RUN_ID="$(date +%Y%m%d-%H%M%S)-$$"
+[[ "$RUN_ID" =~ ^[A-Za-z0-9._-]+$ ]] || { echo "bad run id" >&2; exit 2; }
+
+GITDIR="$(git -C "$REPO" rev-parse --absolute-git-dir 2>/dev/null)" || { echo "Not a git repo: $REPO" >&2; exit 2; }
+LOCK="$GITDIR/ventra-agent.lock"
+emit() { printf '%s\n' "$1"; }
+record() { # status exitCode summary [extra json fields]
+  emit "{\"runId\":\"$RUN_ID\",\"status\":\"$1\",\"exitCode\":$2,\"summary\":$(printf '%s' "$3" | python3 -c 'import json,sys;print(json.dumps(sys.stdin.read()[:2000]))')${4:+,$4}}"
+}
+
+case "$CMD" in
+  status)
+    ventra-handoff status
+    [ -f "$OUT/current" ] && echo "Coordinator run in progress: $(cat "$OUT/current")" || echo "No coordinator run in progress."
+    exit 0 ;;
+  run) ;;
+  *) echo "usage: ventra-coordinator run [--run-id ID] [--budget MIN] [--repo PATH] [--out DIR] [--model NAME] | status" >&2; exit 2 ;;
+esac
+
+mkdir -p "$OUT" && chmod 700 "$OUT"
+command -v claude >/dev/null || { record failed 127 "claude is not installed or not on PATH"; exit 1; }
+command -v ventra-handoff >/dev/null || { record failed 127 "ventra-handoff is not installed (run scripts/agents/install.sh)"; exit 1; }
+[ -f "$REPO/docs/agents/COORDINATOR.md" ] || { record failed 2 "docs/agents/COORDINATOR.md is missing in $REPO"; exit 1; }
+
+# --- duplicate-run guard. Any live lock owner (another coordinator, Claude Code, Codex, a dashboard job) means: do not start.
+if [ -f "$LOCK" ]; then
+  read -r OWNER PID TS < "$LOCK"
+  if [[ "${PID:-}" =~ ^[0-9]+$ ]] && kill -0 "$PID" 2>/dev/null; then
+    record skipped 0 "lock held by live $OWNER (pid $PID); another coordinator or session is working" "\"lockOwner\":\"$OWNER\",\"lockPid\":$PID"
+    exit 3
+  fi
+fi
+if ! ventra-handoff acquire coordinator $$ >"$OUT/$RUN_ID.lock.log" 2>&1; then
+  record skipped 0 "could not take the one-writer lock: $(tr '\n' ' ' < "$OUT/$RUN_ID.lock.log")"
+  exit 3
+fi
+echo "$RUN_ID $$ $(date +%s)" > "$OUT/current"
+# Second project: the website worktree (Workstream D). Its lock is taken too when it is free; when the owner's own
+# session holds it, website tasks are skipped this cycle and the coordinator is told so.
+WEBSITE="${VENTRA_WEBSITE_REPO:-$HOME/Developer/VENTRA-WEBSITE}"
+WEBSITE_STATE="absent"
+if [ -d "$WEBSITE/.git" ] || [ -f "$WEBSITE/.git" ]; then
+  WGIT="$(git -C "$WEBSITE" rev-parse --absolute-git-dir 2>/dev/null)"
+  if [ -n "$WGIT" ] && [ -f "$WGIT/ventra-agent.lock" ]; then
+    read -r WOWNER WPID WTS < "$WGIT/ventra-agent.lock"
+    if [[ "${WPID:-}" =~ ^[0-9]+$ ]] && kill -0 "$WPID" 2>/dev/null; then WEBSITE_STATE="locked by $WOWNER (pid $WPID): skip website tasks this cycle"; fi
+  fi
+  if [ "$WEBSITE_STATE" = "absent" ]; then
+    if VENTRA_REPO="$WEBSITE" ventra-handoff acquire coordinator $$ >>"$OUT/$RUN_ID.lock.log" 2>&1; then WEBSITE_STATE="available (lock held for you)"; WEBSITE_LOCKED=1; else WEBSITE_STATE="lock not available: skip website tasks this cycle"; fi
+  fi
+fi
+cleanup() { ventra-handoff release coordinator >/dev/null 2>&1 || true; [ -n "${WEBSITE_LOCKED:-}" ] && VENTRA_REPO="$WEBSITE" ventra-handoff release coordinator >/dev/null 2>&1 || true; rm -f "$OUT/current"; }
+trap cleanup EXIT
+trap 'exit 143' TERM INT
+
+DEADLINE="$(date -u -v+"${BUDGET}"M +%Y-%m-%dT%H:%M:%SZ 2>/dev/null || date -u -d "+${BUDGET} minutes" +%Y-%m-%dT%H:%M:%SZ)"
+NOW_LOCAL="$(date '+%Y-%m-%d %H:%M %Z')"
+PROMPT="You are running one VENTRA Master Coordinator cycle.
+Run id: $RUN_ID. Started: $NOW_LOCAL. Time budget: $BUDGET minutes. Deadline (UTC): $DEADLINE.
+Repository: $REPO (you are already in it). The one-writer lock is held for you as 'coordinator'.
+
+Website & Store project (Workstream D, board docs/agents/WEBSITE_BOARD.json, worktree $WEBSITE): $WEBSITE_STATE.
+
+Spending: this cycle may cost at most ${MAX_COST:-unlimited} USD (Claude Code stops the session at that amount); the day's remaining cap is enforced by the dashboard. Prefer finishing and committing one task over starting many.
+
+Read docs/agents/COORDINATOR.md now and follow it exactly: orient, reconcile, plan, pick, dispatch specialists in parallel (one Agent call per task in a single message), verify with real commands, commit verified work with ventra-git, update docs/agents/TASK_BOARD.json, docs/agents/TASKS.md and HANDOFF.md, run 'ventra-handoff snapshot', and end with the plain-English summary. Never bypass the guard or approval rules. If there is no unblocked work, say 'IDLE: no unblocked work' and stop."
+
+# Tools the coordinator may use without prompting. The repository's own guard hooks still deny unsafe commands
+# (raw commits, pushes, history rewrites, secrets, control files) and ask for the owner on risky ones, which in a
+# non-interactive session means "not now": the coordinator records those as blocked.
+TOOLS=(Read Grep Glob Edit Write MultiEdit Agent TodoWrite WebSearch WebFetch
+  "Bash(git *)" "Bash(ventra-git *)" "Bash(ventra-verify*)" "Bash(ventra-handoff status*)" "Bash(ventra-handoff snapshot*)"
+  "Bash(ventra-backup verify*)" "Bash(ventra-backup list*)" "Bash(ventra-backup create*)" "Bash(ventra-approval request *)" "Bash(ventra-approval status*)"
+  "Bash(npm *)" "Bash(npx *)" "Bash(node *)" "Bash(pdftotext *)" "Bash(ffmpeg *)" "Bash(ffprobe *)" "Bash(sips *)"
+  "Bash(ls *)" "Bash(cat *)" "Bash(head *)" "Bash(tail *)" "Bash(wc *)" "Bash(grep *)" "Bash(find *)" "Bash(mkdir *)" "Bash(date*)" "Bash(pwd)"
+  "Bash(cd *)" "Bash(bash scripts/agents/install.sh)" "Bash(bash -n *)" "Bash(bash scripts/agents/ventra-verify*)" "Bash(scripts/agents/ventra-verify*)" "Bash(bash scripts/agents/ventra-coordinator status)" "Bash(which *)" "Bash(command -v *)" "Bash(echo *)" "Bash(printf *)" "Bash(test *)" "Bash(true)" "Bash(sleep *)" "Bash(timeout *)"
+  "Bash(sort *)" "Bash(uniq *)" "Bash(cut *)" "Bash(tr *)" "Bash(sed -n *)" "Bash(awk *)" "Bash(jq *)" "Bash(xargs *)" "Bash(diff *)" "Bash(stat *)" "Bash(du *)" "Bash(env)"
+  "Bash(curl http://127.0.0.1:*)" "Bash(curl http://localhost:*)" "Bash(lsof *)" "Bash(supabase status*)" "Bash(docker ps*)" "Bash(colima status*)" "Bash(uptime*)" "Bash(df *)" "Bash(memory_pressure*)" "Bash(sysctl -n *)" "Bash(sw_vers*)")
+
+# Hard per-cycle spending stop, when this Claude Code version supports --max-budget-usd (checked at run time).
+BUDGET_ARGS=()
+if [ -n "$MAX_COST" ]; then
+  if claude --help 2>&1 | grep -q -- '--max-budget-usd'; then BUDGET_ARGS=(--max-budget-usd "$MAX_COST")
+  else echo "note: this claude build has no --max-budget-usd; the per-cycle cap is advisory only" >> "$OUT/$RUN_ID.log"; fi
+fi
+
+BILLING="$(claude auth status 2>/dev/null | python3 -c 'import json,sys
+try:
+    d=json.load(sys.stdin); print("subscription" if d.get("authMethod")=="claude.ai" else ("api" if d.get("apiProvider") else "unknown"))
+except Exception: print("unknown")' 2>/dev/null || echo unknown)"
+START=$(date +%s)
+cd "$REPO" || exit 1
+claude -p "$PROMPT" --model "$MODEL" --permission-mode acceptEdits --output-format json "${BUDGET_ARGS[@]}" --allowedTools "${TOOLS[@]}" \
+  > "$OUT/$RUN_ID.json" 2>> "$OUT/$RUN_ID.log"
+CODE=$?
+END=$(date +%s)
+
+python3 - "$OUT/$RUN_ID.json" "$RUN_ID" "$CODE" "$((END-START))" "${MAX_COST:-0}" "$BILLING" <<'PY'
+import json, sys
+f, run_id, code, secs = sys.argv[1], sys.argv[2], int(sys.argv[3]), int(sys.argv[4])
+max_cost = float(sys.argv[5] or 0)
+billing = sys.argv[6] if len(sys.argv) > 6 else "unknown"
+try:
+    d = json.load(open(f))
+except Exception:
+    raw = open(f, errors="replace").read()
+    d = {"result": raw}
+if isinstance(d, list):
+    d = next((x for x in reversed(d) if isinstance(x, dict) and x.get("type") == "result"), d[-1] if d else {})
+summary = str(d.get("result") or d.get("error") or "")[:2000]
+status = "succeeded" if code == 0 and not d.get("is_error") else "failed"
+if summary.strip().upper().startswith("IDLE"):
+    status = "idle"
+import re
+limit = re.search(r"hit your .*?limit.*?resets? ([^\n]+)", summary, re.I)
+if limit:
+    status = "rate-limited"
+    summary = ("CLAUDE PLAN LIMIT: " + summary.strip())[:2000]
+cost = d.get("total_cost_usd")
+hit_cap = bool(max_cost) and isinstance(cost, (int, float)) and cost >= max_cost * 0.95
+if hit_cap and status == "failed":
+    summary = ("CYCLE STOPPED AT ITS SPENDING CAP (" + f"${cost:.2f} of ${max_cost:.2f}" + "). " + summary)[:2000]
+out = {
+    "runId": run_id, "status": status, "exitCode": code, "summary": summary, "hitCostCap": hit_cap, "maxCostUsd": max_cost or None,
+    "limitResets": limit.group(1).strip() if limit else None,
+    "billing": billing,
+    "sessionId": d.get("session_id"), "costUsd": d.get("total_cost_usd"), "numTurns": d.get("num_turns"),
+    "durationMs": d.get("duration_ms") or secs * 1000, "model": (d.get("modelUsage") and list(d["modelUsage"].keys())) or None,
+}
+print(json.dumps(out))
+PY
+exit $CODE

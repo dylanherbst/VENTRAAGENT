@@ -1,0 +1,16 @@
+/* Brand kit (AMP-082). Only layout details the glass library does not cover; colours and spacing come from its tokens.
+   The --ab-* values are the owner's own brand colours, set inline on the sample. */
+.ab-sample { display: grid; gap: 6px; justify-items: start; padding: 18px; border-radius: 16px; border: 1px solid rgb(63 54 90 / .22); background: var(--ab-bg, var(--plg-white)); color: var(--ab-text, var(--plg-plum)); min-inline-size: 0; }
+.ab-sample[data-empty="true"] { opacity: .6; }
+.ab-sample-name { font-family: var(--plg-font-display); font-size: 20px; font-weight: 650; line-height: 1.2; color: inherit; overflow-wrap: anywhere; }
+.ab-sample-tag { font-size: 14px; color: inherit; overflow-wrap: anywhere; }
+.ab-sample-btn { margin-block-start: 6px; padding: 8px 16px; border-radius: 999px; background: var(--ab-primary, var(--plg-plum)); color: var(--ab-on, var(--plg-white)); font-size: 14px; font-weight: 650; box-shadow: 0 0 0 2px var(--ab-accent, transparent); }
+.ab-colours { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(200px, 100%), 1fr)); gap: var(--plg-space-3); }
+.ab-chip { display: block; inline-size: 20px; block-size: 20px; border-radius: 50%; border: 1px solid var(--plg-control-border); }
+.ab-rows { display: grid; list-style: none; padding: 0; margin: 0; }
+.ab-rows > li { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--plg-space-2) var(--plg-space-3); padding-block: 10px; font-size: 15px; color: var(--plg-plum); min-inline-size: 0; }
+.ab-rows > li + li { border-block-start: 1px solid rgb(63 54 90 / .16); }
+.ab-rows > li > span { min-inline-size: 0; overflow-wrap: anywhere; }
+.ab-actions { display: grid; gap: var(--plg-space-3); }
+.ab-back { display: inline-flex; align-items: center; min-block-size: 44px; }
+@media (min-width: 720px) { .ab-actions { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); align-items: start; } }

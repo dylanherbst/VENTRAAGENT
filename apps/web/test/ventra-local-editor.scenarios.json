@@ -1,0 +1,65 @@
+{
+  "description": "Only run against a task-owned localhost preview seeded with phase2/qa-local-fixture.json. Preconditions refuse non-QA profile or records. Uses actual editor save and cancel; never deletes original data. Prefix navigate URLs with verified preview origin and use one labeled browser target.",
+  "steps": [
+    {
+      "action": "navigate",
+      "url": "/business?tab=offers"
+    },
+    {
+      "action": "act",
+      "kind": "resize",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "action": "act",
+      "kind": "evaluate",
+      "fn": "async()=>{const p=JSON.parse(localStorage.getItem('launchpad.business-profile.v1')||'null');const offers=JSON.parse(localStorage.getItem('launchpad.offers.v1.local-business')||'[]');if(p?.name!=='QA Glass Studio'||offers.some(o=>!o.name.startsWith('QA ')))throw Error('Requires isolated QA fixture; refusing to touch user records');for(let i=0;i<150&&!document.querySelector('.offer-builder>button:not(:disabled)');i++)await new Promise(r=>setTimeout(r,20));document.querySelector('.offer-builder>button').click();await new Promise(requestAnimationFrame);const form=document.querySelector('.offer-builder form');const values=['QA Rendered Regression Offer','QA audience','9.99','Manual QA outcome','Manual QA delivery'];const controls=[form.querySelectorAll('input')[0],form.querySelectorAll('input')[1],form.querySelectorAll('input')[2],form.querySelectorAll('textarea')[0],form.querySelectorAll('textarea')[1]];controls.forEach((el,i)=>{Object.getOwnPropertyDescriptor(Object.getPrototypeOf(el),'value').set.call(el,values[i]);el.dispatchEvent(new Event('input',{bubbles:true}));});await new Promise(requestAnimationFrame);form.requestSubmit();for(let i=0;i<150&&document.querySelector('.offer-builder form');i++)await new Promise(r=>setTimeout(r,20));const saved=JSON.parse(localStorage.getItem('launchpad.offers.v1.local-business'));if(saved.length!==offers.length+1||saved.at(-1).amountMinor!==999||offers.some(o=>JSON.stringify(saved.find(n=>n.id===o.id))!==JSON.stringify(o)))throw Error('Offer save/preservation failed');return {saved:true,preservedExisting:true,count:saved.length};}"
+    },
+    {
+      "action": "navigate",
+      "url": "/business?tab=offers"
+    },
+    {
+      "action": "act",
+      "kind": "evaluate",
+      "fn": "async()=>{for(let i=0;i<150&&!document.querySelector('.local-offer button');i++)await new Promise(r=>setTimeout(r,20));if(!document.querySelector('main').textContent.includes('QA Rendered Regression Offer'))throw Error('Saved offer did not survive reload');const original=localStorage.getItem('launchpad.offers.v1.local-business');document.querySelector('.local-offer button').click();await new Promise(requestAnimationFrame);const form=document.querySelector('.offer-builder form');const input=form.querySelector('input');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(input,'Unsaved QA cancellation');input.dispatchEvent(new Event('input',{bubbles:true}));await new Promise(requestAnimationFrame);[...form.querySelectorAll('button')].find(b=>b.textContent==='Cancel changes').click();for(let i=0;i<150&&document.querySelector('.offer-builder form');i++)await new Promise(r=>setTimeout(r,20));if(localStorage.getItem('launchpad.offers.v1.local-business')!==original)throw Error('Cancel changed saved offers');return {reload:true,cancelPreserved:true};}"
+    },
+    {
+      "action": "navigate",
+      "url": "/customers"
+    },
+    {
+      "action": "act",
+      "kind": "evaluate",
+      "fn": "async()=>{const original=JSON.parse(localStorage.getItem('launchpad.crm-contacts.v1.local-business')||'[]');if(original.some(c=>!c.name.startsWith('QA ')))throw Error('User contact present: refusing QA writes');for(let i=0;i<150&&!document.querySelector('.crm-contacts button:not(:disabled)');i++)await new Promise(r=>setTimeout(r,20));document.querySelector('.crm-contacts button').click();await new Promise(requestAnimationFrame);const form=document.querySelector('.crm-contacts form');const input=form.querySelector('input');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(input,'QA Rendered Regression Contact');input.dispatchEvent(new Event('input',{bubbles:true}));await new Promise(requestAnimationFrame);form.requestSubmit();for(let i=0;i<150&&document.querySelector('.crm-contacts form');i++)await new Promise(r=>setTimeout(r,20));const saved=JSON.parse(localStorage.getItem('launchpad.crm-contacts.v1.local-business'));if(saved.length!==original.length+1||original.some(c=>JSON.stringify(saved.find(n=>n.id===c.id))!==JSON.stringify(c)))throw Error('Contact save failed');return {saved:true,preservedExisting:true,count:saved.length};}"
+    },
+    {
+      "action": "navigate",
+      "url": "/customers"
+    },
+    {
+      "action": "act",
+      "kind": "evaluate",
+      "fn": "async()=>{for(let i=0;i<150&&!document.querySelector('.crm-contacts .local-offer button');i++)await new Promise(r=>setTimeout(r,20));if(!document.querySelector('main').textContent.includes('QA Rendered Regression Contact'))throw Error('Contact did not survive reload');const original=localStorage.getItem('launchpad.crm-contacts.v1.local-business');[...document.querySelectorAll('.crm-contacts .local-offer button')].find(b=>b.textContent.trim()==='Edit contact').click();await new Promise(requestAnimationFrame);const form=document.querySelector('.crm-contacts form');const input=form.querySelector('input');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(input,'Unsaved QA contact');input.dispatchEvent(new Event('input',{bubbles:true}));await new Promise(requestAnimationFrame);[...form.querySelectorAll('button')].find(b=>b.textContent.toLowerCase().includes('cancel')).click();for(let i=0;i<150&&document.querySelector('.crm-contacts form');i++)await new Promise(r=>setTimeout(r,20));if(localStorage.getItem('launchpad.crm-contacts.v1.local-business')!==original)throw Error('Contact cancel changed saved data');return {reload:true,cancelPreserved:true};}"
+    },
+    {
+      "action": "navigate",
+      "url": "/insights"
+    },
+    {
+      "action": "act",
+      "kind": "evaluate",
+      "fn": "async()=>{const key='ventra.manual-growth-audit.v1.local-business';const original=JSON.parse(localStorage.getItem(key)||'null');if(!original?.assessment.startsWith('Manual QA'))throw Error('Requires QA audit; refusing to modify user audit');for(let i=0;i<150&&!document.querySelector('.v-audit>button');i++)await new Promise(r=>setTimeout(r,20));document.querySelector('.v-audit>button').click();await new Promise(requestAnimationFrame);const form=document.querySelector('.v-audit form');const input=form.querySelector('textarea');Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype,'value').set.call(input,'Manual QA assessment saved through final production preview.');input.dispatchEvent(new Event('input',{bubbles:true}));await new Promise(requestAnimationFrame);form.requestSubmit();for(let i=0;i<150&&document.querySelector('.v-audit form');i++)await new Promise(r=>setTimeout(r,20));const saved=JSON.parse(localStorage.getItem(key));if(saved.assessment!=='Manual QA assessment saved through final production preview.'||JSON.stringify(saved.actions)!==JSON.stringify(original.actions))throw Error('Audit save/preservation failed');return {saved:true,actionsPreserved:true};}"
+    },
+    {
+      "action": "navigate",
+      "url": "/insights"
+    },
+    {
+      "action": "act",
+      "kind": "evaluate",
+      "fn": "async()=>{const key='ventra.manual-growth-audit.v1.local-business';for(let i=0;i<150&&!document.querySelector('.v-audit>button');i++)await new Promise(r=>setTimeout(r,20));if(!document.querySelector('main').textContent.includes('Manual QA assessment saved through final production preview.'))throw Error('Audit reload failed');const original=localStorage.getItem(key);document.querySelector('.v-audit>button').click();await new Promise(requestAnimationFrame);const form=document.querySelector('.v-audit form');const input=form.querySelector('textarea');Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype,'value').set.call(input,'Unsaved QA audit');input.dispatchEvent(new Event('input',{bubbles:true}));await new Promise(requestAnimationFrame);[...form.querySelectorAll('button')].find(b=>b.textContent==='Cancel changes').click();for(let i=0;i<150&&document.querySelector('.v-audit form');i++)await new Promise(r=>setTimeout(r,20));if(localStorage.getItem(key)!==original)throw Error('Audit cancel changed saved data');return {reload:true,cancelPreserved:true};}"
+    }
+  ]
+}

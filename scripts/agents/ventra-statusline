@@ -1,0 +1,7 @@
+#!/bin/bash
+# Claude Code status line: model, context used, git branch, writer lock. Reads the JSON Claude passes on stdin.
+in="$(cat)"
+model="$(printf '%s' "$in" | /usr/bin/python3 -c 'import sys,json;d=json.load(sys.stdin);print(d.get("model",{}).get("display_name","?"))' 2>/dev/null || echo "?")"
+dir="$(printf '%s' "$in" | /usr/bin/python3 -c 'import sys,json;d=json.load(sys.stdin);print(d.get("workspace",{}).get("current_dir","."))' 2>/dev/null || echo ".")"
+branch="$(git -C "$dir" branch --show-current 2>/dev/null || echo "-")"
+printf '%s | %s | load %s' "$model" "$branch" "$(sysctl -n vm.loadavg | awk '{print $2}')"

@@ -1,0 +1,44 @@
+<!doctype html>
+<!-- Square post. CSS 540x540, rendered at deviceScaleFactor 2 -> 1080x1080 PNG.
+     Slots: eyebrow, title, body, cta, label. Theme: "dark" (default) or "light". -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Hanken+Grotesk:wght@400;500;600;700&display=block">
+<link rel="stylesheet" href="base.css">
+<style>
+  :root { --w: 540px; --h: 540px; }
+  .canvas { padding: var(--pad); display: flex; flex-direction: column; }
+  .main { flex: 1; display: flex; align-items: center; }
+  .card { width: 100%; padding: 34px 32px; display: flex; flex-direction: column; gap: 14px; }
+  .title { font-size: 40px; }
+  .body { font-size: 16px; }
+  .row { display: flex; justify-content: space-between; align-items: center; }
+  .label-concept { bottom: 16px; left: 50%; transform: translateX(-50%); }
+</style>
+</head>
+<body>
+<div class="canvas" data-theme="dark">
+  <div class="orb orb--peach" style="width:240px;height:240px;right:-60px;top:-60px;opacity:.45"></div>
+  <div class="orb orb--peri" style="width:260px;height:260px;left:-90px;bottom:-80px"></div>
+  <div class="grain"></div>
+  <div class="label-concept" data-slot="label"></div>
+
+  <div class="brand"><img src="../../apps/web/public/brand/ventra-mark.png" alt="">VENTRA</div>
+  <div class="main">
+    <div class="glass card">
+      <div class="eyebrow" data-slot="eyebrow">For service businesses</div>
+      <h1 class="title" data-slot="title">Your AI <em>front office</em></h1>
+      <p class="body" data-slot="body">Answered calls, faster replies and booked jobs, without adding staff.</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="meta">Launching soon</div>
+    <div class="pill pill--action" data-slot="cta">Join the waitlist</div>
+  </div>
+</div>
+<script src="fill.js"></script>
+</body>
+</html>

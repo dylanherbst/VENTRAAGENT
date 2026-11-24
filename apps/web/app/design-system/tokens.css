@@ -1,0 +1,125 @@
+/* VENTRA UI pack v1.0. Scoped to the new shell: legacy authoring remains unchanged. */
+.ventra-app {
+ --v-accent:#14BAB8; --v-ink-teal:#07393D; --v-ink-deep:#071F24; --v-text:#111D21;
+ --v-text-muted:#5A696F; --v-text-faint:#7D8B91; --v-bg:#E8EFF1; --v-bg-cool:#DBE8EA;
+ --v-glass:rgba(255,255,255,.42); --v-glass-strong:rgba(255,255,255,.68);
+ --v-glass-stroke:rgba(255,255,255,.72); --v-glass-stroke-subtle:rgba(112,146,153,.15);
+ --v-glow:rgba(20,186,184,.20); --v-success:#138969; --v-warning:#AC7728; --v-danger:#C84D56;
+ color-scheme:light; color:var(--v-text); font:400 14px/1.5 Inter,system-ui,-apple-system,sans-serif;
+ background:radial-gradient(ellipse at 0% 80%,#14bab818,transparent 40%),radial-gradient(ellipse at 100% 12%,#14bab812,transparent 38%),linear-gradient(135deg,#F0F5F5,#DCE8EA);
+ min-height:100dvh; display:grid; grid-template-columns:248px minmax(0,1fr); isolation:isolate;
+}
+.ventra-app * {box-sizing:border-box}
+.ventra-app :is(h1,h2,h3,h4,p){color:inherit;letter-spacing:normal;line-height:1.5;margin:0}
+.ventra-app :is(h2,h3){font-size:18px;font-weight:600;line-height:25px}
+.ventra-app p{color:var(--v-text-muted);max-width:76ch}
+.ventra-app a{color:inherit;text-decoration:none}
+.ventra-app svg{width:21px;height:21px;flex-shrink:0;vertical-align:middle}
+.ventra-app :focus-visible{outline:3px solid #08777b;outline-offset:4px}
+.v-glass{min-width:0;background:linear-gradient(135deg,rgba(255,255,255,.58),rgba(246,252,252,.28));border:1px solid var(--v-glass-stroke);box-shadow:0 12px 36px rgba(15,49,54,.08),inset 0 1px 0 rgba(255,255,255,.7);backdrop-filter:blur(22px) saturate(120%);-webkit-backdrop-filter:blur(22px) saturate(120%);border-radius:18px;padding:20px}
+.v-glass-strong{background:var(--v-glass-strong)}
+.ventra-app .v-button{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:10px 18px;font-family:inherit;font-size:14px;line-height:1.4;font-weight:500;border-radius:999px;border:1px solid var(--v-glass-stroke);background:rgba(255,255,255,.62);color:var(--v-text);text-decoration:none;cursor:pointer;transition:box-shadow 180ms ease-out,background 180ms ease-out}
+.ventra-app .v-button:hover:not(:disabled){background:#ffffffde;box-shadow:0 6px 16px #0f313612;border-color:#fff}
+.ventra-app .v-button-primary,.ventra-app .v-button[aria-pressed=true]{background:linear-gradient(130deg,#071F24,#07565A);color:#fff;border-color:#0b5b60;box-shadow:0 4px 14px #14bab825}
+.ventra-app .v-button:disabled{background:#dbe4e6;color:#56656b;cursor:not-allowed}
+.ventra-app .v-button-icon{width:44px;height:44px;padding:10px;flex-shrink:0}
+.v-sidebar{position:sticky;top:0;height:100dvh;overflow-y:auto;display:flex;flex-direction:column;padding:30px 20px 20px;background:#ffffff24;border-right:1px solid #ffffff9e}
+.v-wordmark{display:block;font-size:26px;letter-spacing:4px;white-space:nowrap;font-weight:500;line-height:1.2}
+.v-wordmark small{display:block;font-size:7px;letter-spacing:2.3px;margin-top:8px;line-height:1.4}
+.v-sidebar nav{display:grid;gap:5px;margin-top:34px}
+.v-sidebar nav a,.v-mobile-menu a{display:flex;align-items:center;gap:14px;min-height:46px;padding:10px 14px;border-radius:14px;color:#475e65;font-weight:500}
+.v-sidebar nav a[aria-current],.v-dock a[aria-current]{color:#fff;background:linear-gradient(115deg,#071F24,#07565A);box-shadow:0 4px 18px #14bab82b}
+.v-sidebar nav a:hover,.v-mobile-menu a:hover{background:#ffffff70}
+.v-nav-secondary{border-top:1px solid #fff9;margin-top:18px;padding-top:18px}
+.v-sidebar-foot{margin-top:auto;padding-top:24px;font-size:12px}
+.v-sidebar-foot p{margin:8px 0!important}.v-sidebar-foot a{display:flex;align-items:center;gap:8px;min-height:44px}
+.v-status{display:inline-flex;align-items:center;border:1px solid #8aa9ad6e;background:#ffffff66;padding:4px 9px;border-radius:999px;font-size:11px;color:#37595e;font-weight:500}
+.v-main-wrap{min-width:0;padding:24px;max-width:1600px;width:100%;margin:auto}
+.v-header{display:flex;gap:16px;align-items:center;min-width:0;margin-bottom:20px}
+.v-search{display:flex;align-items:center;gap:10px;background:#ffffff73;border:1px solid #ffffffbd;border-radius:999px;padding:0 14px;flex:1;max-width:700px;margin:0 auto 0 0;min-width:0}
+.ventra-app .v-input{background:transparent;border:0;border-radius:999px;width:100%;padding:12px 0;min-height:46px;color:var(--v-text);font:inherit;line-height:1.5;margin:0;min-width:0}
+.ventra-app .v-input::placeholder{color:#5A696F;opacity:1}
+.v-account{display:flex;align-items:center;gap:10px;min-height:44px;font-size:12px}
+.v-account small{display:block;color:var(--v-text-muted);font-size:10px}.v-account-icon{display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:#fff9}
+.v-menu-toggle,.v-mobile-brand,.v-mobile-menu,.v-dock,.v-mobile-chips{display:none!important}
+.v-main{min-width:0}.v-trust{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:16px;font-size:12px;flex-wrap:wrap;color:#475e65}
+.v-page-title{font-size:28px!important;line-height:36px!important;font-weight:600!important;margin-bottom:16px!important}
+.v-overview{display:grid;grid-template-columns:1.05fr 1fr;gap:16px}
+.v-hero{position:relative;overflow:hidden;min-height:252px;border-radius:24px;background:radial-gradient(ellipse at 0 0,#318c8f88,transparent 65%),linear-gradient(130deg,#577779,#102f34 80%);color:white;padding:24px;isolation:isolate}
+.v-hero-copy{position:relative;z-index:1;max-width:75%}.v-overline{font-size:10px;letter-spacing:.07em;background:#ffffff14;border:1px solid #ffffff44;border-radius:6px;padding:4px 6px;display:inline-block}
+.ventra-app .v-hero h2{font-size:28px;line-height:1.12;letter-spacing:-.02em;margin:16px 0 8px;color:#fff}
+.ventra-app .v-hero p{color:#f0f7f7;line-height:1.45;font-size:14px}.ventra-app .v-hero small{display:block;font-size:10px;color:#edf5f5;margin-top:10px;max-width:28ch}
+.ventra-app .v-hero-cta{background:#fff;color:#10272b;margin-top:16px;font-weight:600;padding:10px 17px}
+.v-growth-art{position:absolute;inset:22px 18px -18px auto;width:40%;display:flex;gap:9px;align-items:end;z-index:0;transform:rotate(-5deg);opacity:.7;pointer-events:none}
+.v-growth-art i{width:29%;height:45%;background:linear-gradient(90deg,#a6ffff40,#d5ffff70 40%,#145b6244);box-shadow:inset 2px 2px 5px #ffffff88,0 0 24px #14bab82b;border:1px solid #cfffff80;border-radius:20px 20px 4px 4px}.v-growth-art i:nth-child(2){height:65%}.v-growth-art i:nth-child(3){height:87%}
+.v-kpis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.v-kpi{display:flex;align-items:flex-start;gap:12px;padding:16px}.v-kpi-title{font-size:12px;display:block}.v-kpi strong{display:block;font-size:28px;font-weight:600;line-height:1.2;margin:4px 0}.v-kpi small{display:block;font-size:10px;color:var(--v-text-muted)}
+.v-icon-tile{width:44px;height:44px;border:1px solid #ffffffe0;border-radius:13px;background:radial-gradient(ellipse at 20% 0,#fff9,#8dcacc38);display:grid;place-items:center;flex-shrink:0;color:#08686f;box-shadow:inset 0 1px 5px #fff9,0 5px 12px #18656c09}
+.v-chips{display:flex;gap:8px;overflow-x:auto;padding:4px 2px 9px;scrollbar-width:thin;max-width:100%}.v-chips .v-button{white-space:nowrap;flex-shrink:0;font-size:12px;min-height:44px;padding:9px 16px}
+.v-desktop-chips{margin:12px 0 14px;min-width:0}
+.v-content-grid,.v-bottom-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}.v-bottom-grid{margin-top:20px}.v-section-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:4px}.v-section-heading a{display:inline-flex;align-items:center;gap:6px;font-size:12px;min-height:44px}.v-section-heading a svg{width:16px}
+.ventra-app .v-list-note{font-size:11px;margin-bottom:10px}.v-services{display:grid;gap:10px}.v-service{display:flex;align-items:center;gap:14px;min-height:92px;padding:14px;border-radius:18px}.v-service-copy{display:grid;gap:4px;flex:1;min-width:0}.v-service-copy strong{font-size:14px;font-weight:600}.v-service-copy>span{font-size:12px;color:var(--v-text-muted);line-height:1.4}.v-service-copy small{font-size:10px;color:#70531e}.v-arrow{width:32px;height:32px;background:#fff7;border-radius:50%;display:grid;place-items:center;flex-shrink:0}.v-arrow svg{width:18px}
+.ventra-app a.v-glass:hover{background-color:#ffffff6b;box-shadow:0 18px 45px #0f313614}.v-setup>p{font-size:12px;margin:6px 0 12px}.v-step{display:flex;align-items:center;gap:12px;padding:14px 0;border-top:1px solid #ffffffa8;min-height:78px}.v-step>span:nth-child(2){flex:1;min-width:0}.v-step strong{display:block;font-size:13px;font-weight:600}.v-step small{display:block;font-size:11px;color:var(--v-text-muted);margin-top:3px}.v-step-number{width:32px;height:32px;border-radius:50%;background:linear-gradient(130deg,#07393D,#166b70);color:#fff;display:grid;place-items:center;flex-shrink:0;box-shadow:0 4px 12px #14bab825}
+.v-activity>p{font-size:12px;margin-top:6px}.v-empty{padding-top:20px;display:grid;gap:12px}.v-empty p{font-size:12px}.v-empty>a{display:inline-flex;align-items:center;gap:8px;font-size:12px;min-height:44px}.v-chart-empty{min-height:180px;background:repeating-linear-gradient(to bottom,transparent 0,transparent 43px,#75999b1c 44px);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:9px;margin-top:12px}.v-chart-empty>svg{color:#35686d}.v-chart-empty p{font-size:12px}
+.ventra-app .v-footer{color:#53686e;font-size:11px;margin:24px 0 0;line-height:1.6}.v-footer a{text-decoration:underline}.v-feedback{background:#fff4e8;border:1px solid #b98855;border-radius:14px;padding:16px;margin-bottom:16px}.v-feedback a{text-decoration:underline}.v-notifications{margin-bottom:16px}.v-notifications p{margin:8px 0 12px}.v-info{max-width:780px}.v-info p{margin:12px 0 20px}.v-directory{max-width:1000px}.v-directory .v-services{grid-template-columns:repeat(2,minmax(0,1fr))}
+.v-sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+.v-skip{position:fixed;top:8px;left:8px;z-index:50;transform:translateY(-200%);padding:12px;background:#fff;border:2px solid #08777b;border-radius:8px}.v-skip:focus{transform:none}
+@media(min-width:1024px) and (max-width:1199px){.ventra-app{grid-template-columns:208px minmax(0,1fr)}.v-sidebar{padding:24px 14px}.v-main-wrap{padding:20px}.v-kpi{padding:12px;gap:8px}.v-kpi .v-icon-tile{width:32px;height:32px}.v-hero{padding:20px}.v-hero-copy{max-width:86%}.v-account>span:last-child{display:none}}
+@media(max-width:1023px){.ventra-app{display:block}.v-sidebar{display:none}.v-main-wrap{padding:20px 20px calc(104px + env(safe-area-inset-bottom))}.ventra-app .v-menu-toggle{display:inline-flex!important}.v-account{display:none}.v-mobile-brand{display:block!important;margin:auto}.v-mobile-brand .v-wordmark{font-size:23px;letter-spacing:3px}.v-mobile-brand small{display:none}.v-header{flex-wrap:wrap;gap:14px;margin-bottom:16px}.v-search{order:4;flex-basis:100%;max-width:none;margin:0}.v-dock{position:fixed;bottom:calc(12px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);width:min(calc(100% - 32px),520px);display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px;padding:7px;border-radius:30px;z-index:20;background:#eaf3f3ed;backdrop-filter:blur(18px)}.v-dock a{display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:0;min-height:52px;font-size:10px;gap:4px;border-radius:22px}.v-dock a svg{width:20px;height:20px}.v-mobile-menu{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px;margin-bottom:16px;max-height:55dvh;overflow:auto}.v-mobile-menu a{font-size:13px}.v-mobile-menu a[aria-current]{background:#07393d;color:#fff}.v-main-wrap{margin:0}.v-overview{gap:14px}.v-hero{min-height:270px}.v-hero-copy{max-width:85%}}
+@media(max-width:639px){.v-main-wrap{padding:20px 16px calc(104px + env(safe-area-inset-bottom))}.v-overview{display:flex;flex-direction:column}.v-hero{order:0;min-height:235px;padding:20px;border-radius:22px}.v-hero-copy{max-width:78%}.ventra-app .v-hero h2{font-size:26px;max-width:8ch;margin-top:12px}.ventra-app .v-hero p{font-size:13px}.v-hero .v-overline{font-size:9px}.v-growth-art{width:37%;right:12px;opacity:.55}.v-kpis{order:1;gap:10px;margin-top:10px}.v-kpi{min-height:112px;padding:12px;gap:9px}.v-kpi .v-icon-tile{width:32px;height:32px;border-radius:10px}.v-kpi .v-icon-tile svg{width:18px}.v-kpi-title{font-size:11px}.v-kpi strong{font-size:24px}.v-content-grid,.v-bottom-grid{grid-template-columns:minmax(0,1fr);gap:20px}.v-content-grid{margin-top:20px}.v-directory .v-services{grid-template-columns:minmax(0,1fr)}.v-mobile-chips{display:block!important;margin-bottom:12px;min-width:0}.v-desktop-chips{display:none}.v-trust{font-size:11px;margin-bottom:10px}.v-trust>span:last-child{max-width:100%;overflow-wrap:anywhere}.v-section-heading h2{font-size:17px}.v-service{padding:14px;gap:12px;min-height:96px}.v-service-copy strong{font-size:14px}.v-service-copy>span{font-size:12px}.v-setup,.v-activity,.v-chart{padding:16px}.v-section-heading a{font-size:11px}.v-main{display:flex;flex-direction:column}.v-chart-empty{min-height:160px}.v-footer{margin-bottom:16px!important}.v-chips .v-button{font-size:12px;padding:10px 14px}.v-mobile-menu a{gap:8px;padding:8px;font-size:12px}.v-hero small{max-width:23ch!important}.v-page-title{font-size:24px!important}}
+@media(max-width:359px){.v-main-wrap{padding-left:12px;padding-right:12px}.v-kpi{gap:6px;padding:10px}.v-kpi .v-icon-tile{display:none}.v-hero-copy{max-width:88%}.v-growth-art{opacity:.3}.v-dock{width:calc(100% - 20px)}.v-service{gap:9px;padding:12px}.v-service .v-icon-tile{width:36px;height:36px}.v-arrow{width:28px;height:28px}.v-overline{letter-spacing:0}}
+@supports not(backdrop-filter:blur(1px)){.v-glass{background:#eef5f5}.v-hero{background:#244b50}.v-dock{background:#edf5f5}}
+@media(prefers-reduced-motion:reduce){.ventra-app *{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+
+.ventra-app .v-service-copy, .ventra-app .v-step>span:nth-child(2) { overflow-wrap:anywhere; }
+@media(max-width:639px) { .v-service-copy>span { font-size:14px;line-height:21px; } .v-hero p { font-size:14px!important; } }
+
+/* Reviewed mobile composition: recommendations precede reporting. */
+body:has(.ventra-app) { color-scheme:light; background:#E8EFF1; }
+.v-search>svg { color:#5A696F; }
+@media(max-width:639px) {
+ .v-overview { display:contents; }
+ .v-trust { order:0; }
+ .v-feedback { order:1; }
+ .v-mobile-chips { order:2; }
+ .v-hero { order:3; padding:16px; }
+ .v-content-grid { order:4; }
+ .v-kpis { order:5; margin-top:20px; }
+ .v-bottom-grid { order:6; }
+ .v-footer { order:7; }
+ .v-hero .v-overline { padding:3px 5px; }
+ .ventra-app .v-hero h2 { margin:10px 0 6px; }
+ .ventra-app .v-hero-cta { margin-top:12px; }
+ .ventra-app .v-hero small { font-size:10px; margin-top:7px; }
+ .v-chips { scrollbar-width:none; mask-image:linear-gradient(to right,#000 94%,transparent); }
+ .v-chips::-webkit-scrollbar { display:none; }
+}
+
+/* ---- Theme tokens (docs/DESIGN.md "Dark glass theme"). Light = approved V5 teal glass; dark = reference look. ---- */
+.ventra-app {
+ --v-font-display:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+ --v-radius-panel:22px; --v-radius-stat:20px;
+ --v-page:linear-gradient(125deg,#f0f5f5,#e3edef 68%,#dce8ea);
+ --v-blue:#0a6a70; --v-blue-soft:#075e65; --v-blue-card:linear-gradient(135deg,#071F24,#07565A);--v-primary-grad:linear-gradient(130deg,#071F24,#07565A);
+ --v-on-blue-card:#fff; --v-field:rgba(255,255,255,.62); --v-nav-on:linear-gradient(115deg,#071F24,#07565A); --v-nav-on-ink:#fff;
+ --v-bar:linear-gradient(180deg,#5fd3d1,#14BAB8); --v-track:rgba(7,57,61,.12);
+ --v-shadow:0 12px 36px rgba(15,49,54,.10); --v-focus:#08777b; --v-link:#075e65;
+ --v-series-1:#14BAB8; --v-series-2:#6a8fa8; --v-series-3:#b7a36a; --v-series-4:#8a7fb8;
+}
+.ventra-app[data-theme=dark] {
+ color-scheme:dark;
+ --v-text:#F6F1EC; --v-text-muted:#CBC0B5; --v-text-faint:#A99D91;
+ --v-bg:#1d1814; --v-bg-cool:#262019;
+ --v-page:radial-gradient(ellipse 42% 55% at 6% 10%,rgba(214,160,108,.55),transparent 62%),radial-gradient(ellipse 36% 46% at 94% 6%,rgba(170,128,98,.45),transparent 64%),radial-gradient(ellipse 34% 44% at 82% 92%,rgba(160,108,74,.50),transparent 62%),radial-gradient(ellipse 52% 30% at 28% 104%,rgba(128,86,58,.55),transparent 66%),linear-gradient(180deg,#3a2f28,#221b16);
+ --v-gold-card:linear-gradient(135deg,rgba(214,176,98,.34),rgba(120,90,50,.30));
+ --v-glass:rgba(255,255,255,.07); --v-glass-strong:rgba(255,255,255,.12);
+ --v-glass-stroke:rgba(255,255,255,.16); --v-glass-stroke-subtle:rgba(255,255,255,.10);
+ --v-accent:#8FB0FF; --v-glow:rgba(143,176,255,.25);
+ --v-blue:#8FB0FF; --v-blue-soft:#B9CCFF; --v-blue-card:linear-gradient(135deg,#4C6BDB,#7690EA);--v-primary-grad:linear-gradient(135deg,#4C6BDB,#6C88E8); --v-on-blue-card:#fff;
+ --v-field:rgba(255,255,255,.08); --v-nav-on:rgba(255,255,255,.16); --v-nav-on-ink:#fff;
+ --v-bar:linear-gradient(180deg,#C9D6FF,#7F9BF2); --v-track:rgba(255,255,255,.14);
+ --v-success:#6FD3AE; --v-warning:#E5BC76; --v-danger:#F08A92;
+ --v-shadow:0 18px 48px rgba(0,0,0,.28); --v-focus:#B9CCFF; --v-link:#B9CCFF;
+ --v-series-1:#8FB0FF; --v-series-2:#6FD3AE; --v-series-3:#B9A5F0; --v-series-4:#E5BC76;
+ background:var(--v-page);background-attachment:fixed;
+}
+.ventra-app :focus-visible{outline-color:var(--v-focus)}

@@ -1,0 +1,565 @@
+{
+  "version": 1,
+  "updatedAt": "2026-11-10T17:28:06.836Z",
+  "project": "website",
+  "integrationBranch": "frontend/website-ui",
+  "worktree": "~/Developer/VENTRA-WEBSITE",
+  "lastRun": null,
+  "tasks": [
+    {
+      "id": "W-0",
+      "title": "Website audit and approach: what exists in apps/web/app/site/** (pages, _ui, site.css, demos, get-started, track.ts), which design-system components are usable on the site, what auth/Stripe/checkout code exists and its frozen state, and the page map for the 10 required pages with routes",
+      "phase": 4,
+      "module": "website",
+      "owner": "ventra-research",
+      "state": "done",
+      "priority": 1,
+      "dependsOn": [],
+      "scope": [],
+      "acceptance": [
+        "docs/agents/WEBSITE_AUDIT.md written by the coordinator: existing vs missing per page, reusable components, the exact purchase journey (two decisions where possible), SEO baseline (titles/descriptions present?), performance baseline if a preview is up",
+        "Lists what needs the owner: Stripe test keys/products, domain/analytics accounts, copy facts, images"
+      ],
+      "plan": "Owner directive 2026-11-10 (Website & Store); Build Plan p.5 Website Launcher, p.8 phase 4",
+      "branch": "frontend/website-ui",
+      "worktree": "~/Developer/VENTRA-WEBSITE",
+      "startedAt": null,
+      "finishedAt": "2026-11-09T22:26:29.317Z",
+      "lastRunId": "c-9edb821b",
+      "runIds": [
+        "c-9edb821b"
+      ],
+      "commits": [],
+      "evidence": [
+        {
+          "at": "2026-11-09T22:26:29.317Z",
+          "kind": "note",
+          "detail": "ventra-research read-only audit of VENTRA-WEBSITE; coordinator wrote docs/agents/WEBSITE_AUDIT.md (pages existing vs missing, reuse verdicts, purchase journey proposal, SEO baseline, risks, owner needs). Performance baseline: none (no preview)."
+        }
+      ],
+      "blocker": null,
+      "notes": "Workstream D. Work only inside ~/Developer/VENTRA-WEBSITE on branch frontend/website-ui. Shared design system, auth and Stripe code are reused, never copied; changes to shared code go through a main-project task.",
+      "updatedAt": "2026-11-09T22:26:29.317Z"
+    },
+    {
+      "id": "W-1",
+      "title": "Site design contract: site shell (header/nav/footer, mobile menu, glass tokens), section components for the marketing pages, page template, and docs/agents/SITE_DESIGN.md describing them; no copies of design-system components",
+      "phase": 4,
+      "module": "website",
+      "owner": "ventra-web-design",
+      "state": "blocked",
+      "priority": 1,
+      "dependsOn": [],
+      "scope": [
+        "apps/web/app/site/_ui/**",
+        "apps/web/app/site/layout.tsx",
+        "apps/web/app/site/site.css",
+        "docs/agents/SITE_DESIGN.md",
+        "apps/web/test/site-shell.test.ts"
+      ],
+      "acceptance": [
+        "Shell renders at 390px and 1440px with no horizontal scroll; keyboard-navigable menu; lint/typecheck/tests pass",
+        "SITE_DESIGN.md: components, tokens used, where each page's content goes, accessibility rules",
+        "Playwright screenshots recorded in the report"
+      ],
+      "plan": "Owner directive 2026-11-10 (Website & Store); Build Plan p.5 Website Launcher, p.8 phase 4",
+      "branch": "frontend/website-ui",
+      "worktree": "~/Developer/VENTRA-WEBSITE",
+      "startedAt": null,
+      "finishedAt": "2026-11-09T22:26:32.358Z",
+      "lastRunId": "c-df526914",
+      "runIds": [
+        "c-9edb821b",
+        "c-90917b1a",
+        "c-df526914"
+      ],
+      "commits": [],
+      "evidence": [
+        {
+          "at": "2026-11-10T16:16:00Z",
+          "kind": "review",
+          "detail": "c-90917b1a ventra-qa: code PASS WITH NITS (menu aria-expanded/controls, Escape + focus return, overflow-x clip, no secrets, scope clean); acceptance FAIL: SITE_DESIGN.md missing, no screenshots, browser check blocked. Findings: --faint #8A979C ~3:1 on white used for small text (medium); nav links 404 until W-3..W-8 (medium); home page does not yet use the new Hero/Section/PlanCard components; chrome.tsx dead stub (deletion needs owner OK)."
+        },
+        {
+          "at": "2026-11-10T16:19:00Z",
+          "kind": "diff",
+          "detail": "c-90917b1a ventra-web-design: --faint changed to #647176 (5.04:1 white, 4.65:1 on #F4F6F7, lowest background); new docs/agents/SITE_DESIGN.md (~120 lines) in the worktree; new contrast test in site-shell.test.ts. Specialist reports typecheck 0, lint 0, tests 748/748."
+        },
+        {
+          "at": "2026-11-10T16:20:00Z",
+          "kind": "note",
+          "detail": "c-90917b1a: browser check at 390/1440 BLOCKED: curl to localhost:3020 and npx playwright denied for subagents; Playwright not installed in either worktree. Next cycle: coordinator installs Playwright as a dev dependency through a main-project task (package.json is shared) or the owner runs the check; then commit W-1 in the worktree (exclude next-env.d.ts and test-results/)."
+        },
+        {
+          "at": "2026-11-09T22:26:32.358Z",
+          "kind": "diff",
+          "detail": "uncommitted in VENTRA-WEBSITE: new site/_ui/meta.ts, shell.tsx, sections.tsx, test/site-shell.test.ts; modified site layout, page, privacy, terms, get-started, icons, chrome (pass-through), site.css"
+        },
+        {
+          "at": "2026-11-09T22:26:32.358Z",
+          "kind": "test",
+          "detail": "coordinator: npm --prefix VENTRA-WEBSITE/apps/web test 747/747 pass (specialist also reports typecheck 0, lint 0)"
+        },
+        {
+          "at": "2026-11-09T22:26:32.358Z",
+          "kind": "note",
+          "detail": "NOT committed: needs ventra-review (diff >150 lines) and 390/1440 browser check next cycle. Open: SITE_DESIGN.md not written; chrome.tsx deletion needs owner OK; nav links 404 until W-3..W-8; W-3 path course vs courses mismatch; next.config domain mapping for new pages (W-13); home OG title changed."
+        },
+        {
+          "at": "2026-11-10T17:28:06.836Z",
+          "kind": "review",
+          "detail": "c-df526914 ventra-review: PASS WITH FIXES. Fixed by ventra-web-design this cycle: canonicalPath now returns reachable paths (/, /privacy, /terms rewritten; /site/<slug> otherwise, ROOT_REWRITES tested against next.config.mjs), mobile menu closes on focus-out (disclosure pattern, no trap, documented), home OG title restored via ogTitle. Low/accepted: chrome.tsx unused pass-through (deletion needs owner OK), nav links 404 until W-3..W-8."
+        },
+        {
+          "at": "2026-11-10T17:28:06.836Z",
+          "kind": "diff",
+          "detail": "uncommitted in VENTRA-WEBSITE: _ui/{chrome,get-started,icons}.tsx, new _ui/{meta.ts,sections.tsx,shell.tsx}, site/{layout,page,site.css,privacy/page,terms/page}, test/site-shell.test.ts, docs/agents/SITE_DESIGN.md. Exclude from commit: apps/web/next-env.d.ts (generated), apps/web/test-results/."
+        },
+        {
+          "at": "2026-11-10T17:28:06.836Z",
+          "kind": "test",
+          "detail": "coordinator c-df526914: VENTRA-WEBSITE apps/web test 751/751 pass (was 748), lint exit 0, typecheck exit 0"
+        },
+        {
+          "at": "2026-11-10T17:28:06.836Z",
+          "kind": "browser",
+          "detail": "c-df526914: NOT RUN. curl/Playwright against localhost:3020 is refused by the permission system in coordinator sessions (ventra-qa and coordinator both refused). Not committed: acceptance requires 390/1440 screenshots."
+        }
+      ],
+      "blocker": {
+        "reason": "Browser check blocked: coordinator sessions may not reach localhost:3020 (curl/Playwright refused). Owner: either allow 'curl http://localhost:3020/*' and 'node /tmp/w1-qa.mjs' for coordinator sessions, or open the site at 390px and 1440px yourself and test the mobile menu (Tab, Enter, Escape). Then the coordinator commits W-1 (paths listed in evidence).",
+        "needsApproval": true,
+        "approvalId": null,
+        "since": "2026-11-10T17:30:00Z"
+      },
+      "notes": "Workstream D. Work only inside ~/Developer/VENTRA-WEBSITE on branch frontend/website-ui. Shared design system, auth and Stripe code are reused, never copied; changes to shared code go through a main-project task.",
+      "updatedAt": "2026-11-10T17:28:06.836Z"
+    },
+    {
+      "id": "W-2",
+      "title": "Homepage: hero (outcome promise), the three journeys (Start / Teach / Grow), AI Setter + AI Receptionist cards, how it works, honest status (launching soon / waitlist), primary CTA to waitlist/demo, secondary to store",
+      "phase": 4,
+      "module": "website",
+      "owner": "ventra-web-design",
+      "state": "queued",
+      "priority": 1,
+      "dependsOn": [
+        "W-1"
+      ],
+      "scope": [
+        "apps/web/app/site/page.tsx",
+        "apps/web/app/site/_ui/home/**",
+        "apps/web/test/site-home.test.ts"
+      ],
+      "acceptance": [
+        "Mobile and desktop checks pass; no invented numbers or testimonials; CTAs route to real pages or the waitlist form",
+        "Preview on http://127.0.0.1:3020/ shows it; screenshots in report"
+      ],
+      "plan": "Owner directive 2026-11-10 (Website & Store); Build Plan p.5 Website Launcher, p.8 phase 4",
+      "branch": "frontend/website-ui",
+      "worktree": "~/Developer/VENTRA-WEBSITE",
+      "startedAt": null,
+      "finishedAt": null,
+      "lastRunId": null,
+      "runIds": [],
+      "commits": [],
+      "evidence": [],
+      "blocker": null,
+      "notes": "Workstream D. Work only inside ~/Developer/VENTRA-WEBSITE on branch frontend/website-ui. Shared design system, auth and Stripe code are reused, never copied; changes to shared code go through a main-project task."
+    },
+    {
+      "id": "W-3",
+      "title": "Course & Mentoring page",
+      "phase": 4,
+      "module": "website",
+      "owner": "ventra-web-design",
+      "state": "queued",
+      "priority": 2,
+      "dependsOn": [
+        "W-1"
+      ],
+      "scope": [
+        "apps/web/app/site/courses/**"
+      ],
+      "acceptance": [
+        "Explains the Teach journey from the Blueprint in outcome terms; CTA to waitlist/demo; mobile+desktop checks pass"
+      ],
+      "plan": "Owner directive 2026-11-10 (Website & Store); Build Plan p.5 Website Launcher, p.8 phase 4",
+      "branch": "frontend/website-ui",
+      "worktree": "~/Developer/VENTRA-WEBSITE",
+      "startedAt": null,
+      "finishedAt": null,
+      "lastRunId": null,
+      "runIds": [],
+      "commits": [],
+      "evidence": [],
+      "blocker": null,
+      "notes": "Workstream D. Work only inside ~/Developer/VENTRA-WEBSITE on branch frontend/website-ui. Shared design system, auth and Stripe code are reused, never copied; changes to shared code go through a main-project task."
+    },
+    {
+      "id": "W-4",
+      "title": "Start a Service Business page",
+      "phase": 4,
+      "module": "website",
+      "owner": "ventra-web-design",
+      "state": "queued",
+      "priority": 2,
+      "dependsOn": [
+        "W-1"
+      ],
+      "scope": [
+        "apps/web/app/site/start/**"
+      ],
+      "acceptance": [
+        "Explains the Start journey; CTA; checks pass"
+      ],
+      "plan": "Owner directive 2026-11-10 (Website & Store); Build Plan p.5 Website Launcher, p.8 phase 4",
+      "branch": "frontend/website-ui",
+      "worktree": "~/Developer/VENTRA-WEBSITE",
+      "startedAt": null,
+      "finishedAt": null,
+      "lastRunId": null,
+      "runIds": [],
+      "commits": [],
+      "evidence": [],
+      "blocker": null,
+      "notes": "Workstream D. Work only inside ~/Developer/VENTRA-WEBSITE on branch frontend/website-ui. Shared design system, auth and Stripe code are reused, never copied; changes to shared code go through a main-project task."
+    },
+    {
+      "id": "W-5",
+      "title": "Grow & Automate My Business page (Growth Audit entry)",
+      "phase": 4,
+      "module": "website",
+      "owner": "ventra-web-design",
+      "state": "queued",
+      "priority": 2,
+      "dependsOn": [
+        "W-1"
+      ],
+      "scope": [
+        "apps/web/app/site/grow/**"
+      ],
+      "acceptance": [
+        "Explains the Grow journey and the free Growth Audit; CTA into the audit/demo; checks pass"
+      ],
+      "plan": "Owner directive 2026-11-10 (Website & Store); Build Plan p.5 Website Launcher, p.8 phase 4",
+      "branch": "frontend/website-ui",
+      "worktree": "~/Developer/VENTRA-WEBSITE",
+      "startedAt": null,
+      "finishedAt": null,
+      "lastRunId": null,
+      "runIds": [],
+      "commits": [],
+      "evidence": [],
+      "blocker": null,
+      "notes": "Workstream D. Work only inside ~/Developer/VENTRA-WEBSITE on branch frontend/website-ui. Shared design system, auth and Stripe code are reused, never copied; changes to shared code go through a main-project task."
+    },
+    {
+      "id": "W-6",
+      "title": "AI Setter page",
+      "phase": 4,
+      "module": "website",
+      "owner": "ventra-web-design",
+      "state": "queued",
+      "priority": 2,
+      "dependsOn": [
+        "W-1"
+      ],
+      "scope": [
+        "apps/web/app/site/ai-setter/**"
+      ],
+      "acceptance": [
+        "Outcome-first explanation of the Setter; honest 'what it does today' section aligned with FRONT_OFFICE_AUDIT.md; CTA to demo; checks pass"
+      ],
+      "plan": "Owner directive 2026-11-10 (Website & Store); Build Plan p.5 Website Launcher, p.8 phase 4",
+      "branch": "frontend/website-ui",
+      "worktree": "~/Developer/VENTRA-WEBSITE",
+      "startedAt": null,
+      "finishedAt": null,
+      "lastRunId": null,
+      "runIds": [],
+      "commits": [],
+      "evidence": [],
+      "blocker": null,
+      "notes": "Workstream D. Work only inside ~/Developer/VENTRA-WEBSITE on branch frontend/website-ui. Shared design system, auth and Stripe code are reused, never copied; changes to shared code go through a main-project task."
+    },
+    {
+      "id": "W-7",
+      "title": "AI Receptionist page",
+      "phase": 4,
+      "module": "website",
+      "owner": "ventra-web-design",
+      "state": "queued",
+      "priority": 2,
+      "dependsOn": [
+        "W-1"
+      ],
+      "scope": [
+        "apps/web/app/site/ai-receptionist/**"
+      ],
+      "acceptance": [
+        "Outcome-first explanation incl. the three operating modes; honest status; CTA; checks pass"
+      ],
+      "plan": "Owner directive 2026-11-10 (Website & Store); Build Plan p.5 Website Launcher, p.8 phase 4",
+      "branch": "frontend/website-ui",
+      "worktree": "~/Developer/VENTRA-WEBSITE",
+      "startedAt": null,
+      "finishedAt": null,
+      "lastRunId": null,
+      "runIds": [],
+      "commits": [],
+      "evidence": [],
+      "blocker": null,
+      "notes": "Workstream D. Work only inside ~/Developer/VENTRA-WEBSITE on branch frontend/website-ui. Shared design system, auth and Stripe code are reused, never copied; changes to shared code go through a main-project task."
+    },
+    {
+      "id": "W-8",
+      "title": "Pricing page fed by one pricing data source shared with the store",
+      "phase": 4,
+      "module": "website",
+      "owner": "ventra-store",
+      "state": "queued",
+      "priority": 2,
+      "dependsOn": [
+        "W-1"
+      ],
+      "scope": [
+        "apps/web/app/site/pricing/**",
+        "apps/web/lib/site/pricing.ts",
+        "apps/web/test/site-pricing.test.ts"
+      ],
+      "acceptance": [
+        "Plans/prices come from one typed source (no duplicate price text); GST note; CTA to store/checkout; unit test on the data"
+      ],
+      "plan": "Owner directive 2026-11-10 (Website & Store); Build Plan p.5 Website Launcher, p.8 phase 4",
+      "branch": "frontend/website-ui",
+      "worktree": "~/Developer/VENTRA-WEBSITE",
+      "startedAt": null,
+      "finishedAt": null,
+      "lastRunId": null,
+      "runIds": [],
+      "commits": [],
+      "evidence": [],
+      "blocker": null,
+      "notes": "Workstream D. Work only inside ~/Developer/VENTRA-WEBSITE on branch frontend/website-ui. Shared design system, auth and Stripe code are reused, never copied; changes to shared code go through a main-project task."
+    },
+    {
+      "id": "W-9",
+      "title": "Store / product selection page",
+      "phase": 4,
+      "module": "website",
+      "owner": "ventra-store",
+      "state": "queued",
+      "priority": 2,
+      "dependsOn": [
+        "W-8"
+      ],
+      "scope": [
+        "apps/web/app/site/store/**",
+        "apps/web/test/site-store.test.ts"
+      ],
+      "acceptance": [
+        "Lists products from the pricing source; selecting a product leads to checkout in one step; mobile+desktop checks"
+      ],
+      "plan": "Owner directive 2026-11-10 (Website & Store); Build Plan p.5 Website Launcher, p.8 phase 4",
+      "branch": "frontend/website-ui",
+      "worktree": "~/Developer/VENTRA-WEBSITE",
+      "startedAt": null,
+      "finishedAt": null,
+      "lastRunId": null,
+      "runIds": [],
+      "commits": [],
+      "evidence": [],
+      "blocker": null,
+      "notes": "Workstream D. Work only inside ~/Developer/VENTRA-WEBSITE on branch frontend/website-ui. Shared design system, auth and Stripe code are reused, never copied; changes to shared code go through a main-project task."
+    },
+    {
+      "id": "W-10",
+      "title": "Checkout in Stripe TEST mode via the existing /api/checkout and stripe-checkout.ts; decide with the owner how to un-freeze checkout for the website (the route answers 423 feature_paused today)",
+      "phase": 4,
+      "module": "website",
+      "owner": "ventra-store",
+      "state": "queued",
+      "priority": 2,
+      "dependsOn": [
+        "W-9"
+      ],
+      "scope": [
+        "apps/web/app/site/checkout/**",
+        "apps/web/lib/stripe-checkout.ts",
+        "apps/web/app/api/checkout/**",
+        "apps/web/test/stripe-checkout.test.ts",
+        "apps/web/test/site-checkout.test.ts"
+      ],
+      "acceptance": [
+        "Test-mode session created end to end with a Stripe test key when the owner supplies it; without a key the page shows an honest DEMO state",
+        "Un-freezing checkout is recorded as blocked needsApproval until the owner decides (scope freeze)",
+        "No live key path; secrets by env name only"
+      ],
+      "plan": "Owner directive 2026-11-10 (Website & Store); Build Plan p.5 Website Launcher, p.8 phase 4",
+      "branch": "frontend/website-ui",
+      "worktree": "~/Developer/VENTRA-WEBSITE",
+      "startedAt": null,
+      "finishedAt": null,
+      "lastRunId": null,
+      "runIds": [],
+      "commits": [],
+      "evidence": [],
+      "blocker": null,
+      "notes": "Workstream D. Work only inside ~/Developer/VENTRA-WEBSITE on branch frontend/website-ui. Shared design system, auth and Stripe code are reused, never copied; changes to shared code go through a main-project task."
+    },
+    {
+      "id": "W-11",
+      "title": "Login / Sign up pages on the existing Supabase auth; account created once, usable by the main app; subscription/entitlement state recorded in one place the app reads",
+      "phase": 4,
+      "module": "website",
+      "owner": "ventra-store",
+      "state": "queued",
+      "priority": 2,
+      "dependsOn": [
+        "W-1"
+      ],
+      "scope": [
+        "apps/web/app/site/login/**",
+        "apps/web/app/site/signup/**",
+        "apps/web/lib/site/entitlements.ts",
+        "apps/web/test/site-auth.test.ts"
+      ],
+      "acceptance": [
+        "Sign-up and login work against local Supabase; the same user appears in the main app's workspace; entitlement contract documented via a main-project task in API_CONTRACTS.md",
+        "No duplicate user tables"
+      ],
+      "plan": "Owner directive 2026-11-10 (Website & Store); Build Plan p.5 Website Launcher, p.8 phase 4",
+      "branch": "frontend/website-ui",
+      "worktree": "~/Developer/VENTRA-WEBSITE",
+      "startedAt": null,
+      "finishedAt": null,
+      "lastRunId": null,
+      "runIds": [],
+      "commits": [],
+      "evidence": [],
+      "blocker": null,
+      "notes": "Workstream D. Work only inside ~/Developer/VENTRA-WEBSITE on branch frontend/website-ui. Shared design system, auth and Stripe code are reused, never copied; changes to shared code go through a main-project task."
+    },
+    {
+      "id": "W-12",
+      "title": "Niche landing pages: Australian beauty, fitness and trades (one each) with conversion copy, outcome proof placeholders clearly labelled, waitlist/demo CTA",
+      "phase": 4,
+      "module": "website",
+      "owner": "ventra-marketing",
+      "state": "queued",
+      "priority": 3,
+      "dependsOn": [
+        "W-1"
+      ],
+      "scope": [
+        "apps/web/app/site/for/**"
+      ],
+      "acceptance": [
+        "Three pages; copy follows marketing/BRIEF.md truth rules; mobile+desktop checks"
+      ],
+      "plan": "Owner directive 2026-11-10 (Website & Store); Build Plan p.5 Website Launcher, p.8 phase 4",
+      "branch": "frontend/website-ui",
+      "worktree": "~/Developer/VENTRA-WEBSITE",
+      "startedAt": null,
+      "finishedAt": null,
+      "lastRunId": null,
+      "runIds": [],
+      "commits": [],
+      "evidence": [],
+      "blocker": null,
+      "notes": "Workstream D. Work only inside ~/Developer/VENTRA-WEBSITE on branch frontend/website-ui. Shared design system, auth and Stripe code are reused, never copied; changes to shared code go through a main-project task."
+    },
+    {
+      "id": "W-13",
+      "title": "SEO structure, analytics and campaign tracking: titles/descriptions/OG per page, sitemap/robots, structured data, consent-respecting analytics plan and UTM conventions (no paid tools, nothing activated)",
+      "phase": 4,
+      "module": "website",
+      "owner": "ventra-marketing",
+      "state": "queued",
+      "priority": 3,
+      "dependsOn": [
+        "W-2"
+      ],
+      "scope": [
+        "apps/web/app/site/_ui/seo.ts",
+        "apps/web/app/sitemap.ts",
+        "apps/web/app/robots.ts",
+        "docs/agents/SITE_SEO.md"
+      ],
+      "acceptance": [
+        "Every site page has unique metadata; sitemap/robots exist; SITE_SEO.md lists analytics options with what needs the owner's account"
+      ],
+      "plan": "Owner directive 2026-11-10 (Website & Store); Build Plan p.5 Website Launcher, p.8 phase 4",
+      "branch": "frontend/website-ui",
+      "worktree": "~/Developer/VENTRA-WEBSITE",
+      "startedAt": null,
+      "finishedAt": null,
+      "lastRunId": null,
+      "runIds": [],
+      "commits": [],
+      "evidence": [],
+      "blocker": null,
+      "notes": "Workstream D. Work only inside ~/Developer/VENTRA-WEBSITE on branch frontend/website-ui. Shared design system, auth and Stripe code are reused, never copied; changes to shared code go through a main-project task."
+    },
+    {
+      "id": "W-14",
+      "title": "Website QA: mobile/desktop layouts, navigation, sales journey, accessibility, loading speed, Stripe test-mode checkout",
+      "phase": 4,
+      "module": "website",
+      "owner": "ventra-qa",
+      "state": "queued",
+      "priority": 3,
+      "dependsOn": [
+        "W-2",
+        "W-9"
+      ],
+      "scope": [],
+      "acceptance": [
+        "PASS/FAIL per page with reproduction steps and measured performance numbers; failures become W- tasks"
+      ],
+      "plan": "Owner directive 2026-11-10 (Website & Store); Build Plan p.5 Website Launcher, p.8 phase 4",
+      "branch": "frontend/website-ui",
+      "worktree": "~/Developer/VENTRA-WEBSITE",
+      "startedAt": null,
+      "finishedAt": null,
+      "lastRunId": null,
+      "runIds": [],
+      "commits": [],
+      "evidence": [],
+      "blocker": null,
+      "notes": "Workstream D. Work only inside ~/Developer/VENTRA-WEBSITE on branch frontend/website-ui. Shared design system, auth and Stripe code are reused, never copied; changes to shared code go through a main-project task."
+    },
+    {
+      "id": "W-15",
+      "title": "Waitlist / request-a-demo form that creates a front-office contact (website channel) through the shared CRM contract, so the Setter can follow up when live",
+      "phase": 4,
+      "module": "website",
+      "owner": "ventra-store",
+      "state": "queued",
+      "priority": 3,
+      "dependsOn": [
+        "W-1"
+      ],
+      "scope": [
+        "apps/web/app/site/waitlist/**",
+        "apps/web/app/api/site/waitlist/**",
+        "apps/web/test/site-waitlist.test.ts"
+      ],
+      "acceptance": [
+        "Submits to a route that writes an fo_contacts row with consent recorded; honest confirmation; works in DEMO without Supabase"
+      ],
+      "plan": "Owner directive 2026-11-10 (Website & Store); Build Plan p.5 Website Launcher, p.8 phase 4",
+      "branch": "frontend/website-ui",
+      "worktree": "~/Developer/VENTRA-WEBSITE",
+      "startedAt": null,
+      "finishedAt": null,
+      "lastRunId": null,
+      "runIds": [],
+      "commits": [],
+      "evidence": [],
+      "blocker": null,
+      "notes": "Workstream D. Work only inside ~/Developer/VENTRA-WEBSITE on branch frontend/website-ui. Shared design system, auth and Stripe code are reused, never copied; changes to shared code go through a main-project task."
+    }
+  ]
+}

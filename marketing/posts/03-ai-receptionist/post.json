@@ -1,0 +1,35 @@
+{
+  "outDir": "~/Developer/VENTRA-MARKETING/posts/03-ai-receptionist",
+  "items": [
+    { "template": "carousel", "name": "slide-01", "theme": "dark", "slots": {
+      "eyebrow": "Meet the AI Receptionist", "title": "Every call *answered*", "page": "01 / 06",
+      "body": "Built to answer your business calls, understand the caller and book them in.",
+      "points": ["Answers", "Understands", "Books, or puts the call through"],
+      "cta": "Swipe →", "label": "" } },
+    { "template": "carousel", "name": "slide-02", "theme": "dark", "slots": {
+      "eyebrow": "1 · Answers", "title": "Picks up when *you can't*", "page": "02 / 06",
+      "body": "On a job, with a client or after hours, the caller gets an answer instead of voicemail.",
+      "points": ["A real answer, not voicemail", "Asks what the caller needs", "Takes a message when needed"],
+      "cta": "Swipe →", "label": "Concept demonstration" } },
+    { "template": "carousel", "name": "slide-03", "theme": "dark", "slots": {
+      "eyebrow": "2 · Understands", "title": "Knows what the *caller* wants", "page": "03 / 06",
+      "body": "A new booking, a change of time, a cancellation, or a message for you.",
+      "points": ["Book a time", "Reschedule or cancel", "Leave a message"],
+      "cta": "Swipe →", "label": "Concept demonstration" } },
+    { "template": "carousel", "name": "slide-04", "theme": "dark", "slots": {
+      "eyebrow": "3 · Books or transfers", "title": "Books it in, or puts them *through*", "page": "04 / 06",
+      "body": "It checks availability and books a time. If the caller needs a person, it hands the call to you.",
+      "points": ["Checks availability", "Confirms the time", "Hands over to a person"],
+      "cta": "Swipe →", "label": "Concept demonstration" } },
+    { "template": "carousel", "name": "slide-05", "theme": "dark", "slots": {
+      "eyebrow": "Three modes", "title": "You choose how much it *does*", "page": "05 / 06",
+      "body": "Set it per business, and change it any time.",
+      "points": ["Automatic: it books on its own", "Owner approval: it asks you first", "Enquiry only: it takes the details for you"],
+      "cta": "Swipe →", "label": "Concept demonstration" } },
+    { "template": "carousel", "name": "slide-06", "theme": "dark", "slots": {
+      "eyebrow": "Where it's at", "title": "In sandbox *testing*", "page": "06 / 06",
+      "body": "Today the AI Receptionist runs simulated calls in our test lab. It isn't answering real calls yet.",
+      "points": ["Simulated calls only", "No real customers yet", "Launching soon"],
+      "cta": "Follow for the launch", "label": "" } }
+  ]
+}

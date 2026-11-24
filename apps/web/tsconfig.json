@@ -1,0 +1,86 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": false,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "incremental": true,
+    "allowImportingTsExtensions": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": [
+        "./*"
+      ]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts",
+    ".next-build/types/**/*.ts",
+    ".next-build/dev/types/**/*.ts",
+    ".next-qa-fixed/types/**/*.ts",
+    ".next-qa-fixed/dev/types/**/*.ts",
+    ".next-followup-20261016/types/**/*.ts",
+    ".next-followup-20261016/dev/types/**/*.ts",
+    ".next-crm-followup-20261016/types/**/*.ts",
+    ".next-crm-followup-20261016/dev/types/**/*.ts",
+    ".next-crm-pipeline-20261016/types/**/*.ts",
+    ".next-crm-pipeline-20261016/dev/types/**/*.ts",
+    ".next-crm-pipeline-followup-20261016/types/**/*.ts",
+    ".next-crm-pipeline-followup-20261016/dev/types/**/*.ts",
+    ".next-lead-capture-20261016/types/**/*.ts",
+    ".next-lead-capture-20261016/dev/types/**/*.ts",
+    ".next-lead-fix-20261016/types/**/*.ts",
+    ".next-lead-fix-20261016/dev/types/**/*.ts",
+    ".next-education-fix-20261016/types/**/*.ts",
+    ".next-education-fix-20261016/dev/types/**/*.ts",
+    ".next-ad-concept-20261016/types/**/*.ts",
+    ".next-ad-concept-20261016/dev/types/**/*.ts",
+    ".next-website-page-20261017/types/**/*.ts",
+    ".next-website-page-20261017/dev/types/**/*.ts",
+    ".next-website-page-final-20261017/types/**/*.ts",
+    ".next-website-page-final-20261017/dev/types/**/*.ts",
+    ".next-website-starters-20261017/types/**/*.ts",
+    ".next-website-starters-20261017/dev/types/**/*.ts",
+    ".next-website-starters-build-20261017/types/**/*.ts",
+    ".next-website-starters-build-20261017/dev/types/**/*.ts",
+    ".next-page-reorder-20261017/types/**/*.ts",
+    ".next-page-reorder-20261017/dev/types/**/*.ts",
+    ".next-page-removal-20261017/types/**/*.ts",
+    ".next-page-removal-20261017/dev/types/**/*.ts",
+    ".next-education-rank0-qa-20261018/types/**/*.ts",
+    ".next-education-rank0-qa-20261018/dev/types/**/*.ts",
+    ".next-certificate-qa-20261018/types/**/*.ts",
+    ".next-certificate-qa-20261018/dev/types/**/*.ts",
+    ".next-certificate-qa-recheck-20261018/types/**/*.ts",
+    ".next-certificate-qa-recheck-20261018/dev/types/**/*.ts",
+    ".next-certificate-corrected-20261018/types/**/*.ts",
+    ".next-certificate-corrected-20261018/dev/types/**/*.ts",
+    ".next-prod/types/**/*.ts",
+    ".next-prod/dev/types/**/*.ts",
+    ".next-lab/types/**/*.ts",
+    ".next-lab/dev/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

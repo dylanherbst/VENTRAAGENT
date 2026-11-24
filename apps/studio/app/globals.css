@@ -1,0 +1,44 @@
+/* AiMoneyPrinter Studio: white glass, purple accent, peach highlight, faint grid. Light and dark. */
+:root {
+  --amg-ink: #241340; --amg-ink-soft: #3f365a; --amg-muted: #5a5170; --amg-accent: #573496; --amg-peach: #f6b99a; --amg-line: rgb(63 54 90 / .14);
+  --amg-pearl: #ffffff; --amg-done: #2f9566; --amg-done-ink: #1c6a46; --amg-attn: #d9465f; --amg-attn-ink: #8d3044; --amg-work: #c88a14; --amg-panel-radius: 18px;
+  --amg-shadow: 0 1px 2px rgb(36 19 64 / .05), 0 8px 28px rgb(36 19 64 / .07); --bg: #f7f5fb;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --amg-ink: #efeaf9; --amg-ink-soft: #d6cfe8; --amg-muted: #aaa1c2; --amg-accent: #a98ae6; --amg-peach: #f0a886; --amg-line: rgb(220 210 245 / .16);
+    --amg-pearl: #1d1830; --amg-done: #45b886; --amg-done-ink: #8fe0b9; --amg-attn: #ef6a80; --amg-attn-ink: #ffb3bf; --amg-work: #e0a93a; --bg: #120f1d; color-scheme: dark; }
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; color: var(--amg-ink); min-height: 100vh;
+  background: radial-gradient(1200px 500px at 85% -10%, color-mix(in srgb, var(--amg-peach) 30%, transparent), transparent 60%),
+    radial-gradient(900px 500px at -10% 10%, color-mix(in srgb, var(--amg-accent) 18%, transparent), transparent 60%),
+    linear-gradient(var(--amg-line) 1px, transparent 1px) 0 0 / 44px 44px, linear-gradient(90deg, var(--amg-line) 1px, transparent 1px) 0 0 / 44px 44px, var(--bg);
+  background-attachment: fixed; }
+a { color: var(--amg-accent); }
+.sh { max-width: 1280px; margin: 0 auto; padding: 16px; display: grid; gap: 16px; }
+.sh-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding: 10px 14px; border-radius: 16px; border: 1px solid var(--amg-line);
+  background: color-mix(in srgb, var(--amg-pearl) 80%, transparent); backdrop-filter: blur(16px); box-shadow: var(--amg-shadow); position: sticky; top: 8px; z-index: 5; }
+.sh-brand { display: flex; align-items: center; gap: 10px; font-weight: 800; letter-spacing: -.01em; text-decoration: none; color: var(--amg-ink); }
+.sh-dot { width: 26px; height: 26px; border-radius: 8px; background: linear-gradient(135deg, var(--amg-accent), var(--amg-peach)); }
+.sh-nav { display: flex; gap: 6px; flex-wrap: wrap; }
+.sh-nav a { padding: 8px 14px; border-radius: 999px; text-decoration: none; color: var(--amg-ink); font-weight: 600; font-size: .9rem; border: 1px solid transparent; }
+.sh-nav a[aria-current="page"] { background: var(--amg-accent); color: #fff; }
+.sh-nav a:hover:not([aria-current="page"]) { border-color: var(--amg-line); }
+.sh-h1 { margin: 0; font-size: clamp(1.5rem, 3vw, 2.1rem); letter-spacing: -.02em; }
+.sh-lede { margin: 4px 0 0; color: var(--amg-muted); max-width: 70ch; line-height: 1.5; }
+.sh-card { padding: 18px; border-radius: var(--amg-panel-radius); border: 1px solid var(--amg-line); background: color-mix(in srgb, var(--amg-pearl) 86%, transparent); backdrop-filter: blur(14px); box-shadow: var(--amg-shadow); display: grid; gap: 12px; }
+.sh-grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); }
+.sh-brandcard { text-decoration: none; color: inherit; display: grid; gap: 6px; }
+.sh-brandcard strong { font-size: 1.1rem; }
+.sh-muted { color: var(--amg-muted); font-size: .9rem; margin: 0; }
+.sh-form { display: grid; gap: 10px; }
+.sh-form label { display: grid; gap: 4px; font-weight: 600; font-size: .85rem; }
+.sh-form input, .sh-form select, .sh-form textarea { min-height: 44px; padding: 10px 12px; border-radius: 12px; border: 1px solid var(--amg-line); background: var(--amg-pearl); color: var(--amg-ink); font: inherit; }
+.sh-btn { min-height: 44px; padding: 10px 18px; border-radius: 999px; border: 1px solid var(--amg-accent); background: var(--amg-accent); color: #fff; font: inherit; font-weight: 700; cursor: pointer; }
+.sh-btn.ghost { background: transparent; color: var(--amg-ink); border-color: var(--amg-line); }
+.sh-err { color: var(--amg-attn-ink); font-size: .85rem; margin: 0; }
+.sh-login { min-height: 100vh; display: grid; place-items: center; padding: 16px; }
+.sh-login .sh-card { width: min(100%, 400px); }
+:focus-visible { outline: 2px solid var(--amg-accent); outline-offset: 2px; }

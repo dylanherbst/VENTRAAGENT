@@ -1,0 +1,1944 @@
+AiMoneyPrinter
+MASTER BUSINESS PLAN
+AND PRODUCT BLUEPRINT
+
+
+     THE PRODUCT PROMISE
+     You bring the ambition. AI builds the business. Discover low-cost opportunities, create products, launch a
+     storefront, market it and automate routine operations with minimal technical knowledge or manual effort.
+
+
+
+
+AI AUTOMATED SIDE-HUSTLE PLATFORM
+
+Product direction | Customer journeys | Detailed feature specifications | Integrations | Commercial model |
+Architecture | Development plan | Launch standards
+Document status: Strategy and target-state requirements. The existing VENTRA codebase is an implementation
+starting point; features listed here are not presumed production-ready.
+
+
+
+
+BUSINESS STRATEGY / PRODUCT ARCHITECTURE / EXECUTION ROADMAP                                            NOVEMBER 2026
+AiMoneyPrinter                                                                                           MASTER BUSINESS PLAN
+
+
+
+
+Executive Summary
+AiMoneyPrinter is an AI-driven platform intended to help people create and operate low-cost online businesses quickly,
+even when they have limited time, budget or coding experience. Its core value is not simply generating ideas or websites; it
+is executing the workflow from opportunity research through real products, checkout, automatic fulfilment and organic
+marketing.
+
+
+      PRIMARY PRODUCT DECISION
+      Use the in-house Next.js website and storefront generator. Reuse appropriate components from the existing
+      VENTRA project, but make AiMoneyPrinter the customer-facing product name and experience.
+
+
+
+Positioning: The advertising can emphasise the get-rich-quick aspiration and fast setup, but must not imply guaranteed
+earnings, risk-free income or no ongoing responsibility. The measurable promise is rapid business creation and highly
+automated repetitive operations.
+
+First release: Two shared production engines (documents/templates and visual/personalised digital goods), one multi-tenant
+storefront system, Stripe merchant onboarding and checkout, automatic delivery, an initial organic marketing integration and
+a minimal business dashboard.
+
+End-to-end objective: A genuine customer signs up, chooses a researched business opportunity, approves generated
+products and branding, publishes a store, receives a real payment, delivers the purchased file and runs an approved organic
+marketing campaign - without developers manually executing steps behind the scenes.
+
+
+Ten product principles
+ • AI performs actions, not only advice: each workflow must create actual files, pages, products or scheduled jobs.
+ • Start with business models where products and fulfilment can be automated with high reliability.
+ • Provide five customer-specific recommendations built from a small number of tested business blueprints.
+ • Keep every customer journey mobile-first, plain-language and low-friction.
+ • Choose an in-house template-driven website renderer over third-party full-site builders for launch.
+ • Preserve human approval for identity, payment onboarding, publishing, legal declarations and spending.
+ • Treat fulfilment, payments and tenant permissions as deterministic backend services, not free-form AI actions.
+ • Make operating costs and AI usage bounded and visible.
+ • Measure sales, margins and customer time invested; never mistake generated content for business success.
+ • Keep incomplete features disabled until their end-to-end workflows pass release tests.
+
+
+
+
+Confidential working blueprint | Proposed product scope                                                                        2
+AiMoneyPrinter                                            MASTER BUSINESS PLAN
+
+
+
+
+Contents
+Executive Summary                                                           2
+
+
+Contents                                                                    3
+
+
+1. Business Strategy and Market                                             4
+
+
+2. Customer Journey and Experience                                          6
+
+
+3. System A - Accounts, Goals and Guided Setup                              6
+
+
+4. System B - Opportunity Intelligence                                      8
+
+
+5. System C - AI Product Factory                                            9
+
+
+6. System D - In-House Website and Store Builder                           11
+
+
+7. System E - Payments, Orders and Fulfilment                              13
+
+
+8. System F - Organic Marketing and Lead Generation                        15
+
+
+9. System G - AI Business Operator                                         18
+
+
+10. System H - Analytics and Business Intelligence                         19
+
+
+11. System I - SaaS Reliability, Privacy and Admin                         21
+
+
+12. API and Technical Architecture                                         22
+
+
+13. Pricing, Financial Model and Unit Economics                            24
+
+
+14. Go-to-Market and Customer Validation                                   25
+
+
+15. Delivery Roadmap and Agent Assignments                                 27
+
+
+16. Release Gates and Acceptance Checklist                                 28
+
+
+17. Risks, Controls and Open Decisions                                     30
+
+
+18. Coordinator Implementation Brief                                       30
+
+
+
+
+Confidential working blueprint | Proposed product scope                      3
+AiMoneyPrinter                                                                                                       MASTER BUSINESS PLAN
+
+
+
+
+1. Business Strategy and Market
+1.1 Customer problem and value proposition
+The primary customer wants another income stream but lacks time, money, experience or technical skills. Existing tools
+often require the user to coordinate research, AI writing, visual design, websites, payments and social scheduling separately.
+AiMoneyPrinter will combine these steps into a guided and operationally connected journey.
+
+
+      CORE OFFER
+      Tell AiMoneyPrinter your budget, time and income target. Review five evidence-based low-cost opportunities,
+      choose one, then let the platform create a product catalogue, publish a storefront and manage approved
+      routine marketing and fulfilment.
+
+
+
+  Customer                        Problem                                    Product response
+
+
+  Full-time employees             Little spare time                          Automated business creation and scheduled operation
+
+
+  Students and beginners          Little capital or business experience      Low-cost digital models and guided setup
+
+
+  Creators                        Ideas are difficult to monetise            Product factory, storefront and sales funnel
+
+
+  Existing side hustlers          Too many manual tasks                      Recurring automations, fulfilment and performance suggestions
+
+
+
+
+1.2 Business models supported
+
+  Customer-facing business              Product examples                              Automation approach
+
+
+  Digital template store                Planners, spreadsheets, business kits,        Document/template factory; instant digital delivery
+                                        trackers
+
+
+  Printable art store                   Wall art, nursery prints, seasonal sets       Visual factory; sizes, packaging and automatic
+                                                                                      downloads
+
+
+  Personalised digital products         Pet portraits, invitations, custom designs    Order-triggered visual generation and quality review
+
+
+  Niche digital marketing assets        Content packs, captions, social               Mixed document/visual factory and digital fulfilment
+                                        templates
+
+
+  Digital membership                    Monthly themed packs and content              Recurring product batches plus subscription access
+                                        libraries
+
+
+MVP selection: The first four can share two production engines. Digital memberships need a recurring-release system, so
+they are P2. Print-on-demand and software micro-tools remain optional future business models; they require additional
+quality and operational controls.
+
+Opportunity selection is not a prediction of income. The platform must distinguish demand evidence and assumptions from
+actual conversion or profitability data.
+
+
+
+
+Confidential working blueprint | Proposed product scope                                                                                      4
+AiMoneyPrinter                                                                                                 MASTER BUSINESS PLAN
+
+
+
+
+1.3 Competitive differentiation
+
+  Generic AI workflow                            AiMoneyPrinter workflow
+
+
+  Suggest an idea                                Research, score and shortlist concrete niche opportunities
+
+
+  Write product copy                             Build the actual downloadable or made-to-order product
+
+
+  Generate a landing page                        Render, populate and publish a working store
+
+
+  Draft marketing captions                       Create, schedule, publish and attribute permitted campaigns
+
+
+  Provide payment buttons                        Connect verified payment state to automatic fulfilment
+
+
+  Show generic analytics                         Show real orders, costs and evidence-based improvements
+
+
+
+
+1.4 Commercial and compliance positioning
+AiMoneyPrinter may use energetic creative messaging about speed and financial freedom, but claims must remain truthful
+and substantiated. Avoid statements such as guaranteed fast wealth, certain profits, effortless income or a specific amount
+earned by all customers. Show real demonstrations and clearly label examples and testimonials.
+
+In Australia, commercial messages and business claims have consumer-protection obligations. Product marketing,
+consent-based email/SMS outreach, refunds, intellectual property and tax-related setup all require appropriate workflows.
+Business-registration guidance is advisory and should not impersonate government registration services.
+
+
+
+
+Confidential working blueprint | Proposed product scope                                                                           5
+AiMoneyPrinter                                                                                                   MASTER BUSINESS PLAN
+
+
+
+
+2. Customer Journey and Experience
+2.1 Full onboarding-to-autopilot sequence
+
+  Step              Customer experience                            Behind-the-scenes automation
+
+
+  1. Sign up        Email, Google or Apple login                   Workspace and profile created
+
+
+  2. Set goals      Budget, weekly hours, skills, income           Structured customer profile saved
+                    aspiration
+
+
+  3. Discover       Review five business proposals                 Research, scoring and blueprint matching
+
+
+  4. Preview        See sample branding, products and store        Sample asset and storefront generation
+
+
+  5. Select         Approve business and branding                  Blueprint and workflows instantiated
+
+
+  6. Generate       Review product catalogue and store             Product factory and QA jobs
+                    preview
+
+
+  7. Connect        Complete required merchant checks              Stripe Connect onboarding and readiness polling
+  money
+
+
+  8. Publish        Approve final live website                     Subdomain routing, site publication, smoke tests
+
+
+  9. Connect        Authorise supported channels                   OAuth, permissions and posting verification
+  socials
+
+
+  10. Autopilot     Choose permissions and limits                  Scheduled content, order fulfilment and checks
+
+
+  11. Improve       Review sales and recommended actions           Measured analytics and controlled experiments
+
+
+
+
+2.2 Mobile information architecture
+Primary navigation: Home (performance, tasks and AI activity); Products (catalogue, generation and previews); Growth
+(content calendar, leads and campaigns); Settings (brand, payments, social connections, billing, permissions). Setup is a
+full-screen guided flow until the first storefront is published.
+
+Every automation should display a human-readable status: Draft, Generating, Checking, Needs Approval, Scheduled, Live,
+Complete, Paused or Failed. Avoid exposing developer terms such as webhook, environment variable, DNS record or token
+refresh except inside advanced support views.
+
+Experience principle: Generate sensible defaults and ask the customer only for choices that cannot be made safely on their
+behalf. Retain one-click rework and undo/rollback where technically feasible.
+
+
+
+3. System A - Accounts, Goals and Guided Setup
+
+
+
+
+Confidential working blueprint | Proposed product scope                                                                             6
+AiMoneyPrinter                                                                                                    MASTER BUSINESS PLAN
+
+
+
+
+A01 Authentication and customer workspace [P0 / reuse]
+Purpose. Create an isolated account and recoverable setup session.
+
+ • Email/password and password reset; Google sign-in; optional Apple sign-in.
+ • Workspace created automatically; profile and multi-business-ready data structure.
+ • Saved progress; account export, deletion and settings.
+ • Plans and entitlements tied to a workspace rather than copied into website data.
+Automation. Create profile, empty workspace, default policies and initial setup state immediately after successful signup.
+
+Technology / reuse. Existing Supabase Auth, Next.js, workspace APIs.
+
+Customer approval or safeguard. User completes account sign-in and consents to required terms.
+
+Acceptance test. New user can sign up, abandon the wizard and resume without data loss.
+
+
+A02 Goal, budget and available-time assessment [P0]
+Purpose. Collect only details needed to match business models realistically.
+
+ • Budget presets, weekly hours, income goal, interests and experience.
+ • Preferences for digital vs physical, camera use, ongoing work and operational complexity.
+ • Plain-language cost and workload disclosures.
+ • Editable profile and regenerable opportunity shortlist.
+Automation. AI converts answers to validated structured profile, selects applicable blueprint classes and filters out unsupported or overly
+capital-intensive models.
+
+Technology / reuse. OpenAI structured output + Supabase.
+
+Customer approval or safeguard. Treat income goals as ambitions, not outcome guarantees.
+
+
+A03 Guided business setup [P0 / extend]
+Purpose. Deliver one smooth Discover > Create > Launch > Grow workflow.
+
+ • Contextual progress bar and one primary action per screen.
+ • Autosave and resume, inline previews, explainers and error recovery.
+ • Customer approvals for business, brand, products, publication and permissions.
+ • Simple task list for external account verification.
+Automation. Jobs begin when prior states are satisfied; progress updates stream from the backend.
+
+Technology / reuse. Existing onboarding flow, workflow state and realtime updates.
+
+Customer approval or safeguard. No production publication or ad spend without customer approval.
+
+
+A04 Business and legal setup assistant [P1]
+Purpose. Guide owners through necessary business identity, tax and store policy decisions.
+
+ • Country and business-structure selection with jurisdiction-specific checklists.
+ • Australian ABN/GST guidance and official registration links where relevant.
+ • Editable refund, privacy, terms and contact pages populated with approved facts.
+ • Incomplete legal/compliance tasks flagged before go-live.
+Automation. Pre-populate drafts and checklist status; link to official government and financial onboarding processes.
+
+Technology / reuse. OpenAI, store policy templates, official reference sources.
+
+Customer approval or safeguard. Identity verification, legal declarations and tax decisions remain owner responsibilities.
+
+
+
+
+Confidential working blueprint | Proposed product scope                                                                                       7
+AiMoneyPrinter                                                                                             MASTER BUSINESS PLAN
+
+
+
+
+4. System B - Opportunity Intelligence
+
+B01 AI Opportunity Finder [P0 / extend]
+Purpose. Recommend five niche-specific businesses fitting the user's constraints.
+
+ • Match user profile to eligible business blueprints.
+ • Collect demand signals, comparable offers, search queries and price context.
+ • Estimate startup and ongoing costs using disclosed assumptions.
+ • Present likely customer channels, dependencies and operational effort.
+ • Provide cited supporting evidence and explicit uncertainty.
+Automation. Research agent gathers evidence, produces structured shortlist and ranks supported concepts.
+
+Technology / reuse. OpenAI Responses/web search, optional DataForSEO, Supabase research records.
+
+Customer approval or safeguard. Do not invent success rates or sales figures.
+
+Acceptance test. Five researched recommendations with explainable sources and assumptions.
+
+
+B02 Opportunity scoring and confidence [P0 / new]
+Purpose. Compare ideas consistently rather than relying on arbitrary AI judgement.
+
+ • Initial scoring weights: demand 25%; automation 25%; low startup cost 20%; low ongoing workload 15%; differentiation
+   10%; repeat purchases 5%.
+ • Per-factor scores with evidence notes and confidence levels.
+ • Exclude unverified or unsupported business blueprints.
+ • Allow weights to evolve as real customer outcome data becomes available.
+Automation. Deterministic scoring after structured evidence gathering.
+
+Technology / reuse. Versioned scoring rubric and recorded inputs.
+
+Customer approval or safeguard. Score is a ranking heuristic, not probability of making money.
+
+
+B03 Competitor and product research [P0 / extend]
+Purpose. Identify price ranges, gaps and differentiation for an actual target niche.
+
+ • Collect published offers, features, pricing and customer needs.
+ • Identify keyword themes and content angles.
+ • Summarise how similar products are positioned.
+ • Flag thin evidence, paywalled sources or unclear pricing.
+Automation. Prepare referenced research briefs and recommended first product catalogue.
+
+Technology / reuse. OpenAI web search and optional search-data APIs.
+
+Customer approval or safeguard. Respect site terms, copyright and market-data limits.
+
+
+B04 Business Blueprint Library [P0 / new]
+Purpose. Provide reusable, testable business factories instead of one enormous AI prompt.
+
+ • Blueprint defines market prerequisites, customer inputs, product types, store template and price model.
+ • Defines marketing channels, order fulfilment, review requirements and recurring operator jobs.
+ • Lists required API connections, estimated costs, failure modes and user approvals.
+ • Blueprints are versioned and can be disabled without disrupting existing stores.
+
+
+
+Confidential working blueprint | Proposed product scope                                                                       8
+AiMoneyPrinter                                                                                                MASTER BUSINESS PLAN
+
+
+
+
+Automation. Select and parametrise a tested blueprint for each customer business.
+
+Technology / reuse. Database-stored workflow definitions, validated schema and provider adapters.
+
+Customer approval or safeguard. Every blueprint must pass launch, checkout and fulfilment tests before customer use.
+
+
+B05 Business preview and financial simulation [P1]
+Purpose. Let a user inspect a realistic sample before subscribing or launching.
+
+ • Brand direction, example product thumbnails and storefront preview.
+ • Setup budget, recurring expenses and margin assumptions.
+ • Illustrative traffic and sales scenarios with no guarantees.
+ • Risk and required-action checklist.
+Automation. Generate sample assets from blueprint, calculate contribution scenarios deterministically.
+
+Technology / reuse. Product renderers and storefront preview.
+
+Customer approval or safeguard. All sample revenue must be labelled illustrative.
+
+
+
+
+5. System C - AI Product Factory
+
+C01 AI brand and identity creator [P0 / extend]
+Purpose. Produce a distinctive editable brand configuration for each store.
+
+ • Brand name alternatives, positioning, tagline, palette and typography.
+ • Logo concepts, store graphics and approved social identity.
+ • Brand voice, content conventions and packaging rules.
+ • Name collision and trademark-risk screening at preliminary level.
+Automation. Generate three coherent styles, apply selected style across all assets and pages.
+
+Technology / reuse. OpenAI + image generation + existing brand components.
+
+Customer approval or safeguard. Customer chooses; automated name search does not equal legal clearance.
+
+
+C02 Digital Document and Template Factory [P0 / new]
+Purpose. Create complete, genuinely usable digital files.
+
+ • Support planners, trackers, worksheets, printable kits, business forms, content packs and selected spreadsheets.
+ • Plan product contents and functionality before rendering.
+ • Generate structured text and other assets; render deterministically through templates.
+ • Export PDF, spreadsheet, PNG/JPG or ZIP when appropriate.
+ • Create covers, mockups, descriptions and licence notes.
+ • Validate legibility, pagination, formula accuracy, file integrity, completeness and duplication risks.
+ • Keep a versioned master product and buyer-facing distribution file.
+Automation. Batch spec > content > render > QA > preview > approval > catalogue.
+
+Technology / reuse. OpenAI, in-house rendering libraries, Supabase Storage, durable jobs.
+
+Customer approval or safeguard. Initial catalogue approved before publication; failed products quarantined.
+
+Acceptance test. A paid buyer can open, use and download the complete actual product.
+
+
+
+
+Confidential working blueprint | Proposed product scope                                                                          9
+AiMoneyPrinter                                                                                                MASTER BUSINESS PLAN
+
+
+
+
+C03 Visual and personalised product factory [P0 second engine / new]
+Purpose. Create artwork and made-to-order digital designs.
+
+ • Style-constrained original artwork and printable sizes.
+ • Order form for names, pet photos, colours, dates and other permissible details.
+ • Payment-confirmed custom generation with retry budget.
+ • Automated subject, format and output quality checks.
+ • Secure file delivery and regeneration/request-review handling.
+Automation. Generate automatically from accepted order details and send finished file if validation passes.
+
+Technology / reuse. OpenAI image API; secure uploads; Trigger.dev; storage; Resend.
+
+Customer approval or safeguard. User consent for uploads, IP safeguards, manual review fallback.
+
+Acceptance test. Complete custom order without developer manual intervention.
+
+
+C04 Product catalogue and bundle generator [P0 / new]
+Purpose. Build a coherent range of products, not a random set of AI files.
+
+ • Generate initial curated catalogue based on blueprint and niche.
+ • Create titles, descriptions, categories, SEO and previews.
+ • Combine compatible products into bundles and upsells.
+ • Assign Draft, Review, Active or Retired status.
+ • Generate variants without duplicating existing items.
+Automation. Dispatch product jobs and attach approved assets to storefront listings.
+
+Technology / reuse. Product DB, factory adapters, AI content generation.
+
+Customer approval or safeguard. Publish only validated, approved catalogue items.
+
+
+C05 Product pricing and margins [P0 / reuse]
+Purpose. Offer transparent price suggestions and margin calculations.
+
+ • Compare relevant offers and store-specific costs.
+ • Estimate payment, generation and fulfilment expenses.
+ • Propose individual prices, bundles and promotions.
+ • Show contribution margin, break-even estimates and assumptions.
+Automation. Recompute scenarios as real costs and order history accrue.
+
+Technology / reuse. Existing pricing tools, deterministic finance functions.
+
+Customer approval or safeguard. Initial prices and material changes require customer approval.
+
+
+C06 Private digital asset storage [P0 / extend]
+Purpose. Keep master products and customer data protected.
+
+ • Private product masters, public authorised previews only.
+ • Expiring signed download links, delivery audit and entitlement checks.
+ • Version history, licensing metadata, storage quotas and retention policy.
+ • Temporary file cleanup and backup/recovery expectations.
+Automation. Issue secure downloads after verified payment; log and expire access appropriately.
+
+Technology / reuse. Supabase Storage and access policies.
+
+
+
+
+Confidential working blueprint | Proposed product scope                                                                         10
+AiMoneyPrinter                                                                                 MASTER BUSINESS PLAN
+
+
+
+
+Customer approval or safeguard. Tenant access and private upload security must be tested.
+
+
+C07 Continuous product improvement [P1]
+Purpose. Improve weak listings and products based on real evidence.
+
+ • Identify product-view and checkout drop-off.
+ • Propose better descriptions, covers, preview order and relevant bundles.
+ • Generate controlled variants and maintain rollback history.
+ • Record before/after metrics over a suitable sample.
+Automation. Prepare changes autonomously; apply only within approval policies.
+
+Technology / reuse. Analytics events, AI proposals, versioned catalogue.
+
+Customer approval or safeguard. No unsupported causal claims based on sparse data.
+
+
+C08 Scheduled digital membership product releases [P2]
+Purpose. Support recurring customer subscriptions to digital asset libraries.
+
+ • Generate and validate monthly packs.
+ • Grant/revoke member access and maintain libraries.
+ • Handle renewals, payment failure, cancellation and notifications.
+Automation. Recurring batch production with a pre-release quality gate.
+
+Technology / reuse. Stripe Billing, durable jobs, storage and Resend.
+
+Customer approval or safeguard. Production costs must remain within plan limits.
+
+
+
+
+6. System D - In-House Website and Store Builder
+
+D01 AI multi-tenant site generation [P0 / extend]
+Purpose. Create production-ready store pages without third-party website-builder accounts.
+
+ • One Next.js app serves branded tenant storefronts.
+ • AI produces a validated site configuration rather than unrestricted code.
+ • Automatic homepage, collections, product pages, contact, checkout entry and policy pages.
+ • Products and brand data hydrate reusable components.
+ • Preview lives separately from public site state.
+Automation. Generate, render and persist store draft from blueprint + catalogue.
+
+Technology / reuse. Existing VENTRA Next.js/Store code, OpenAI and Supabase.
+
+Customer approval or safeguard. No arbitrary executable AI output deployed to production.
+
+
+D02 Mobile-first storefront design system [P0 / extend]
+Purpose. Make generated stores look individual, polished and conversion-focused.
+
+ • Niche-appropriate themes, typography and brand palettes.
+ • Accessible forms, image optimisation, clear product information and mobile checkout.
+ • Reusable merchandising, trust, FAQ, reviews and contact components.
+ • Consistent page spacing and working responsive navigation.
+Automation. Apply selected brand to tested page templates and validate layouts.
+
+
+
+Confidential working blueprint | Proposed product scope                                                          11
+AiMoneyPrinter                                                                                                MASTER BUSINESS PLAN
+
+
+
+
+Technology / reuse. Existing React UI components/design system.
+
+Customer approval or safeguard. Customer brand is independent of AiMoneyPrinter brand.
+
+
+D03 One-click publishing and rollback [P0 / new]
+Purpose. Publish approved sites through the platform hosting infrastructure.
+
+ • States: Draft, Preview, Awaiting Approval, Published, Paused, Failed.
+ • Check required pages, product assets, links, SSL and merchant readiness.
+ • Assign managed subdomain and publish approved version.
+ • Automated smoke test public pages and checkout readiness.
+ • Preserve last known good version and enable rollback.
+Automation. On approval, update site publication state; multi-tenant app serves instantly without independent deployment per store.
+
+Technology / reuse. Vercel for Platforms-style architecture, DNS routing, Supabase.
+
+Customer approval or safeguard. No live pay button unless merchant is ready.
+
+Acceptance test. Fresh store is publicly reachable with correct products and functioning links.
+
+
+D04 Natural-language website editor [P1]
+Purpose. Let the owner request site changes without visual editing expertise.
+
+ • Change colour, copy, images, section order and product emphasis.
+ • Preview diff and rollback edits.
+ • Guarded, schema-constrained component updates.
+ • Keep audit history and support natural-language regeneration.
+Automation. AI converts plain instructions into validated site patches.
+
+Technology / reuse. OpenAI function calling, in-house site-schema editing.
+
+Customer approval or safeguard. No arbitrary scripts or edits outside assigned tenant.
+
+
+D05 Subdomains and custom domains [P0 subdomains / P1 custom]
+Purpose. Provide a simple publish URL and later domain ownership options.
+
+ • Automatically allocate unique managed subdomain and HTTPS.
+ • Handle subdomain collision, DNS errors and certificate status.
+ • Optional custom domain connect, verify and remove.
+ • Show clear troubleshooting when owners must update DNS.
+Automation. Programmatic domain configuration and verification jobs.
+
+Technology / reuse. Vercel domain APIs; optional Cloudflare for SaaS later.
+
+Customer approval or safeguard. Customer proves control of custom domain.
+
+
+D06 Built-in technical SEO [P0 basics / P1 optimisation]
+Purpose. Make every store crawlable and product pages discoverable.
+
+ • Unique metadata, clean product URLs, canonical tags, sitemap and robots controls.
+ • Image alt text, structured data where appropriate and internal product links.
+ • Integrate Search Console and surface indexing problems.
+ • Avoid near-duplicate mass-produced pages.
+Automation. Generate per-product SEO from actual catalogue and run recurring technical checks.
+
+
+Confidential working blueprint | Proposed product scope                                                                               12
+AiMoneyPrinter                                                                                            MASTER BUSINESS PLAN
+
+
+
+
+Technology / reuse. Site renderer, OpenAI and Search Console API.
+
+
+D07 Store conversion optimisation [P1]
+Purpose. Improve buying flow based on recorded user behaviour.
+
+ • Conversion funnel measurements and checkout abandonment.
+ • Suggest product bundling, positioning and copy improvements.
+ • Optional consent-based abandoned-checkout follow-ups.
+ • Controlled tests, privacy settings and rollback.
+Automation. Use observed performance to prepare changes and experiments.
+
+Technology / reuse. Site analytics, order DB and campaign metadata.
+
+Customer approval or safeguard. Do not claim uplift before measuring it.
+
+
+
+
+7. System E - Payments, Orders and Fulfilment
+
+E01 Merchant payment onboarding [P0 / finish]
+Purpose. Let each store owner receive money from their customers.
+
+ • Hosted Stripe Connect onboarding and account status.
+ • Identity/business requirements completed directly by seller.
+ • Payment readiness, payout status and missing requirements surfaced in app.
+ • Separate seller store payments from AiMoneyPrinter subscription billing.
+Automation. Provision merchant account references, onboarding links and readiness checks.
+
+Technology / reuse. Existing Stripe work plus Stripe Connect and Supabase.
+
+Customer approval or safeguard. User must complete identity and bank details with provider.
+
+
+E02 Customer checkout [P0 / finish]
+Purpose. Provide a trustworthy low-friction checkout for each product.
+
+ • Product-level buy buttons, accurate pricing and mobile checkout.
+ • Coupons and multiple quantities as supported.
+ • Order confirmation and correct payment failure handling.
+ • No live checkout without active merchant capability.
+Automation. Create order and hosted checkout session from server-authorised product state.
+
+Technology / reuse. Stripe Checkout/Connect, order API.
+
+Customer approval or safeguard. Payment event is authoritative; browser redirect alone is insufficient.
+
+
+E03 Verified order-processing engine [P0 / new]
+Purpose. Make paid transactions reliable and recoverable.
+
+ • Validate signed Stripe webhook events.
+ • Handle pending, paid, failed, refunded and disputed states.
+ • Idempotent processing of duplicate webhook deliveries.
+ • Persist order and order-item snapshots at purchase time.
+ • Use deterministic state transitions with retries and audit logging.
+
+
+
+Confidential working blueprint | Proposed product scope                                                                     13
+AiMoneyPrinter                                                                                    MASTER BUSINESS PLAN
+
+
+
+
+Automation. Confirmed paid event starts fulfilment exactly once.
+
+Technology / reuse. Stripe, Supabase transactions, durable task queue.
+
+Customer approval or safeguard. No fulfilment before final successful payment.
+
+Acceptance test. Duplicate events cannot duplicate charges or deliveries.
+
+
+E04 Automatic download fulfilment [P0 / new]
+Purpose. Fulfil paid digital purchases instantly and securely.
+
+ • Select correct product version and generate signed download.
+ • Send branded order email and expose secure receipt/download page.
+ • Track delivery and allow controlled link reissue.
+ • Retry email failures without regenerating payment or order.
+Automation. Payment confirmation > entitlement > signed link > email > delivery record.
+
+Technology / reuse. Supabase Storage, Resend, Trigger.dev.
+
+Customer approval or safeguard. Unpaid or cross-tenant buyers cannot access files.
+
+
+E05 Order-triggered personalised fulfilment [P0 for visual engine]
+Purpose. Generate customer-specific files only after verified payment.
+
+ • Accept custom form data and private image uploads.
+ • Check content, format and moderation constraints.
+ • Bound model costs and retry attempts.
+ • Send generated file if QA passes; flag exceptions for review.
+Automation. Webhook queues generation job and tracks all stages.
+
+Technology / reuse. Image API, storage, jobs and email.
+
+Customer approval or safeguard. Customer uploads handled privately and retained only as needed.
+
+
+E06 Refunds, exchanges and order support [P1]
+Purpose. Enable legal and fair customer service.
+
+ • Searchable orders, re-delivery and failed-job resolution.
+ • Refund requests, disputes and chargeback escalation.
+ • Clear customer support and complaint routes.
+ • Customer-specific order receipts and audit records.
+Automation. Auto-resolve low-risk delivery link issues; triage complicated cases.
+
+Technology / reuse. Stripe payment events, CRM and support mailbox.
+
+Customer approval or safeguard. Material or unusual refunds require policy-governed approvals.
+
+
+E07 Bundles, upsells and recurring payments [P1 bundles / P2 memberships]
+Purpose. Increase value per transaction without unnecessary complexity.
+
+ • Compatible product bundles and optional coupons.
+ • Subscription access for recurring content products.
+ • Renewal, cancellation and entitlement handling.
+Automation. Generate offers and manage recurring entitlement state.
+
+
+
+
+Confidential working blueprint | Proposed product scope                                                             14
+AiMoneyPrinter                                                                                 MASTER BUSINESS PLAN
+
+
+
+
+Technology / reuse. Catalogue, Stripe Billing, membership controls.
+
+Customer approval or safeguard. Price changes clearly disclosed and approved.
+
+
+
+
+8. System F - Organic Marketing and Lead Generation
+
+F01 Automated marketing strategy [P0 / extend]
+Purpose. Produce a simple channel plan for each live store.
+
+ • Product-specific audience and customer interests.
+ • Initial channel choice, campaign themes and content calendar.
+ • Organic traffic goals based on hypotheses, not promised outcomes.
+ • Product links, attribution conventions and launch checklist.
+Automation. Generate a strategy once approved catalogue is available.
+
+Technology / reuse. OpenAI, existing marketing drafts and campaign data.
+
+Customer approval or safeguard. Owner approves the initial strategy and connection scope.
+
+
+F02 AI content and creative studio [P0 / extend]
+Purpose. Produce the actual posts, images and promotional files.
+
+ • Pinterest Pins, Instagram posts, carousels and short video storyboards.
+ • Original visuals, captions, hooks, SEO pages and opt-in email content.
+ • Brand templates and platform-specific media dimensions.
+ • Content checks for inaccurate claims, missing links and duplicate assets.
+ • Link every promotion to actual published products.
+Automation. Batch content creation, render, QA, then schedule.
+
+Technology / reuse. OpenAI + image generation + design templates.
+
+Customer approval or safeguard. First content batch is previewed and approved.
+
+
+F03 One-click social account connection [P0 for automated channel]
+Purpose. Allow customer-owned, authorised publishing.
+
+ • Connect, test, reconnect and disconnect supported social accounts.
+ • Show scopes, posting permissions, token status and errors.
+ • No customer-facing API keys or secret management.
+ • Clear provider-specific capability and account-type limitations.
+Automation. Run OAuth or sanctioned provider connect workflow and refresh permitted tokens.
+
+Technology / reuse. Ayrshare or direct official APIs.
+
+Customer approval or safeguard. Customer grants access; do not bypass platform restrictions.
+
+
+F04 Social posting and scheduling engine [P0]
+Purpose. Run pre-approved content publishing without manual daily posting.
+
+ • Queue posts by network and valid publishing window.
+ • Format content for provider, publish and check completion.
+ • Retry transient failures and prevent duplicate postings.
+
+
+Confidential working blueprint | Proposed product scope                                                          15
+AiMoneyPrinter                                                                               MASTER BUSINESS PLAN
+
+
+
+
+ • Capture provider post URL, status, errors and timestamps.
+ • Pause automatically on revoked connection.
+Automation. Scheduled jobs submit content to authorised APIs within frequency rules.
+
+Technology / reuse. Trigger.dev; Ayrshare/direct platform adapter.
+
+Customer approval or safeguard. Customer can pause automation at any time.
+
+
+F05 Pinterest organic traffic engine [P0 preferred channel]
+Purpose. Focus initial discovery on suitable visual digital products.
+
+ • Create Pin images, captions, product links and themed boards.
+ • Schedule approved original Pins and record engagement.
+ • Analyse traffic and test improved creative variations.
+ • Use export/manual scheduling fallback if production API access is unavailable.
+Automation. Plan, render, post, record and optimise permitted Pinterest content.
+
+Technology / reuse. Pinterest API or Ayrshare.
+
+Customer approval or safeguard. Production publishing requires actual approved API access.
+
+
+F06 Instagram, Facebook and TikTok expansion [P1]
+Purpose. Add additional approved distribution channels.
+
+ • Platform-specific photo/video publishing and analytics.
+ • Eligible comment or inbound message handling.
+ • Unified calendar with per-network status.
+ • Account and app review restrictions surfaced clearly.
+Automation. Generate adapted creatives and publish where API permissions allow.
+
+Technology / reuse. Ayrshare and/or official Meta/TikTok APIs.
+
+Customer approval or safeguard. No mass unsolicited DMs or unauthorised posting.
+
+
+F07 SEO marketing autopilot [P0 basics / P1 optimisation]
+Purpose. Acquire high-intent visitors through useful search-visible pages.
+
+ • Unique product descriptions, metadata, links and sitemaps.
+ • Indexing health and search query monitoring.
+ • Recommend improvements to existing pages.
+ • Create genuinely useful new content only where evidence supports it.
+Automation. Recurring technical checks and approved copy revisions.
+
+Technology / reuse. Next.js, Search Console API, OpenAI, optional DataForSEO.
+
+
+F08 Opt-in lead capture [P0 / reuse]
+Purpose. Capture prospective buyers who are not ready to purchase.
+
+ • Email sign-up forms and useful free sample downloads.
+ • Consent timestamp, source URL and list preferences.
+ • Lead-to-order tracking and CRM integration.
+ • Suppression/delete actions and privacy controls.
+Automation. Tag lead source and trigger approved communications.
+
+
+
+Confidential working blueprint | Proposed product scope                                                        16
+AiMoneyPrinter                                                                        MASTER BUSINESS PLAN
+
+
+
+
+Technology / reuse. Existing CRM, Supabase and Resend.
+
+Customer approval or safeguard. Obtain required marketing consent.
+
+
+F09 Automated email follow-up [P1]
+Purpose. Nurture consenting leads and assist existing buyers.
+
+ • Free-sample delivery and related product tips.
+ • Product education and relevant offers.
+ • Post-purchase help, fulfilment guidance and feedback requests.
+ • Unsubscribe, bounce and complaint processing.
+Automation. Run event-triggered and scheduled sequences with suppression controls.
+
+Technology / reuse. Resend or an approved email marketing platform.
+
+Customer approval or safeguard. Australian spam and privacy compliance.
+
+
+F10 Inbound AI sales assistant [P1 / reuse Setter logic]
+Purpose. Answer genuine buyer questions and support conversion.
+
+ • Knowledge base of published products, formats, support policies and prices.
+ • Product recommendations and direct checkout links.
+ • Capture eligible enquiries; route complaints and disputes to human support.
+ • Never invent product availability or order status.
+Automation. AI answers within connected facts and permitted tools.
+
+Technology / reuse. Relevant existing AI Setter logic, approved tool calls, CRM.
+
+Customer approval or safeguard. No unrestricted cold outbound messaging.
+
+
+F11 Growth performance optimiser [P1]
+Purpose. Use observed funnel data to improve marketing.
+
+ • Track impressions where available, clicks, product visits, checkout and sales.
+ • Compare products and channels; note missing attribution.
+ • Create controlled creative and landing-page tests.
+ • Suggest stopping repetitive underperforming content.
+Automation. Weekly proposal generation and bounded low-risk changes.
+
+Technology / reuse. Analytics pipeline + AI analysis.
+
+Customer approval or safeguard. Performance claims require sufficient data.
+
+
+F12 Paid advertising autopilot [P2]
+Purpose. Add paid growth only after evidence of demand.
+
+ • Generate ad creative and campaign drafts.
+ • Connect appropriate ad account and validate permissions.
+ • Explicit spend caps, per-campaign approvals and stop-loss logic.
+ • Report acquisition costs, conversions and actual spend.
+Automation. Execute only within authenticated customer budgets and API permissions.
+
+Technology / reuse. Meta Marketing API or other approved ad APIs.
+
+Customer approval or safeguard. Never spend without explicit prior approval.
+
+
+Confidential working blueprint | Proposed product scope                                                 17
+AiMoneyPrinter                                                                                                MASTER BUSINESS PLAN
+
+
+
+
+9. System G - AI Business Operator
+
+G01 Business Operator orchestration [P0 foundation / P1 advanced]
+Purpose. Coordinate the life cycle of a live automated business.
+
+ • Health-check live stores, scheduled marketing and queued orders.
+ • Trigger tasks, monitor completion and surface problems.
+ • Prepare product improvements and summaries.
+ • Show customer what was completed and what needs action.
+Automation. Durable event-driven workflows coordinate specialised AI and deterministic services.
+
+Technology / reuse. Trigger.dev, existing backend, Supabase, OpenAI.
+
+Customer approval or safeguard. AI tool calls must pass backend permissions, budgets and schema validation.
+
+
+G02 Automation permissions and approval centre [P0]
+Purpose. Make automation powerful but controlled.
+
+ • Separate toggles for paid-order fulfilment, approved publishing, product drafts and suggested pricing changes.
+ • Customer-defined posting frequency and usage limits.
+ • Pending approval queue for business-critical choices.
+ • Always require explicit approval for spending and external account access.
+Automation. Policy engine checks every action before execution.
+
+Technology / reuse. Permissions DB, approval jobs and audit events.
+
+Customer approval or safeguard. All monetary commitments require authorised caps and actions.
+
+
+G03 Activity and notification centre [P0]
+Purpose. Make invisible automation understandable.
+
+ • Activity feed for generated products, sales, deliveries, posts and failures.
+ • Clear status, timestamp and any user action required.
+ • Alerts for disconnected accounts, suspended merchant status or failed jobs.
+ • Mobile-friendly daily summaries and links to resolution.
+Automation. Capture immutable task events and surface relevant summaries.
+
+Technology / reuse. Automation DB, notifications and email.
+
+Customer approval or safeguard. Customer can inspect and correct failures.
+
+
+G04 Failure recovery and retries [P0]
+Purpose. Keep automation from silently failing.
+
+ • Transient retries with bounded backoff.
+ • Permanent errors become actionable incident states.
+ • Idempotency and prevention of duplicate fulfilment/publishing.
+ • Quarantine failed product outputs.
+ • Maximum generation cost and retry counts.
+Automation. Automated retries and escalation rules, with observability.
+
+Technology / reuse. Trigger.dev, database state machines and provider adapters.
+
+
+
+Confidential working blueprint | Proposed product scope                                                                         18
+AiMoneyPrinter                                                                      MASTER BUSINESS PLAN
+
+
+
+
+G05 Scheduled management routines [P1]
+Purpose. Replace routine daily business administration.
+
+ • Daily: website status, orders, disconnected integrations and publishing queue.
+ • Weekly: sales, cost, best products and proposed marketing changes.
+ • Monthly: catalogue review, recurring costs and profitability summary.
+ • Suspend routines when business is paused or subscription expires.
+Automation. Scheduled tasks run under customer-approved policies.
+
+Technology / reuse. Trigger.dev recurring tasks, metrics and OpenAI.
+
+
+G06 AI Business Advisor [P1]
+Purpose. Explain actual performance and recommend sensible next actions.
+
+ • Investigate low traffic, weak click-through or poor checkout conversion.
+ • Ground recommendations in recorded analytics and product data.
+ • Propose small experiments with measurable success criteria.
+ • Explain uncertainty, especially with little traffic.
+Automation. Analyse snapshots and prepare an evidence-linked plan.
+
+Technology / reuse. OpenAI over structured analytics, no fabricated metrics.
+
+
+G07 Customer support operator [P1]
+Purpose. Automate repetitive post-sale help.
+
+ • Answers about products, downloads, file compatibility and delivery.
+ • Reissue eligible links and provide order status after verification.
+ • Escalate refunds, complaints, technical failures and uncertain answers.
+ • Keep support transcript and merchant context.
+Automation. Handle eligible FAQs and fulfilment self-service, then escalate.
+
+Technology / reuse. Knowledge base, CRM/order backend and email.
+
+Customer approval or safeguard. Protect buyer privacy and identity.
+
+
+G08 AI usage and cost guardrails [P0]
+Purpose. Keep each customer and platform plan financially viable.
+
+ • Usage ledger for text/image generation, storage and social costs.
+ • Per-product generation budgets, retries and user credits.
+ • Monthly customer quotas and internal provider spending alerts.
+ • Automatic stops for runaway jobs and abusive usage.
+Automation. Reject work exceeding quota before provider calls.
+
+Technology / reuse. Usage ledger, provider metering and entitlements.
+
+
+
+
+10. System H - Analytics and Business Intelligence
+
+
+
+Confidential working blueprint | Proposed product scope                                               19
+AiMoneyPrinter                                                                           MASTER BUSINESS PLAN
+
+
+
+
+H01 Simple business dashboard [P0 / extend]
+Purpose. Give owners the handful of metrics they need.
+
+ • Gross revenue, refunds, order count and actual deliverable status.
+ • Estimated net profit when all known costs can be accounted for.
+ • Store traffic, product views and conversion events.
+ • AI activity, scheduled posts and pending approvals.
+ • Date range and separate data for multiple businesses.
+Automation. Refresh from recorded business events; no synthetic production metrics.
+
+Technology / reuse. Existing dashboard + Stripe + analytics event store.
+
+
+H02 Cost and margin tracking [P0 basic / P1 advanced]
+Purpose. Distinguish sales from personal earnings.
+
+ • Gross sales less refunds, payment fees and fulfilment costs.
+ • Account for AI usage, platform subscription, ad spend and optional manual expenses.
+ • Show contribution per product and monthly operating estimates.
+ • Label excluded or unknown costs and tax assumptions.
+Automation. Combine transaction ledger and observed provider costs.
+
+Technology / reuse. Stripe and usage ledger plus manual expense input.
+
+
+H03 Campaign attribution [P1]
+Purpose. Measure which marketing activities lead to purchases.
+
+ • UTM-tagged product URLs and campaign records.
+ • View-to-checkout and sale events where legal/technical consent permits.
+ • Compare channel effectiveness and expose unattributed sales.
+ • Avoid attributing every sale to the last measured click by default.
+Automation. Join campaign events to recorded orders with sensible limitations.
+
+Technology / reuse. Analytics provider, Supabase, site events.
+
+
+H04 Operational health status [P1]
+Purpose. Show whether the business is functioning as expected.
+
+ • Website live, checkout enabled, order fulfilment healthy.
+ • Social connections valid and scheduled posts delivered.
+ • Costs below policy limits, no unresolved critical incidents.
+ • Simple alerts and fix recommendations.
+Automation. Calculate deterministic operational health summary, not profit prediction.
+
+Technology / reuse. Status polling and event checks.
+
+
+H05 Multiple businesses and portfolio view [P2]
+Purpose. Support several stores under one customer workspace.
+
+ • Business switcher, independent products and campaigns.
+ • Consolidated and per-store finances.
+ • Separate budget limits and social integrations.
+
+
+Confidential working blueprint | Proposed product scope                                                    20
+AiMoneyPrinter                                                                                                  MASTER BUSINESS PLAN
+
+
+
+
+ • Pause/retire business without affecting others.
+Automation. Aggregate analytics with strict tenant and store boundaries.
+
+Technology / reuse. Existing dashboard toggle concepts and data model.
+
+
+
+
+11. System I - SaaS Reliability, Privacy and Admin
+  Feature                         Required behaviour                                                                          Priority
+
+
+  I01 Subscription billing        Customer subscription separate from their store payments; renewal, cancellation, credits    P0
+
+
+  I02 Tenant isolation            Server-enforced access controls for files, products, sites, orders and connected accounts   P0
+
+
+  I03 Secure API links            Encrypted credentials, minimal scopes, rotation, reconnect and revocation                   P0
+
+
+  I04 Job observability           Durable task state, retries, errors, trace IDs and recovery steps                           P0
+
+
+  I05 Product standards           Originality, usable file checks, claim validation and rejection queues                      P0
+
+
+  I06 Audit/approval trail        Who approved which action, when, under which policy version                                 P0
+
+
+  I07 Platform admin              Tenants, provider cost, subscriptions, incidents and support                                P0
+
+
+  I08 Support workflows           Bug reports, refunds, access issues and customer feedback                                   P0
+
+
+  I09 Abuse prevention            Rate limits, fraudulent activity flags and generation quotas                                P0
+
+
+  I10 Backup/recovery             Restore vital data and roll back store/product deployments                                  P0
+
+
+  I11 Privacy/data control        Consent, retention, export and deletion for buyer/customer data                             P0
+
+
+  I12 Feature flags               Disable incomplete/experimental features by environment and plan                            P1
+
+
+Automated creation and publishing must avoid plagiarism, unauthorised trademark use, problematic regulated advice,
+private data disclosure and unsupported income claims. Any uncertainty that cannot be resolved by automated tests needs a
+human escalation path.
+
+
+
+
+Confidential working blueprint | Proposed product scope                                                                                  21
+AiMoneyPrinter                                                                                           MASTER BUSINESS PLAN
+
+
+
+
+12. API and Technical Architecture
+12.1 Recommended API and service inventory
+
+  Capability                               Recommended service                 Implementation
+
+
+  AI reasoning and tool use                OpenAI Responses API                Provider integration
+
+
+  Image creation and editing               OpenAI image models                 Provider integration
+
+
+  Demand / search data                     OpenAI web search; optional         Integrate selectively
+                                           DataForSEO
+
+
+  Authentication and workspace             Supabase Auth/Postgres              Reuse existing
+
+
+  Product and private buyer files          Supabase Storage                    Extend existing
+
+
+  Website generator                        AiMoneyPrinter in-house Next.js     Reuse VENTRA storefront foundations
+                                           renderer
+
+
+  Websites/subdomains                      Vercel multi-tenant hosting and     Integrate and configure
+                                           domain APIs
+
+
+  Checkout and merchant payouts            Stripe Checkout + Connect           Finish existing Stripe work
+
+
+  Recurring membership/billing             Stripe Billing                      Phase 2+
+
+
+  Transactional email                      Resend                              Integrate
+
+
+  Durable tasks and schedules              Trigger.dev                         Integrate
+
+
+  Social publishing                        Ayrshare; official Pinterest API    Pilot one first
+                                           alternative
+
+
+  SEO performance                          Google Search Console API           Phase 1+
+
+
+  Physical fulfilment                      Printify                            Deferred expansion
+
+
+Provider-cost note: Multi-account social API plans can be expensive relative to entry-level subscription pricing. Confirm
+current provider pricing, approval requirements, account limits, permitted API use and per-customer unit economics before
+making social autopilot an unlimited promise.
+
+
+12.2 Platform integration architecture
+
+      REQUEST AND EVENT FLOW
+      Customer UI (Next.js) > Authenticated Backend / Permission Validator > Workflow Orchestrator > Specialised
+      AI, Website, Commerce and Marketing Services > Supabase System of Record > Customer Dashboard
+
+
+
+AI agents prepare structured content and requests for action. The backend validates the tenant, action schema,
+connected-account permissions, generation budget, approval state and idempotency key before any external side effect
+occurs. Payment, order, publishing and entitlement states are deterministic.
+
+
+
+Confidential working blueprint | Proposed product scope                                                                     22
+AiMoneyPrinter                                                                                             MASTER BUSINESS PLAN
+
+
+
+
+12.3 Proposed core database entities
+
+  Entity group                    Tables / records
+
+
+  Identity and workspace          profiles, workspaces, workspace_members, subscriptions
+
+
+  Business research               businesses, blueprints, opportunity_reports, research_evidence
+
+
+  Brand/store                     brands, sites, site_versions, domains, storefront_settings
+
+
+  Products                        products, product_variants, product_assets, product_generation_jobs
+
+
+  Commerce                        merchant_accounts, orders, order_items, payments, fulfilments, refunds
+
+
+  Growth                          social_connections, campaigns, social_posts, leads, marketing_consents
+
+
+  Autonomy                        automation_policies, automation_runs, approvals, audit_events
+
+
+  Measurement                     usage_ledger, analytics_events, expenses, business_health_checks
+
+
+
+
+12.4 Stable backend workflow contracts
+
+  Operation                                          Expected output
+
+
+  researchOpportunities                              Five evidence-linked ranked businesses
+
+
+  selectBusiness                                     Selected blueprint and saved business configuration
+
+
+  generateBrand                                      Brand options and selected identity specification
+
+
+  createProductBatch                                 Versioned product generation jobs and outputs
+
+
+  validateProduct                                    Pass/fail QA report and remediation list
+
+
+  generateStore                                      Previewable store draft and pages
+
+
+  publishStore                                       Verified live site version and URL
+
+
+  connectMerchant                                    Onboarding URL, account status, payment readiness
+
+
+  createCheckout                                     Secure hosted checkout session for valid product
+
+
+  fulfilPaidOrder                                    Exactly-once entitlement and delivery result
+
+
+  createMarketingCampaign                            Content plan, drafts and schedule
+
+
+  publishScheduledContent                            Confirmed provider publishing state
+
+
+  runBusinessHealthCheck                             Operational state, failures and recommended actions
+
+
+  prepareOptimisations                               Data-grounded changes needing review or permission
+
+
+
+
+Confidential working blueprint | Proposed product scope                                                                      23
+AiMoneyPrinter                                                                                                  MASTER BUSINESS PLAN
+
+
+
+
+12.5 Non-negotiable engineering requirements
+ • Never expose provider API keys or cross-tenant records in client code.
+ • Preserve idempotency for webhooks, publication and fulfilment side effects.
+ • Keep separate development, staging and production environments.
+ • Use rate limits, quotas, validation and permission checks on all AI tool calls.
+ • Reject invalid structured outputs rather than deploying unvalidated code.
+ • Maintain versioned products and sites with rollback.
+ • Give every long-running workflow a durable status, cancellation behaviour and retry policy.
+ • Display real versus demo data explicitly and never populate production dashboards with fake sales.
+ • Enforce owner approval and a hard spending cap for paid ads and other financial commitments.
+
+
+
+13. Pricing, Financial Model and Unit Economics
+13.1 Suggested initial subscription hypotheses
+
+  Tier                   Illustrative AUD / month         Customer value
+
+
+  Discover               Free                             Five research-backed opportunity suggestions and limited preview
+
+
+  Launch                 A$79                             One business, site, product creation, payments and automated delivery within
+                                                          quotas
+
+
+  Autopilot              A$149                            Launch plus approved connected publishing and operator routines
+
+
+  Scale                  A$249                            Larger quotas, advanced optimisation and capacity for future multiple
+                                                          businesses
+
+
+These prices are starting hypotheses and must be validated with pilots. Set firm inclusions for model usage, image creation,
+social accounts, storage, product batches and customer support. Any external advertising spend, custom domain fees and
+payment-processing fees must be separately disclosed.
+
+
+13.2 Example subscription revenue scenarios
+
+  Paying customers                     Blended average fee                          Illustrative MRR
+
+
+  25                                   A$109 / month                                A$2,725
+
+
+  100                                  A$109 / month                                A$10,900
+
+
+  250                                  A$109 / month                                A$27,250
+
+
+  500                                  A$109 / month                                A$54,500
+
+
+  1,000                                A$109 / month                                A$109,000
+
+
+These are arithmetic scenarios, not forecasts. They exclude acquisition, AI usage, engineering, infrastructure, support, tax,
+churn and other operating expenses. Customer store gross merchandise volume is not AiMoneyPrinter subscription
+revenue.
+
+
+
+
+Confidential working blueprint | Proposed product scope                                                                                  24
+AiMoneyPrinter                                                                                                MASTER BUSINESS PLAN
+
+
+
+
+13.3 Unit economics and usage limits
+Contribution per subscriber = Subscription revenue - variable service costs. Variable costs include AI calls, image
+generation, background jobs, email, storage, allocated social publishing fees, payment processing and any per-tenant
+provider cost.
+
+Example: if a user pays A$109/month and costs A$30/month to serve, contribution is A$79 before shared infrastructure,
+customer acquisition, labour and taxes. This is a planning illustration only.
+
+ • Meter provider usage per tenant, business and workflow.
+ • Proactively reject jobs that exceed customer entitlements.
+ • Compare launch/activation conversion, customer acquisition cost, gross margin, churn and retention.
+ • Show owners their own gross sales versus recorded estimated net profit, never as one interchangeable number.
+ • Keep customer advertising optional until store demand is validated.
+
+
+
+14. Go-to-Market and Customer Validation
+14.1 Product positioning
+
+      MARKETING MESSAGE
+      Start a side hustle with AI. AiMoneyPrinter helps research a low-cost business, create the products, publish the
+      online store and automate repetitive marketing and order fulfilment - without coding or inventory for digital
+      businesses.
+
+
+
+Use a high-energy, fast-result creative style without promising specific profits or that the business will require no ongoing
+attention. Avoid manufactured sales screenshots, invented testimonials and unverified earnings comparisons.
+
+
+14.2 Acquisition funnel
+
+  Stage                 Asset or activity                                       Desired measurement
+
+
+  Attention             Real short-form business-building demos                 Reach, watch-through, clicks
+
+
+  Discovery             Free five-idea assessment                               Started and completed assessments
+
+
+  Preview               Actual brand/product/store mockup                       Preview engagement and qualified intent
+
+
+  Subscription          Paid activation before publication                      Payment conversion, cost to acquire
+
+
+  Launch                Connected merchant and published store                  Successful store activation
+
+
+  Operation             Live publishing, sales and delivery                     First-sale rate, fulfilment and retention
+
+
+Suggested channels: TikTok, Instagram Reels, YouTube Shorts and detailed case-study videos; creator partnerships; organic
+search; and referrals. Paid acquisition should follow demonstrated onboarding and retention results.
+
+
+14.3 First 10-20-user pilot
+ • Invite a controlled group of adults interested in real digital-product side businesses.
+ • Offer assisted onboarding while carefully recording which steps still require human labour.
+
+
+Confidential working blueprint | Proposed product scope                                                                         25
+AiMoneyPrinter                                                                                               MASTER BUSINESS PLAN
+
+
+
+
+ • Confirm all generated assets are sellable and fulfilment works in live conditions.
+ • Measure storefront publishing time, first visitor, first order, customer gross sales, recorded costs and support burden.
+ • Interview users about whether they would continue subscribing with no guarantee of sales.
+ • Use results to simplify the two product engines and improve the opportunity rubric before scaling.
+
+
+14.4 Product success metrics
+
+  Metric                                    Definition
+
+
+  Setup completion                          Share of eligible signups that publish a usable storefront
+
+
+  Time to first live store                  Elapsed hours and hands-on minutes from signup to publication
+
+
+  First-sale conversion                     Share of published stores with at least one real paid order
+
+
+  Time to first sale                        Time to first verified merchant order
+
+
+  Fulfilment reliability                    Share of paid orders correctly delivered without operator help
+
+
+  Measured customer profitability           Share of merchants with positive profit after known expenses
+
+
+  Owner time requirement                    Actual weekly manual minutes needed to run store
+
+
+  Subscription retention                    Renewal and cancellation rates with documented reasons
+
+
+  Unit cost to serve                        Per-subscriber provider costs and support load
+
+
+
+
+Confidential working blueprint | Proposed product scope                                                                        26
+AiMoneyPrinter                                                                                               MASTER BUSINESS PLAN
+
+
+
+
+15. Delivery Roadmap and Agent Assignments
+15.1 Existing codebase reuse map
+
+  Previous VENTRA module                     AiMoneyPrinter plan
+
+
+  Auth and workspace                         Reuse, simplify customer onboarding and tenant setup
+
+
+  Business planning and research             Extend to scored, evidence-backed opportunity matching
+
+
+  Branding and pricing                       Reuse concepts; connect to actual catalogue and storefront
+
+
+  Course Creator                             Reuse structured content/persistence patterns for product factory
+
+
+  Website & Store                            Primary codebase for in-house AI storefront and publication
+
+
+  Stripe test checkout                       Complete merchant onboarding, webhook orders and fulfilment
+
+
+  Marketing drafts/content calendar          Extend to connected social scheduling and reporting
+
+
+  CRM/lead capture                           Reuse for opt-in prospective buyers
+
+
+  AI Setter                                  Reuse selectively for inbound product advice/support
+
+
+  AI Receptionist                            Defer; not necessary for digitally fulfilled businesses
+
+
+  Analytics                                  Extend to real paid orders, variable costs and attribution
+
+
+  Workflow builder                           Reuse concepts; put reliable job orchestrator underneath
+
+
+  Mobile glass design system                 Preserve polish while simplifying navigation
+
+
+These are reuse candidates based on previously discussed project status, not a new audit of the repository. The Coordinator
+should verify working code, tests, open migrations and external secrets before assigning implementation.
+
+
+
+
+Confidential working blueprint | Proposed product scope                                                                        27
+AiMoneyPrinter                                                                                                  MASTER BUSINESS PLAN
+
+
+
+
+15.2 Staged engineering programme
+
+  Phase             Scope                                                    Exit criterion
+
+
+  0 - Audit         Inventory, stable contracts, integration feasibility,    Approved reuse map and dependency plan
+                    provider cost model
+
+
+  1 - Create        Onboarding, five ideas, blueprints, brand, product       Real product files in a working draft store
+                    factory, store preview
+
+
+  2 - Sell          Subdomain publish, Connect, Checkout, webhooks,          Authorised paid order fulfils exactly once
+                    secure delivery
+
+
+  3 - Grow          Marketing strategy, creative generation, one             Connected account publishes approved posts with
+                    approved social channel, SEO                             measurable status
+
+
+  4 - Operate       Autopilot rules, monitoring, cost guardrails, advisor,   Routine tasks complete unattended with escalation
+                    support
+
+
+  5 - Expand        Subscriptions, multiple stores, more social APIs,        Each added model clears the same release gates
+                    print-on-demand and paid ads
+
+
+
+
+15.3 Agent responsibility map
+
+  Agent                        Ownership and deliverables
+
+
+  Coordinator                  Master backlog, ownership, API contracts, daily release gate and decisions
+
+
+  Research                     Blueprints, market/data sources, product niche evidence, platform API limits
+
+
+  Backend                      Tenant model, payment state, secure connections, fulfilment, usage limits
+
+
+  Feature                      Opportunity Finder, Product Factory, Marketing Operator, generation tests
+
+
+  Frontend                     Customer app, onboarding, website templates, preview, dashboards
+
+
+  QA/Test                      Payment/retry scenarios, mobile flows, privacy/security and live readiness
+
+
+Parallel work: Frontend/site previews and product generation can progress concurrently against signed shared contracts.
+Marketing can be built separately, but do not publish unfinished products. Keep the original protected VENTRA baseline
+stable until audit/merge rules are agreed.
+
+
+
+16. Release Gates and Acceptance Checklist
+Customer onboarding
+ • Sign-in, workspace creation and saved progress function end to end.
+ • Five ranked opportunities display evidence, cost assumptions and uncertainty.
+ • Customer can choose a blueprint and approve initial business configuration.
+
+
+
+
+Confidential working blueprint | Proposed product scope                                                                           28
+AiMoneyPrinter                                                                                MASTER BUSINESS PLAN
+
+
+
+
+Product factory
+ • Product rendering creates real readable files, not placeholders.
+ • QA checks completeness, layout, file access and originality risks.
+ • Customer can review, edit, save and approve catalogue.
+
+
+Website and commerce
+ • Mobile and desktop previews work.
+ • A new managed subdomain resolves publicly over HTTPS.
+ • Stripe onboarding, live checkout and payment state are verified.
+ • Failed/delayed and repeated webhook events do not create duplicate orders or deliveries.
+ • Signed download and refund support workflows function.
+
+
+Organic growth
+ • Marketing drafts link to actually published products.
+ • Social account connection works with real provider permissions.
+ • Approved post publishes and receives a confirmed provider status.
+ • Owner can pause publishing and see errors or account disconnection.
+
+
+Reliability, finance and data
+ • Tenant isolation and secure product file access pass tests.
+ • AI quotas, retries and spending limits are enforced in the backend.
+ • Approvals and audit logs show who authorised each external side effect.
+ • Dashboard distinguishes real sales, recorded expenses and estimates.
+ • Customer rights, privacy disclosures and messaging compliance are reviewed.
+
+
+
+
+Confidential working blueprint | Proposed product scope                                                         29
+AiMoneyPrinter                                                                                                    MASTER BUSINESS PLAN
+
+
+
+
+17. Risks, Controls and Open Decisions
+  Risk                                       Mitigation
+
+
+  Customers launch stores but make no        Demand evidence, buyer research, useful products, organic strategy and transparent pilot
+  sales                                      outcomes
+
+
+  Generic or low-quality AI products         Strict blueprints, deterministic rendering, quality gates and manual fallback
+
+
+  API costs exceed subscription price        Credits, quotas, bounded retries, provider cost ledger and tiering
+
+
+  Social publishing blocked by provider      Early access tests, scoped permissions and export/manual fallback
+
+
+  Payment onboarding fails                   Hosted merchant onboarding, readiness monitoring and clear troubleshooting
+
+
+  All stores look identical                  Niche-specific brand strategy, distinct products and relevant pages
+
+
+  Customers misunderstand income             No guaranteed-wealth claims; honest expenses and observed metrics
+  potential
+
+
+  AI performs risky action                   Permission validation, approvals, logging and budget restrictions
+
+
+  Many modules delay release                 One verified end-to-end journey before product expansion
+
+
+
+
+Decisions needed before coding expands
+ • Choose one initial product niche for the end-to-end pilot and define product quality standards.
+ • Choose first social channel and verify real production API access and pricing.
+ • Confirm Stripe Connect settlement model, supported seller countries and compliance scope.
+ • Confirm Vercel multi-tenant/subdomain implementation details and real publication process.
+ • Set first paid plan limits for images, products, social profiles, storage and support.
+ • Define approval defaults: initial store/product publication, marketing connection, spend and exceptional refunds.
+ • Complete repository audit of the existing VENTRA baseline before migration or merging.
+
+
+
+18. Coordinator Implementation Brief
+         MANDATE
+         Build AiMoneyPrinter as a new customer-facing AI automated side-hustle platform using the existing VENTRA
+         codebase where appropriate. Keep the in-house website generator. Prioritise real, low-cost digital products, a
+         reliable storefront, secure payment collection, automatic fulfilment and a supported organic marketing
+         channel.
+
+
+
+Execution: Audit current modules; preserve stable code; formalise service contracts; develop one complete customer path;
+put provider-backed jobs behind secure backend permissions; test the entire journey in isolated feature labs and staging; run
+controlled live-money validation; then broaden product models and channels.
+
+Do not: Rebuild working components unnecessarily, deploy arbitrary AI-generated code, show placeholder product files as
+deliverables, promise income, claim unavailable API capabilities, grant unrestricted spend rights, or launch disconnected
+
+
+
+Confidential working blueprint | Proposed product scope                                                                                 30
+AiMoneyPrinter                                                                                                           MASTER BUSINESS PLAN
+
+
+
+
+features that lack end-to-end tests.
+
+First deliverable: A new user can choose a supported digital-product opportunity, generate a real product, preview and
+publish a branded site, connect Stripe, accept a payment, automatically deliver the correct file and schedule one
+authenticated organic marketing campaign. Every task is visible, recoverable, permission-controlled and measurable.
+
+
+Reference documentation for the implementation team
+OpenAI developer documentation: https://developers.openai.com/api/docs/
+
+OpenAI image generation guide: https://developers.openai.com/api/docs/guides/image-generation
+
+Supabase documentation: https://supabase.com/docs
+
+Vercel multi-tenant platforms: https://vercel.com/docs/multi-tenant
+
+Vercel Domains API: https://vercel.com/docs/rest-api/reference/endpoints/projects/add-a-domain-to-a-project
+
+Stripe Connect documentation: https://docs.stripe.com/connect
+
+Stripe Checkout fulfilment: https://docs.stripe.com/checkout/fulfillment
+
+Trigger.dev documentation: https://trigger.dev/docs
+
+Resend documentation: https://resend.com/docs
+
+Ayrshare API documentation: https://app.ayrshare.com/docs/apis/overview
+
+Pinterest API documentation: https://developers.pinterest.com/docs/api/v5/
+
+Google Search Console API: https://developers.google.com/webmaster-tools
+
+Australian Consumer Law guidance (ACCC): https://www.accc.gov.au/business/advertising-and-promotions
+
+Australian Spam Act guidance (ACMA): https://www.acma.gov.au/avoid-sending-spam
+
+Australian business guidance: https://business.gov.au/
+
+
+
+
+AiMoneyPrinter | Master Business Plan & Product Blueprint | November 2026
+
+This is an internal working strategy and technical specification. Price estimates, product assumptions, API availability and legal requirements
+should be verified before external marketing or deployment.
+
+
+
+
+Confidential working blueprint | Proposed product scope                                                                                           31
+

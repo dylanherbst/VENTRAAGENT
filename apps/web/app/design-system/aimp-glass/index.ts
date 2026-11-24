@@ -1,0 +1,42 @@
+// Peach & Lavender Glass UI library. Spec: docs/aimp/reference/Peach-Lavender-Glass-Claude-Guide.md.
+// Usage: import './tokens.css' and './aimp-glass.css' once in the route's layout, wrap the view in <WaveBackdrop>
+// (it sets the .plg scope the tokens live on) and compose the pieces below. Showcase: /start/showcase.
+export { WaveBackdrop } from './wave-backdrop';
+export type { WaveBackdropProps } from './wave-backdrop';
+export { GlassSurface } from './glass-surface';
+export type { GlassSurfaceProps } from './glass-surface';
+export { GlassButton } from './glass-button';
+export type { GlassButtonProps, GlassButtonVariant } from './glass-button';
+export { GlassField } from './glass-field';
+export type { GlassFieldProps } from './glass-field';
+export { FeatureTile, FeatureTileGroup, FeatureTileRow } from './feature-tile';
+export type { FeatureTileGroupProps, FeatureTileOption, FeatureTileProps } from './feature-tile';
+export { FeatureRow } from './feature-row';
+export type { FeatureRowProps } from './feature-row';
+export { GlassIcon, controlIconNames, featureIconNames, providerIconNames } from './glass-icon';
+export type { ControlIconName, FeatureIconName, FeatureTone, GlassIconName, GlassIconProps, ProviderIconName } from './glass-icon';
+export { OnboardingHeader } from './onboarding-header';
+export type { OnboardingHeaderProps } from './onboarding-header';
+export { AuthDivider } from './auth-divider';
+export { OnboardingLayout } from './onboarding-layout';
+export type { OnboardingLayoutProps } from './onboarding-layout';
+export { clampMeter, clampStep, progressLabel, stepDots, stepState } from './steps';
+export { GlassBadge } from './glass-badge';
+export type { GlassBadgeProps, GlassBadgeTone } from './glass-badge';
+export { GlassNotice } from './glass-notice';
+export type { GlassNoticeProps, GlassNoticeTone } from './glass-notice';
+export { GlassMeter } from './glass-meter';
+export type { GlassMeterProps } from './glass-meter';
+export { GlassCard, GlassDisclosure, GlassKeyValue } from './glass-card';
+export type { GlassCardProps, GlassDisclosureProps, GlassKeyValueProps } from './glass-card';
+export { GlassSegmented } from './glass-choice';
+export type { GlassSegmentedOption, GlassSegmentedProps } from './glass-choice';
+export { GlassSelect, GlassTextArea } from './glass-textarea';
+export type { GlassSelectProps, GlassTextAreaProps } from './glass-textarea';
+export { GlassState } from './glass-state';
+export type { GlassStateProps } from './glass-state';
+export { JourneyHeader } from './journey-header';
+export type { JourneyHeaderProps } from './journey-header';
+export { AppIntro, AppLayout, GlassGrid } from './app-layout';
+export type { AppLayoutProps } from './app-layout';
+export type { StepDot, StepState } from './steps';

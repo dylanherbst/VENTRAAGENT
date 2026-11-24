@@ -1,0 +1,11 @@
+#!/bin/bash
+# Starts official Claude Code Remote Control for VENTRA so you can use this Mac's session from the
+# Claude phone app or claude.ai/code. Outbound connection to Anthropic only; no ports are opened.
+# It runs only while this Terminal window stays open (Ctrl+C stops it).
+# Sessions it starts run in the VENTRA repository, so the project hooks, deny rules and approval gates still apply.
+set -euo pipefail
+repo="${VENTRA_REPO:-$HOME/Developer/VENTRA-FEATURES}"
+cd "$repo"
+echo "Remote Control for $repo. Open the Code tab in the Claude mobile app or claude.ai/code and pick 'ventra'."
+echo "Sleep will disconnect it. Keep the Mac awake with: caffeinate -i"
+exec claude remote-control --name ventra --capacity 1 --permission-mode default

@@ -1,0 +1,9 @@
+# appId is a placeholder: change it to an identifier you own (reverse domain) BEFORE the first signed build, because it cannot change later
+# without users reinstalling.
+appId: com.aimoneyprinter.desktop
+productName: AiMoneyPrinter
+directories: { output: dist }
+files: [main.js, preload.js, navigation.js, package.json]
+mac: { category: public.app-category.business, target: [dmg], icon: ../web/public/brand/icon-512.png }
+win: { target: [nsis], icon: ../web/public/brand/icon-512.png }
+linux: { target: [AppImage], category: Office, icon: ../web/public/brand/icon-512.png }

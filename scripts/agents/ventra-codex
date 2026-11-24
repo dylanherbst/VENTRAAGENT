@@ -1,0 +1,8 @@
+#!/bin/bash
+# Open Codex in VENTRA-FEATURES and have it inspect HANDOFF.md before changing anything.
+REPO="${VENTRA_REPO:-/Users/dylan/Developer/VENTRA-FEATURES}"
+ventra-handoff acquire codex $$ || exit 1
+trap 'ventra-handoff release codex' EXIT
+cd "$REPO" || exit 1
+ventra-handoff snapshot
+codex "Read AGENTS.md, HANDOFF.md and docs/agents/CODEX_HANDOFF.md. Run git status and compare it with the git state in HANDOFF.md. Do not modify anything until you have done that. Then continue ONLY the approved task under 'Current task'. You are the only editor right now. Before you stop: update HANDOFF.md (changed files, tests, blockers, next steps), then exit."

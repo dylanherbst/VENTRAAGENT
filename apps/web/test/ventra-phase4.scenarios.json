@@ -1,0 +1,14 @@
+{
+  "description": "Supported browser recipe. Isolated QA Glass Studio fixture only; never customer origin. Run /customers on current task preview. This is rendered coverage, not npm unit tests.",
+  "steps": [
+    {
+      "action": "navigate",
+      "url": "/customers"
+    },
+    {
+      "action": "act",
+      "kind": "evaluate",
+      "fn": "async()=>{const pause=()=>new Promise(requestAnimationFrame);const key='launchpad.crm-contacts.v1.local-business';if(JSON.parse(localStorage.getItem('launchpad.business-profile.v1')).name!=='QA Glass Studio'||JSON.parse(localStorage.getItem(key)).some(c=>!c.name.startsWith('QA ')))throw Error('Requires QA-only fixture');for(let i=0;i<100&&!document.querySelector('.crm-contact-list button');i++)await new Promise(r=>setTimeout(r,20));const click=t=>{const b=[...document.querySelectorAll('.crm-contacts button')].find(b=>b.textContent.trim()===t);if(!b)throw Error('Missing '+t);b.click();};click('Open customer details');await pause();for(const save of [false,true]){click('Plan follow-up / edit notes');await pause();const f=document.querySelector('.crm-contacts form');const n=f.querySelector('textarea');Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype,'value').set.call(n,'QA retained follow-up');n.dispatchEvent(new Event('input',{bubbles:true}));await pause();if(save)f.requestSubmit();else click('Cancel contact changes');await pause();if(document.activeElement!==document.querySelector('#customer-detail-title'))throw Error('Detail focus not restored');}click('Plan follow-up / edit notes');await pause();const f=document.querySelector('.crm-contacts form');const n=f.querySelector('textarea');const original=localStorage.getItem('launchpad.business-profile.v1');const contacts=localStorage.getItem(key);localStorage.setItem('launchpad.business-profile.v1',JSON.stringify({...JSON.parse(original),goal:'QA newer goal'}));f.requestSubmit();await pause();if(!document.querySelector('[aria-label=\"Unsaved edit recovery\"]')||localStorage.getItem(key)!==contacts||!n.isConnected)throw Error('Conflict preservation failed');[...document.querySelectorAll('button')].find(b=>b.textContent==='Review unsaved form copy').click();await pause();const recovery=document.querySelector('[aria-label=\"Unsaved edit recovery\"] textarea');if(!JSON.parse(recovery.value).fields.some(x=>x.value==='QA retained follow-up'))throw Error('Recovery copy missing edit');if(f.querySelector('textarea')!==n)throw Error('Editor replaced');localStorage.setItem('launchpad.business-profile.v1',original);return {cancelFocus:true,saveFocus:true,conflictPreserved:true,recoveryCopy:true};}"
+    }
+  ]
+}

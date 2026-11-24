@@ -1,0 +1,20 @@
+/* Campaign calendar (AMP-131). Only layout details the glass library does not cover; colours and spacing come from its tokens.
+   Phone first: one list of days. Wider screens put the days side by side. */
+.acal-link { display: inline-flex; align-items: center; min-block-size: 44px; }
+.acal-actions { display: flex; flex-wrap: wrap; gap: var(--plg-space-2); }
+.acal-live { position: absolute; inline-size: 1px; block-size: 1px; margin: -1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+.acal-focus-target:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; border-radius: 8px; }
+.acal-badges { display: flex; flex-wrap: wrap; gap: 6px; }
+.acal-side { display: grid; gap: var(--plg-space-4); min-inline-size: 0; }
+.acal-side > * { min-inline-size: 0; }
+.acal-schedule { display: grid; gap: var(--plg-space-4); min-inline-size: 0; }
+.acal-days { display: grid; gap: var(--plg-space-4); list-style: none; padding: 0; margin: 0; }
+.acal-days > li { min-inline-size: 0; }
+.acal-entries { display: grid; gap: var(--plg-space-4); list-style: none; padding: 0; margin: 0; }
+.acal-entry { display: grid; gap: 6px; min-inline-size: 0; overflow-wrap: anywhere; }
+.acal-entry + .acal-entry { padding-block-start: var(--plg-space-4); border-block-start: 1px solid var(--plg-control-border); }
+.acal-entry-title { font-size: 15px; font-weight: 650; color: var(--plg-plum); }
+@media (min-width: 760px) {
+  .acal-side { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; }
+  .acal-days { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); align-items: start; }
+}

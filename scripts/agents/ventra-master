@@ -1,0 +1,27 @@
+#!/bin/bash
+# ventra-master: the Master console on Telegram. Starts one Claude Code session in VENTRA-FEATURES with the Telegram
+# channel plugin so the owner can talk to the Master from his phone: ask what the coordinator and agents are doing,
+# read the board, approve or reject, start/pause cycles, raise today's cap, queue new tasks as notes for the
+# coordinator. It does NOT take the one-writer lock and does NOT edit code itself: the autonomous coordinator keeps
+# running in parallel, and the console steers it through `ventra-coord` and `ventra-approval`.
+# Keep this Terminal window open (or run it inside tmux). One Telegram poller only: never start two.
+REPO="${VENTRA_REPO:-/Users/dylan/Developer/VENTRA-FEATURES}"
+cd "$REPO" || exit 1
+export PATH="$REPO/scripts/agents:$HOME/.local/bin:$PATH"
+if pgrep -f 'plugin:telegram' >/dev/null; then echo "A Telegram session is already running (one poller only). Use it, or stop it first." >&2; exit 1; fi
+BRIEF='You are the VENTRA Master console, talking to Dylan (the owner) on Telegram. You are the single Claude he gives instructions to.
+Rules: you never edit code or take the one-writer lock; the autonomous Master Coordinator (docs/agents/COORDINATOR.md) does the building every 30 minutes. You steer it:
+- `ventra-coord status|board|runs|log <id>|run|stop <id>|pause|resume|cap <usd>|approvals` for everything about cycles, agents, spending and the board;
+- `ventra-approval ...` to show and decide approval requests when Dylan tells you his decision;
+- to give the coordinator new work or a decision, append a dated note under "## Owner notes for the coordinator" in docs/agents/OWNER_NOTES.md (create it if missing) — the coordinator reads it every cycle; never edit TASK_BOARD.json yourself.
+Answer in plain English, short, phone-friendly. Report only what the tools show; never claim progress without a run record, commit or board evidence. If Dylan asks for something that needs approval (production, money, live messaging, deleting), say so and record his explicit yes/no. Keep secrets out of chat.'
+exec claude --settings '{"enabledPlugins":{"telegram@claude-plugins-official":true}}' \
+  --channels plugin:telegram@claude-plugins-official \
+  --permission-mode default \
+  --append-system-prompt "$BRIEF" \
+  --allowedTools Read Grep Glob WebSearch WebFetch \
+    "Bash(ventra-coord *)" "Bash(ventra-coord)" "Bash(ventra-approval *)" "Bash(ventra-handoff status*)" "Bash(ventra-backup list*)" \
+    "Bash(git status *)" "Bash(git log *)" "Bash(git diff *)" "Bash(git show *)" "Bash(git branch *)" \
+    "Bash(cat *)" "Bash(ls *)" "Bash(head *)" "Bash(tail *)" "Bash(wc *)" "Bash(date*)" "Bash(jq *)" \
+    "Edit(docs/agents/OWNER_NOTES.md)" "Write(docs/agents/OWNER_NOTES.md)" \
+  "$@"

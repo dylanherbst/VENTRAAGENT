@@ -1,0 +1,132 @@
+/* glasscn's own design tokens (kostyniuk/glasscn-components app/globals.css, MIT), scoped to .glasscn-original so the
+   showcase renders the library exactly as its docs do, independent of VENTRA's tokens. Temporary: for comparison only. */
+@import "./preflight-scoped.css";
+
+.glasscn-original {
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --help-foreground: oklch(0.38 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --radius: 0.625rem;
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+  --app-background: oklch(99.6% 0.02 106.75);
+  --accent-green: #c5f83a;
+  --margin-scroll: 5rem;
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Geist", system-ui, sans-serif;
+  color: var(--foreground); font-family: var(--font-sans); line-height: 1.5; -webkit-font-smoothing: antialiased;
+}
+.glasscn-original.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --help-foreground: oklch(0.82 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+  --app-background: oklch(7.61% 0.053 264.05);
+  --accent-green: #c5f83a;
+}
+
+/* A colourful backdrop with hard edges, so the refraction at the glass edge is visible. */
+.gc-stage { position: relative; min-height: 100dvh; display: grid; place-items: center; align-content: center; padding: 32px 16px; background: #ffffff; }
+.gc-stage .gc-rings { position: absolute; inset: 0; z-index: -1; pointer-events: none; background:
+    radial-gradient(circle at 30% 45%, transparent 0 110px, rgba(20,10,60,.55) 111px 118px, transparent 119px),
+    radial-gradient(circle at 72% 60%, transparent 0 150px, rgba(255,255,255,.75) 151px 158px, transparent 159px); }
+.gc-grid { display: grid; gap: 28px; width: min(100%, 860px); grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); justify-items: center; }
+.gc-label { font: 600 12px/1 var(--font-sans); letter-spacing: .1em; text-transform: uppercase; color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,.4); margin-bottom: 10px; text-align: center; }
+
+/* glasscn's own base layer (its app/globals.css): border colour and focus outline from tokens. */
+@layer base {
+  .glasscn-original *, .glasscn-original { border-color: var(--border); outline-color: color-mix(in oklab, var(--ring) 50%, transparent); }
+}
+
+/* VENTRA's old marketing defaults in globals.css (label, p, headings, button, input colours and sizes) are not part of the
+   Tailwind preflight, so undo them here, inside the showcase only. */
+@layer base {
+  .glasscn-original :is(label, p, h1, h2, h3, h4, h5, small, a) { color: inherit; max-width: none; font-size: inherit; font-weight: inherit; letter-spacing: inherit; line-height: inherit; text-wrap: wrap; overflow-wrap: normal; display: revert; }
+  .glasscn-original label { display: revert; }
+  .glasscn-original button, .glasscn-original button:hover:not(:disabled), .glasscn-original button:active:not(:disabled), .glasscn-original button:disabled, .glasscn-original button[aria-current] { min-height: 0; max-width: none; gap: normal; overflow-wrap: normal; background-color: transparent; border-color: var(--border); box-shadow: none; color: inherit; font-size: inherit; line-height: inherit; transition: none; }
+  .glasscn-original :is(input, textarea, select), .glasscn-original :is(input, textarea, select):hover { display: revert; width: auto; min-height: 0; background-color: transparent; color: inherit; border-color: var(--border); }
+  .glasscn-original :focus-visible { outline: revert; outline-offset: revert; }
+}
+
+/* ---- Reference "Liquid Glass" card: glasscn liquid-refract + thick glass layer ---- */
+.gc-stage.studio { background: radial-gradient(90% 70% at 20% 10%, #ffffff 0%, #f1f2f5 55%, #e3e5ea 100%); }
+.lg-wrap { position: relative; width: min(100%, 300px); }
+.lg-wrap::after { content: ""; position: absolute; z-index: -1; left: 8%; right: 4%; bottom: -14px; height: 40px; border-radius: 50%; background: rgba(70,78,100,.18); filter: blur(14px); }
+.lg-thick { border-radius: 30px !important;
+  background: linear-gradient(170deg, rgba(255,255,255,.62) 0%, rgba(255,255,255,.30) 45%, rgba(236,239,245,.38) 100%) !important;
+  box-shadow:
+    inset 0 2px 1px rgba(255,255,255,1),          /* bright top rim */
+    inset 1.5px 0 1px rgba(255,255,255,.75),       /* left rim */
+    inset -1px 0 1px rgba(255,255,255,.5),
+    inset 0 -2px 2px rgba(255,255,255,.85),        /* bottom rim catching light */
+    inset 0 0 0 1px rgba(255,255,255,.7),          /* outer hairline */
+    inset 0 -14px 18px -12px rgba(80,90,120,.22),  /* thicker, darker lower inner wall */
+    0 1px 2px rgba(40,46,60,.08), 0 12px 24px -10px rgba(40,46,60,.22); }
+.lg-thick::after { content: ""; position: absolute; inset: 7px; border-radius: 23px; pointer-events: none; z-index: 1;  /* inner bevel line */
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.95), inset 0 -1px 0 rgba(120,130,160,.18), 0 1px 0 rgba(120,130,160,.12), 0 -1px 0 rgba(255,255,255,.7); }
+.lg-body { position: relative; z-index: 2; padding: 22px 20px 20px; display: grid; gap: 16px; }
+.lg-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.lg-title { font: 700 24px/28px var(--font-sans); letter-spacing: -.02em; color: #15161a; }
+.lg-sub { margin-top: 2px; font: 500 15px/20px var(--font-sans); color: #5c6070; }
+.lg-icon { border-radius: 999px !important; width: 38px; height: 38px; margin-top: -2px; background: rgba(255,255,255,.55) !important;
+  box-shadow: inset 0 1px 0 #fff, 0 2px 6px rgba(40,46,60,.14), 0 1px 1px rgba(40,46,60,.08); }
+.lg-icon-btn { width: 100%; height: 100%; display: grid; place-items: center; color: #2a2d36; cursor: pointer; }
+.lg-field { position: relative; display: flex; align-items: center; height: 46px; border-radius: 999px; padding: 0 16px 0 18px;
+  background: linear-gradient(180deg, rgba(255,255,255,.96), rgba(250,250,252,.88)); box-shadow: inset 0 1px 0 #fff, 0 1px 2px rgba(40,46,60,.08), 0 4px 10px -4px rgba(40,46,60,.16); }
+.lg-field select { appearance: none; flex: 1; background: transparent; border: 0; font: 500 15px/20px var(--font-sans); color: #8a8e9a; cursor: pointer; outline: none; }
+.lg-field:focus-within { outline: 2px solid color-mix(in oklab, var(--ring) 60%, transparent); outline-offset: 2px; }
+.lg-field-chev { color: #6b6f7c; pointer-events: none; }

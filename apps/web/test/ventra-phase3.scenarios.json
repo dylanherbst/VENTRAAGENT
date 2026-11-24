@@ -1,0 +1,226 @@
+{
+  "description": "Replay sequentially through supported browser tool on task-only empty origin seeded with phase2 QA fixture. Never run against customer data. These rendered recipes are not npm unit tests.",
+  "steps": [
+    {
+      "action": "navigate",
+      "url": "/business?tab=offers"
+    },
+    {
+      "action": "act",
+      "kind": "resize",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "action": "act",
+      "kind": "evaluate",
+      "fn": "async()=>{const p=JSON.parse(localStorage.getItem('launchpad.business-profile.v1')||'null');const offers=JSON.parse(localStorage.getItem('launchpad.offers.v1.local-business')||'[]');if(p?.name!=='QA Glass Studio'||offers.some(o=>!o.name.startsWith('QA ')))throw Error('Requires isolated QA fixture; refusing to touch user records');for(let i=0;i<150&&!document.querySelector('.offer-builder>button:not(:disabled)');i++)await new Promise(r=>setTimeout(r,20));document.querySelector('.offer-builder>button').click();await new Promise(requestAnimationFrame);const form=document.querySelector('.offer-builder form');const values=['QA Rendered Regression Offer','QA audience','9.99','Manual QA outcome','Manual QA delivery'];const controls=[form.querySelectorAll('input')[0],form.querySelectorAll('input')[1],form.querySelectorAll('input')[2],form.querySelectorAll('textarea')[0],form.querySelectorAll('textarea')[1]];controls.forEach((el,i)=>{Object.getOwnPropertyDescriptor(Object.getPrototypeOf(el),'value').set.call(el,values[i]);el.dispatchEvent(new Event('input',{bubbles:true}));});await new Promise(requestAnimationFrame);form.requestSubmit();for(let i=0;i<150&&document.querySelector('.offer-builder form');i++)await new Promise(r=>setTimeout(r,20));const saved=JSON.parse(localStorage.getItem('launchpad.offers.v1.local-business'));if(saved.length!==offers.length+1||saved.at(-1).amountMinor!==999||offers.some(o=>JSON.stringify(saved.find(n=>n.id===o.id))!==JSON.stringify(o)))throw Error('Offer save/preservation failed');return {saved:true,preservedExisting:true,count:saved.length};}"
+    },
+    {
+      "action": "navigate",
+      "url": "/business?tab=offers"
+    },
+    {
+      "action": "act",
+      "kind": "evaluate",
+      "fn": "async()=>{for(let i=0;i<150&&!document.querySelector('.local-offer button');i++)await new Promise(r=>setTimeout(r,20));if(!document.querySelector('main').textContent.includes('QA Rendered Regression Offer'))throw Error('Saved offer did not survive reload');const original=localStorage.getItem('launchpad.offers.v1.local-business');document.querySelector('.local-offer button').click();await new Promise(requestAnimationFrame);const form=document.querySelector('.offer-builder form');const input=form.querySelector('input');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(input,'Unsaved QA cancellation');input.dispatchEvent(new Event('input',{bubbles:true}));await new Promise(requestAnimationFrame);[...form.querySelectorAll('button')].find(b=>b.textContent==='Cancel changes').click();for(let i=0;i<150&&document.querySelector('.offer-builder form');i++)await new Promise(r=>setTimeout(r,20));if(localStorage.getItem('launchpad.offers.v1.local-business')!==original)throw Error('Cancel changed saved offers');return {reload:true,cancelPreserved:true};}"
+    },
+    {
+      "action": "navigate",
+      "url": "/customers"
+    },
+    {
+      "action": "act",
+      "kind": "evaluate",
+      "fn": "async()=>{const original=JSON.parse(localStorage.getItem('launchpad.crm-contacts.v1.local-business')||'[]');if(original.some(c=>!c.name.startsWith('QA ')))throw Error('User contact present: refusing QA writes');for(let i=0;i<150&&!document.querySelector('.crm-contacts button:not(:disabled)');i++)await new Promise(r=>setTimeout(r,20));document.querySelector('.crm-contacts button').click();await new Promise(requestAnimationFrame);const form=document.querySelector('.crm-contacts form');const input=form.querySelector('input');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(input,'QA Rendered Regression Contact');input.dispatchEvent(new Event('input',{bubbles:true}));await new Promise(requestAnimationFrame);form.requestSubmit();for(let i=0;i<150&&document.querySelector('.crm-contacts form');i++)await new Promise(r=>setTimeout(r,20));const saved=JSON.parse(localStorage.getItem('launchpad.crm-contacts.v1.local-business'));if(saved.length!==original.length+1||original.some(c=>JSON.stringify(saved.find(n=>n.id===c.id))!==JSON.stringify(c)))throw Error('Contact save failed');return {saved:true,preservedExisting:true,count:saved.length};}"
+    },
+    {
+      "action": "navigate",
+      "url": "/customers"
+    },
+    {
+      "action": "act",
+      "kind": "evaluate",
+      "fn": "async()=>{for(let i=0;i<150&&!document.querySelector('.crm-contacts .local-offer button');i++)await new Promise(r=>setTimeout(r,20));if(!document.querySelector('main').textContent.includes('QA Rendered Regression Contact'))throw Error('Contact did not survive reload');const original=localStorage.getItem('launchpad.crm-contacts.v1.local-business');[...document.querySelectorAll('.crm-contacts .local-offer button')].find(b=>b.textContent.trim()==='Edit contact').click();await new Promise(requestAnimationFrame);const form=document.querySelector('.crm-contacts form');const input=form.querySelector('input');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(input,'Unsaved QA contact');input.dispatchEvent(new Event('input',{bubbles:true}));await new Promise(requestAnimationFrame);[...form.querySelectorAll('button')].find(b=>b.textContent.toLowerCase().includes('cancel')).click();for(let i=0;i<150&&document.querySelector('.crm-contacts form');i++)await new Promise(r=>setTimeout(r,20));if(localStorage.getItem('launchpad.crm-contacts.v1.local-business')!==original)throw Error('Contact cancel changed saved data');return {reload:true,cancelPreserved:true};}"
+    },
+    {
+      "action": "navigate",
+      "url": "/insights"
+    },
+    {
+      "action": "act",
+      "kind": "evaluate",
+      "fn": "async()=>{const key='ventra.manual-growth-audit.v1.local-business';const original=JSON.parse(localStorage.getItem(key)||'null');if(!original?.assessment.startsWith('Manual QA'))throw Error('Requires QA audit; refusing to modify user audit');for(let i=0;i<150&&!document.querySelector('.v-audit>button');i++)await new Promise(r=>setTimeout(r,20));document.querySelector('.v-audit>button').click();await new Promise(requestAnimationFrame);const form=document.querySelector('.v-audit form');const input=form.querySelector('textarea');Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype,'value').set.call(input,'Manual QA assessment saved through final production preview.');input.dispatchEvent(new Event('input',{bubbles:true}));await new Promise(requestAnimationFrame);form.requestSubmit();for(let i=0;i<150&&document.querySelector('.v-audit form');i++)await new Promise(r=>setTimeout(r,20));const saved=JSON.parse(localStorage.getItem(key));if(saved.assessment!=='Manual QA assessment saved through final production preview.'||JSON.stringify(saved.actions)!==JSON.stringify(original.actions))throw Error('Audit save/preservation failed');return {saved:true,actionsPreserved:true};}"
+    },
+    {
+      "action": "navigate",
+      "url": "/insights"
+    },
+    {
+      "action": "act",
+      "kind": "evaluate",
+      "fn": "async()=>{const key='ventra.manual-growth-audit.v1.local-business';for(let i=0;i<150&&!document.querySelector('.v-audit>button');i++)await new Promise(r=>setTimeout(r,20));if(!document.querySelector('main').textContent.includes('Manual QA assessment saved through final production preview.'))throw Error('Audit reload failed');const original=localStorage.getItem(key);document.querySelector('.v-audit>button').click();await new Promise(requestAnimationFrame);const form=document.querySelector('.v-audit form');const input=form.querySelector('textarea');Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype,'value').set.call(input,'Unsaved QA audit');input.dispatchEvent(new Event('input',{bubbles:true}));await new Promise(requestAnimationFrame);[...form.querySelectorAll('button')].find(b=>b.textContent==='Cancel changes').click();for(let i=0;i<150&&document.querySelector('.v-audit form');i++)await new Promise(r=>setTimeout(r,20));if(localStorage.getItem(key)!==original)throw Error('Audit cancel changed saved data');return {reload:true,cancelPreserved:true};}"
+    },
+    {
+      "action": "navigate",
+      "url": "/customers"
+    },
+    {
+      "action": "act",
+      "kind": "evaluate",
+      "fn": "async()=>{const p=JSON.parse(localStorage.getItem('launchpad.business-profile.v1')||'null');if(p?.name!=='QA Glass Studio')throw Error('QA-only origin required');const frame=()=>new Promise(requestAnimationFrame);const wait=async(s)=>{for(let i=0;i<150&&!document.querySelector(s);i++)await new Promise(r=>setTimeout(r,20));if(!document.querySelector(s))throw Error('Missing '+s);return document.querySelector(s);};const set=(el,v)=>{Object.getOwnPropertyDescriptor(Object.getPrototypeOf(el),'value').set.call(el,v);el.dispatchEvent(new Event('input',{bubbles:true}));};const click=(root,text)=>{const b=[...root.querySelectorAll('button')].find(x=>x.textContent.trim()===text);if(!b||b.disabled)throw Error('Missing enabled '+text);b.click();};const root=await wait('.crm-contacts');click(root,'Open customer details');await frame();if(!root.querySelector('.v-customer-detail')||document.activeElement.id!=='customer-detail-title')throw Error('Customer detail/focus failed');const before=localStorage.getItem('launchpad.crm-contacts.v1.local-business');click(root,'Plan follow-up / edit notes');await frame();const form=root.querySelector('form');set(form.querySelector('textarea'),'QA follow-up planning only');await frame();form.requestSubmit();await frame();if(!JSON.parse(localStorage.getItem('launchpad.crm-contacts.v1.local-business')).some(c=>c.notes==='QA follow-up planning only'))throw Error('Follow-up note not saved');return {customerDetail:true,followUpNoteSaved:true,priorRecordsRetained:JSON.parse(before).length===JSON.parse(localStorage.getItem('launchpad.crm-contacts.v1.local-business')).length};}"
+    },
+    {
+      "action": "navigate",
+      "url": "/business?tab=delivery"
+    },
+    {
+      "action": "act",
+      "kind": "evaluate",
+      "fn": "async()=>{const p=JSON.parse(localStorage.getItem('launchpad.business-profile.v1')||'null');if(p?.name!=='QA Glass Studio')throw Error('QA-only origin required');const frame=()=>new Promise(requestAnimationFrame);const wait=async(s)=>{for(let i=0;i<150&&!document.querySelector(s);i++)await new Promise(r=>setTimeout(r,20));if(!document.querySelector(s))throw Error('Missing '+s);return document.querySelector(s);};const set=(el,v)=>{Object.getOwnPropertyDescriptor(Object.getPrototypeOf(el),'value').set.call(el,v);el.dispatchEvent(new Event('input',{bubbles:true}));};const click=(root,text)=>{const b=[...root.querySelectorAll('button')].find(x=>x.textContent.trim()===text);if(!b||b.disabled)throw Error('Missing enabled '+text);b.click();};const root=await wait('.service-proposals .local-offer button');const section=root.closest('section');click(section,'Edit proposal');await frame();const form=section.querySelector('form');set(form.querySelector('input'),'QA Phase3 proposal');await frame();form.requestSubmit();await frame();if(section.querySelector('form'))throw Error('Proposal save failed');return {proposalSaved:true};}"
+    },
+    {
+      "action": "navigate",
+      "url": "/business?tab=delivery"
+    },
+    {
+      "action": "act",
+      "kind": "evaluate",
+      "fn": "async()=>{const p=JSON.parse(localStorage.getItem('launchpad.business-profile.v1')||'null');if(p?.name!=='QA Glass Studio')throw Error('QA-only origin required');const frame=()=>new Promise(requestAnimationFrame);const wait=async(s)=>{for(let i=0;i<150&&!document.querySelector(s);i++)await new Promise(r=>setTimeout(r,20));if(!document.querySelector(s))throw Error('Missing '+s);return document.querySelector(s);};const set=(el,v)=>{Object.getOwnPropertyDescriptor(Object.getPrototypeOf(el),'value').set.call(el,v);el.dispatchEvent(new Event('input',{bubbles:true}));};const click=(root,text)=>{const b=[...root.querySelectorAll('button')].find(x=>x.textContent.trim()===text);if(!b||b.disabled)throw Error('Missing enabled '+text);b.click();};await wait('.service-proposals .local-offer button');const root=document.querySelector('.service-proposals'),key='launchpad.service-proposals.v1.local-business',before=localStorage.getItem(key);if(!root.textContent.includes('QA Phase3 proposal'))throw Error('Proposal reload failed');click(root,'Edit proposal');await frame();set(root.querySelector('form input'),'QA unsaved proposal');await frame();click(root,'Cancel proposal changes');await frame();if(localStorage.getItem(key)!==before)throw Error('Proposal cancel changed bytes');return {proposalReload:true,proposalCancelPreserved:true};}"
+    },
+    {
+      "action": "navigate",
+      "url": "/sales?tab=invoices"
+    },
+    {
+      "action": "act",
+      "kind": "evaluate",
+      "fn": "async()=>{const p=JSON.parse(localStorage.getItem('launchpad.business-profile.v1')||'null');if(p?.name!=='QA Glass Studio')throw Error('QA-only origin required');const frame=()=>new Promise(requestAnimationFrame);const wait=async(s)=>{for(let i=0;i<150&&!document.querySelector(s);i++)await new Promise(r=>setTimeout(r,20));if(!document.querySelector(s))throw Error('Missing '+s);return document.querySelector(s);};const set=(el,v)=>{Object.getOwnPropertyDescriptor(Object.getPrototypeOf(el),'value').set.call(el,v);el.dispatchEvent(new Event('input',{bubbles:true}));};const click=(root,text)=>{const b=[...root.querySelectorAll('button')].find(x=>x.textContent.trim()===text);if(!b||b.disabled)throw Error('Missing enabled '+text);b.click();};const root=await wait('.service-invoice-draft');for(let i=0;i<150&&!root.querySelector('button:not(:disabled)');i++)await new Promise(r=>setTimeout(r,20));click(root,[...root.querySelectorAll('button')].some(b=>b.textContent.trim()==='Edit invoice draft'&&!b.disabled)?'Edit invoice draft':'Create invoice draft');await frame();const form=root.querySelector('form');set(form.querySelector('input'),'DRAFT-QA-PHASE3');await frame();const confirmation=form.querySelector('input[type=checkbox]');if(confirmation&&!confirmation.checked){confirmation.click();await frame();}form.requestSubmit();await frame();if(root.querySelector('form'))throw Error('Invoice save failed: '+root.textContent.slice(-700));return {invoiceSaved:true};}"
+    },
+    {
+      "action": "navigate",
+      "url": "/sales?tab=invoices"
+    },
+    {
+      "action": "act",
+      "kind": "evaluate",
+      "fn": "async()=>{const p=JSON.parse(localStorage.getItem('launchpad.business-profile.v1')||'null');if(p?.name!=='QA Glass Studio')throw Error('QA-only origin required');const frame=()=>new Promise(requestAnimationFrame);const wait=async(s)=>{for(let i=0;i<150&&!document.querySelector(s);i++)await new Promise(r=>setTimeout(r,20));if(!document.querySelector(s))throw Error('Missing '+s);return document.querySelector(s);};const set=(el,v)=>{Object.getOwnPropertyDescriptor(Object.getPrototypeOf(el),'value').set.call(el,v);el.dispatchEvent(new Event('input',{bubbles:true}));};const click=(root,text)=>{const b=[...root.querySelectorAll('button')].find(x=>x.textContent.trim()===text);if(!b||b.disabled)throw Error('Missing enabled '+text);b.click();};const root=await wait('.service-invoice-draft');for(let i=0;i<150&&!root.textContent.includes('Saved invoice draft restored');i++)await new Promise(r=>setTimeout(r,20));const key='launchpad.service-invoice-draft.v1.local-business',before=localStorage.getItem(key);if(!before||!before.includes('DRAFT-QA-PHASE3'))throw Error('Invoice reload failed');click(root,'Edit invoice draft');await frame();set(root.querySelector('form input'),'DRAFT-QA-CANCEL');await frame();const cancel=[...root.querySelectorAll('button')].find(b=>b.textContent.toLowerCase().includes('cancel'));cancel.click();await frame();if(localStorage.getItem(key)!==before)throw Error('Invoice cancel changed bytes');return {invoiceReload:true,invoiceCancelPreserved:true};}"
+    },
+    {
+      "action": "navigate",
+      "url": "/sales?tab=invoices"
+    },
+    {
+      "action": "act",
+      "kind": "evaluate",
+      "fn": "async()=>{const p=JSON.parse(localStorage.getItem('launchpad.business-profile.v1')||'null');if(p?.name!=='QA Glass Studio')throw Error('QA-only origin required');const frame=()=>new Promise(requestAnimationFrame);const wait=async(s)=>{for(let i=0;i<150&&!document.querySelector(s);i++)await new Promise(r=>setTimeout(r,20));if(!document.querySelector(s))throw Error('Missing '+s);return document.querySelector(s);};const set=(el,v)=>{Object.getOwnPropertyDescriptor(Object.getPrototypeOf(el),'value').set.call(el,v);el.dispatchEvent(new Event('input',{bubbles:true}));};const click=(root,text)=>{const b=[...root.querySelectorAll('button')].find(x=>x.textContent.trim()===text);if(!b||b.disabled)throw Error('Missing enabled '+text);b.click();};const root=await wait('.service-invoice-draft');for(let i=0;i<150&&!root.textContent.includes('Saved invoice draft restored');i++)await new Promise(r=>setTimeout(r,20));click(root,'Edit invoice draft');await frame();const input=root.querySelector('form input');set(input,'DRAFT-QA-STALE-PROPOSAL');await frame();const key='launchpad.service-proposals.v1.local-business',before=localStorage.getItem(key),invoiceKey='launchpad.service-invoice-draft.v1.local-business',invoiceBefore=localStorage.getItem(invoiceKey);const proposals=JSON.parse(before);proposals[0].title='QA competing proposal source';localStorage.setItem(key,JSON.stringify(proposals));try{root.querySelector('form').requestSubmit();await frame();if(localStorage.getItem(invoiceKey)!==invoiceBefore||!input.isConnected||input.value!=='DRAFT-QA-STALE-PROPOSAL'||!root.textContent.includes('Proposal source changed'))throw Error('Stale proposal source was not refused');return {staleProposalRefused:true,unsavedInvoiceRetained:true};}finally{localStorage.setItem(key,before);[...root.querySelectorAll('button')].find(b=>b.textContent.toLowerCase().includes('cancel')).click();}}"
+    },
+    {
+      "action": "navigate",
+      "url": "/business?tab=offers"
+    },
+    {
+      "action": "act",
+      "kind": "evaluate",
+      "fn": "async()=>{const p=JSON.parse(localStorage.getItem('launchpad.business-profile.v1')||'null');if(p?.name!=='QA Glass Studio')throw Error('QA-only origin required');const frame=()=>new Promise(requestAnimationFrame);const wait=async(s)=>{for(let i=0;i<150&&!document.querySelector(s);i++)await new Promise(r=>setTimeout(r,20));if(!document.querySelector(s))throw Error('Missing '+s);return document.querySelector(s);};const set=(el,v)=>{Object.getOwnPropertyDescriptor(Object.getPrototypeOf(el),'value').set.call(el,v);el.dispatchEvent(new Event('input',{bubbles:true}));};const click=(root,text)=>{const b=[...root.querySelectorAll('button')].find(x=>x.textContent.trim()===text);if(!b||b.disabled)throw Error('Missing enabled '+text);b.click();};await wait('.offer-builder .local-offer button');const root=document.querySelector('.offer-builder');click(root,'Edit offer');await frame();const form=root.querySelector('form'),input=form.querySelector('input');set(input,'QA unsaved revision guard');await frame();const key='launchpad.business-profile.v1',before=localStorage.getItem(key),offerKey='launchpad.offers.v1.local-business',offers=localStorage.getItem(offerKey);const external=JSON.stringify({...p,goal:'QA competing goal'});try{localStorage.setItem(key,external);form.requestSubmit();await frame();if(localStorage.getItem(offerKey)!==offers||localStorage.getItem(key)!==external||!input.isConnected||input.value!=='QA unsaved revision guard')throw Error('Revision guard lost edits');localStorage.setItem(key,'{');form.requestSubmit();await frame();if(localStorage.getItem(offerKey)!==offers||!input.isConnected)throw Error('Unreadable profile wrote resource');return {profileRevisionRefused:true,unreadableRefused:true,sameInputRetained:true};}finally{localStorage.setItem(key,before);click(root,'Cancel changes');}}"
+    },
+    {
+      "action": "navigate",
+      "url": "/workspace"
+    },
+    {
+      "action": "act",
+      "kind": "evaluate",
+      "fn": "async()=>{for(let i=0;i<150&&!document.querySelector('#workspace-error');i++)await new Promise(r=>setTimeout(r,20));const error=document.querySelector('#workspace-error');const form=document.querySelector('.account-workspace form');if(!error||!form||!form.querySelector('input[type=password]')||!error.textContent.toLowerCase().includes('not connected'))throw Error('Expected disconnected account and retained login');return {accountDisconnected:true,loginFormRetained:true,nativeValidation:form.querySelector('input[type=password]').minLength===12};}"
+    },
+    {
+      "action": "navigate",
+      "url": "/settings?section=profile"
+    },
+    {
+      "action": "act",
+      "kind": "resize",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "action": "act",
+      "kind": "evaluate",
+      "fn": "async()=>{const b=document.querySelector('button[aria-label=\"Open navigation\"]');b.click();await new Promise(requestAnimationFrame);if(!document.querySelector('#v-mobile-menu')?.contains(document.activeElement))throw Error('Menu did not receive focus');return {menuFocused:true};}"
+    },
+    {
+      "action": "act",
+      "kind": "press",
+      "key": "Escape"
+    },
+    {
+      "action": "act",
+      "kind": "evaluate",
+      "fn": "()=>{if(document.querySelector('#v-mobile-menu')||document.activeElement?.getAttribute('aria-label')!=='Open navigation')throw Error('Escape failed');document.querySelector('button[aria-label=\"Open navigation\"]').click();return {escapeRestoredFocus:true};}"
+    },
+    {
+      "action": "act",
+      "kind": "evaluate",
+      "fn": "async()=>{await new Promise(requestAnimationFrame);document.querySelector('#v-mobile-menu a[href=\"/settings?section=help\"]').click();await new Promise(requestAnimationFrame);if(document.querySelector('#v-mobile-menu'))throw Error('Same-path query did not close menu');return {queryMenuClosed:true};}"
+    },
+    {
+      "action": "act",
+      "kind": "resize",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "action": "act",
+      "kind": "evaluate",
+      "fn": "async()=>{document.querySelector('button[aria-label=\"Account menu\"]').click();await new Promise(requestAnimationFrame);if(!document.querySelector('#v-account-menu')?.contains(document.activeElement))throw Error('Account focus failed');return {accountFocused:true};}"
+    },
+    {
+      "action": "act",
+      "kind": "press",
+      "key": "Escape"
+    },
+    {
+      "action": "act",
+      "kind": "evaluate",
+      "fn": "async()=>{if(document.querySelector('#v-account-menu')||document.activeElement?.getAttribute('aria-label')!=='Account menu')throw Error('Account Escape failed');document.querySelector('button[aria-label=\"Account menu\"]').click();await new Promise(requestAnimationFrame);document.querySelector('main').dispatchEvent(new PointerEvent('pointerdown',{bubbles:true}));await new Promise(requestAnimationFrame);if(document.querySelector('#v-account-menu'))throw Error('Outside dismissal failed');return {accountEscapeFocus:true,outsideDismiss:true};}"
+    },
+    {
+      "action": "act",
+      "kind": "evaluate",
+      "fn": "()=>{const p=JSON.parse(localStorage.getItem('launchpad.business-profile.v1'));if(p?.name!=='QA Glass Studio')throw Error('QA only');const key='launchpad.offers.v1.local-business';sessionStorage.setItem('phase3-offers-backup',localStorage.getItem(key));localStorage.setItem(key,'{');return {corruptQAOffers:true};}"
+    },
+    {
+      "action": "navigate",
+      "url": "/business"
+    },
+    {
+      "action": "act",
+      "kind": "evaluate",
+      "fn": "async()=>{for(let i=0;i<150&&!document.body.innerText.includes('Saved offers could not be read');i++)await new Promise(r=>setTimeout(r,20));if(!document.body.innerText.includes('Saved offers could not be read')||document.querySelector('.v-saved-list'))throw Error('Offers read error retained stale list');localStorage.setItem('launchpad.offers.v1.local-business',sessionStorage.getItem('phase3-offers-backup'));return {errorVisible:true,staleListCleared:true};}"
+    },
+    {
+      "action": "act",
+      "kind": "evaluate",
+      "fn": "async()=>{document.querySelector('a[href=\"/business?tab=website\"]').click();for(let i=0;i<150&&!document.querySelector('a[href=\"/business?tab=website\"][aria-current]');i++)await new Promise(r=>setTimeout(r,20));return {clientTabNavigation:true};}"
+    },
+    {
+      "action": "act",
+      "kind": "evaluate",
+      "fn": "async()=>{document.querySelector('a[href=\"/business?tab=overview\"]').click();for(let i=0;i<150&&!document.querySelector('a[href=\"/business?tab=overview\"][aria-current]');i++)await new Promise(r=>setTimeout(r,20));return {sameMountedBusinessRecovery:true};}"
+    },
+    {
+      "action": "act",
+      "kind": "evaluate",
+      "fn": "async()=>{for(let i=0;i<150&&!document.querySelector('.v-saved-list');i++)await new Promise(r=>setTimeout(r,20));if(document.body.innerText.includes('Saved offers could not be read')||!document.querySelector('.v-saved-list'))throw Error('Valid offers recovery failed');sessionStorage.removeItem('phase3-offers-backup');return {validRecoveryClearedError:true};}"
+    },
+    {
+      "action": "navigate",
+      "url": "/business?tab=offers"
+    },
+    {
+      "action": "act",
+      "kind": "evaluate",
+      "fn": "async()=>{const frame=()=>new Promise(requestAnimationFrame);for(let i=0;i<150&&!document.querySelector('.offer-builder .local-offer button');i++)await new Promise(r=>setTimeout(r,20));document.querySelector('.offer-builder .local-offer button').click();await frame();const input=document.querySelector('.offer-builder form input');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(input,'QA retained transient input');input.dispatchEvent(new Event('input',{bubbles:true}));await frame();const original=Storage.prototype.getItem;try{Storage.prototype.getItem=function(key){if(key==='launchpad.business-profile.v1')throw Error('QA temporary read failure');return original.call(this,key);};dispatchEvent(new Event('ventra:updated'));await frame();if(!input.isConnected||!input.closest('[inert]'))throw Error('Read failure lost or did not pause input');}finally{Storage.prototype.getItem=original;}[...document.querySelectorAll('button')].find(b=>b.textContent==='Retry reading saved setup').click();await frame();if(!input.isConnected||input.closest('[inert]')||input.value!=='QA retained transient input')throw Error('Retry lost input');[...document.querySelectorAll('.offer-builder form button')].find(b=>b.textContent==='Cancel changes').click();return {transientPausedSameInput:true,retryRestoredSameInput:true};}"
+    }
+  ]
+}

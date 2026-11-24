@@ -1,0 +1,35 @@
+#!/bin/bash
+# ventra-coord: talk to the Master Coordinator through the Agent Dashboard's local API (127.0.0.1:4177).
+#   status            automation, current cycle, next cycle, pause, budget, agents RUNNING/IDLE/BLOCKED
+#   board [state]     task board (optionally filtered: queued|running|blocked|done|deferred|failed|implemented)
+#   runs [n]          last n cycles with status, cost, summary line
+#   log <run id>      a cycle's summary and launcher log
+#   run               start a cycle now (refused while one runs, while the lock is held, or past the daily cap)
+#   stop <run id>     stop a running cycle
+#   pause | resume    turn automation off / on
+#   cap <usd>         add USD to today's spending cap (owner decision)
+#   approvals         pending approval requests
+# Read-only except run/stop/pause/resume/cap, which are owner controls. Uses the dashboard's api-token file.
+set -uo pipefail
+HOME_DIR="${VENTRA_DASHBOARD_HOME:-$HOME/.ventra-dashboard}"
+BASE="http://127.0.0.1:${VENTRA_DASHBOARD_PORT:-4177}"
+TOKEN="$(cat "$HOME_DIR/api-token" 2>/dev/null)" || { echo "No dashboard token: is the Agent Dashboard service running (npm run dashboard:restart)?" >&2; exit 2; }
+api() { # method path [json]
+  curl -sS -m 20 -X "$1" "$BASE$2" -H "x-dashboard-token: $TOKEN" -H "Origin: $BASE" -H 'content-type: application/json' ${3:+--data "$3"}
+}
+have_jq() { command -v jq >/dev/null; }
+show() { if have_jq; then jq "$1"; else cat; fi; }
+cmd="${1:-status}"; shift || true
+case "$cmd" in
+  status) api GET /api/coordinator | show '{automation: (if .config.enabled then "ON every \(.config.everyMinutes) min" else "OFF" end), model: .config.model, current: .current, pausedUntil: .pausedUntil, nextCycleAt: .nextCycleAt, lock: .lock, budget: {spent: .budget.spentUsd, cap: .budget.capUsd, percent: .budget.percent, reached: .budget.reached}, agents: [.agents[] | {id, status, task: .current.title, blocked: (.blocked|length)}], needsApproval: [.awaitingApproval[] | {id, title, reason: .blocker.reason}], lastRun: (.lastRun | {id, status, costUsd, summary: (.summary|.[0:300])})}' ;;
+  board) st="${1:-}"; api GET /api/coordinator | show "[.board.tasks[] $( [ -n "$st" ] && echo "| select(.state==\"$st\")" ) | {id, state, owner, priority, title: .title[0:110], commits, blocker: .blocker.reason}]" ;;
+  runs) n="${1:-8}"; api GET /api/coordinator | show "[.runs[0:$n][] | {id, trigger, status, startedAt, minutes: ((.durationMs//0)/60000|floor), costUsd, summary: (.summary|split(\"\n\")[0][0:160])}]" ;;
+  log) [ -n "${1:-}" ] || { echo "usage: ventra-coord log <run id>" >&2; exit 2; }; api GET "/api/coordinator/runs/$1" | show '{run: (.run|{id,status,costUsd,numTurns,startedAt,endedAt}), summary: .run.summary, log: (.log|.[-3000:])}' ;;
+  run) api POST /api/coordinator/run '{}' | show . ;;
+  stop) [ -n "${1:-}" ] || { echo "usage: ventra-coord stop <run id>" >&2; exit 2; }; api POST "/api/coordinator/runs/$1/cancel" '{}' | show . ;;
+  pause) api PATCH /api/coordinator '{"enabled":false}' | show '.config' ;;
+  resume) api PATCH /api/coordinator '{"enabled":true}' | show '.config' ;;
+  cap) [[ "${1:-}" =~ ^[0-9]+(\.[0-9]+)?$ ]] || { echo "usage: ventra-coord cap <extra USD for today>" >&2; exit 2; }; api POST /api/coordinator/raise-cap "{\"extraUsd\":$1}" | show '{day, capUsd, spentUsd, remainingUsd}' ;;
+  approvals) api GET /api/command-center | show '[.approvals.pending[]? | {id, title, kind, environment, ref, commit, expiresAt, review}]' ;;
+  *) sed -n '2,13p' "$0" >&2; exit 2 ;;
+esac

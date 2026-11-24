@@ -1,0 +1,26 @@
+{
+  "name": "ventraa",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": "24.21.0",
+    "npm": "11.19.0"
+  },
+  "packageManager": "npm@11.19.0",
+  "scripts": {
+    "test:local-integration": "node --experimental-strip-types scripts/local-integration.mjs",
+    "dev": "npm --prefix apps/web run dev",
+    "build": "npm --prefix apps/web run build",
+    "start": "npm --prefix apps/web run start",
+    "lint": "npm --prefix apps/web run lint",
+    "test": "npm --prefix apps/web test",
+    "typecheck": "npm --prefix apps/web run typecheck",
+    "dashboard:restart": "launchctl kickstart -k gui/$(id -u)/com.ventra.control.server && sleep 3 && curl -s -o /dev/null -w \"dashboard HTTP %{http_code}\\n\" http://127.0.0.1:4177/",
+    "coordinator:run": "scripts/agents/ventra-coordinator run --budget 60",
+    "coordinator:status": "scripts/agents/ventra-coordinator status",
+    "master": "chmod +x scripts/agents/ventra-master scripts/agents/ventra-coord scripts/agents/ventra-coordinator && scripts/agents/ventra-master",
+    "coord": "bash scripts/agents/ventra-coord",
+    "studio": "npm --prefix apps/studio run dev",
+    "studio:build": "npm --prefix apps/studio run build"
+  }
+}

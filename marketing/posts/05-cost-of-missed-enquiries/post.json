@@ -1,0 +1,35 @@
+{
+  "outDir": "~/Developer/VENTRA-MARKETING/posts/05-cost-of-missed-enquiries",
+  "items": [
+    { "template": "carousel", "name": "slide-01", "theme": "dark", "slots": {
+      "eyebrow": "Do the maths", "title": "What do missed enquiries *cost* you?", "page": "01 / 06",
+      "body": "No industry averages. Just your own numbers, in three steps.",
+      "points": ["Step 1: the ones you miss", "Step 2: how many you'd win", "Step 3: what a job is worth"],
+      "cta": "Swipe →", "label": "" } },
+    { "template": "carousel", "name": "slide-02", "theme": "dark", "slots": {
+      "eyebrow": "Step 1 · A", "title": "Count the *missed* ones", "page": "02 / 06",
+      "body": "In a normal week, how many calls go unanswered or messages wait too long? That's A.",
+      "points": ["Check your missed-call list", "Check messages still waiting", "Be honest, not hopeful"],
+      "cta": "Swipe →", "label": "" } },
+    { "template": "carousel", "name": "slide-03", "theme": "dark", "slots": {
+      "eyebrow": "Step 2 · B", "title": "How many would you *win*?", "page": "03 / 06",
+      "body": "Out of every 10 enquiries you answer well, how many become paid work? That's B.",
+      "points": ["Use your own history", "A rough guess is fine", "Leave it low if unsure"],
+      "cta": "Swipe →", "label": "" } },
+    { "template": "carousel", "name": "slide-04", "theme": "dark", "slots": {
+      "eyebrow": "Step 3 · C", "title": "What's one job *worth*?", "page": "04 / 06",
+      "body": "Your typical job value. That's C.",
+      "points": ["Use a typical job, not your best", "Leave out repeat work for now"],
+      "cta": "Swipe →", "label": "" } },
+    { "template": "carousel", "name": "slide-05", "theme": "dark", "slots": {
+      "eyebrow": "Your number", "title": "A × B ÷ 10 × *C*", "page": "05 / 06",
+      "body": "That's the work that may be slipping away each week. Multiply by 52 for a year.",
+      "points": ["Example only: A = 4, B = 3, C = $400", "4 × 3 ÷ 10 × $400 = $480 a week", "Your numbers will be different"],
+      "cta": "Swipe →", "label": "" } },
+    { "template": "carousel", "name": "slide-06", "theme": "dark", "slots": {
+      "eyebrow": "Now you know", "title": "Your number is the *reason*", "page": "06 / 06",
+      "body": "VENTRA is being built to answer and book those enquiries for you. In sandbox testing now; launching soon.",
+      "points": ["Calls answered", "Replies in minutes", "Times offered and booked"],
+      "cta": "Follow for the launch", "label": "" } }
+  ]
+}

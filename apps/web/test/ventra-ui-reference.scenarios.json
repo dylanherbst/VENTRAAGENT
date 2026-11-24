@@ -1,0 +1,37 @@
+{
+  "description": "Supported browser final UI reference handlers; QA task candidate origin, no records changed. Prefix relative URLs. Existing manual audit/site fixtures required for editor destination checks.",
+  "steps": [
+    {
+      "action": "navigate",
+      "url": "/"
+    },
+    {
+      "action": "act",
+      "kind": "evaluate",
+      "fn": "async()=>{for(let i=0;i<100&&!document.querySelector('.v-dashboard .v-chips');i++)await new Promise(r=>setTimeout(r,20));const root=document.querySelector('.v-dashboard');[...root.querySelectorAll('.v-chips button')].find(b=>b.textContent==='Automation').click();await new Promise(requestAnimationFrame);if(root.querySelectorAll('.v-service').length!==1||!root.querySelector('.v-service').textContent.includes('Execution unavailable'))throw Error('Home filter failed');root.querySelector('.v-chips button').click();await new Promise(requestAnimationFrame);if(root.querySelectorAll('.v-kpi').length!==4||root.querySelectorAll('.v-service').length!==4||root.querySelectorAll('.v-kpi strong').length!==4)throw Error('Home cards failed');return {filter:true,fourKpis:true,fourRecommendations:true,unavailableHonest:true};}"
+    },
+    {
+      "action": "navigate",
+      "url": "/services"
+    },
+    {
+      "action": "act",
+      "kind": "evaluate",
+      "fn": "async()=>{for(let i=0;i<100&&!document.querySelector('.v-service-directory input');i++)await new Promise(r=>setTimeout(r,20));const root=document.querySelector('.v-service-directory');const input=root.querySelector('input');const set=async(v)=>{Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(input,v);input.dispatchEvent(new Event('input',{bubbles:true}));await new Promise(requestAnimationFrame);};await set('website');if(root.querySelectorAll('.v-service').length!==1||!root.querySelector('[role=status]').textContent.includes('1 service'))throw Error('Directory search');await set('<script>');if(root.querySelectorAll('.v-service').length||!root.textContent.includes('No matching services')||root.querySelector('script'))throw Error('Directory empty');[...root.querySelectorAll('button')].find(b=>b.textContent==='Clear filters').click();await new Promise(requestAnimationFrame);if(root.querySelectorAll('.v-service').length!==9)throw Error('Clear filters');root.querySelector('a[href=\"/services/growth-audit\"]').click();return {directorySearch:true,empty:true,clear:true};}"
+    },
+    {
+      "action": "act",
+      "kind": "evaluate",
+      "fn": "async()=>{for(let i=0;i<120&&!document.querySelector('.v-service-detail');i++)await new Promise(r=>setTimeout(r,20));const root=document.querySelector('.v-service-detail');const fav=root.querySelector('[aria-label=\"Favourite for this visit\"]');fav.click();await new Promise(requestAnimationFrame);if(fav.getAttribute('aria-pressed')!=='true'||!root.textContent.includes('this visit only'))throw Error('Session favourite');root.querySelector('[aria-label=\"Show share link\"]').click();await new Promise(requestAnimationFrame);if(root.querySelector('input')?.value!=='/services/growth-audit')throw Error('Share text');root.querySelector('a[href=\"/insights?tab=audit\"]').click();for(let i=0;i<120&&!document.querySelector('.v-audit');i++)await new Promise(r=>setTimeout(r,20));if(location.pathname!=='/insights'||!document.querySelector('.v-audit'))throw Error('Audit actual destination');return {favoriteSessionOnly:true,sharePlainLink:true,startManualAudit:true};}"
+    },
+    {
+      "action": "navigate",
+      "url": "/create"
+    },
+    {
+      "action": "act",
+      "kind": "evaluate",
+      "fn": "async()=>{for(let i=0;i<100&&!document.querySelector('.v-create-page');i++)await new Promise(r=>setTimeout(r,20));const root=document.querySelector('.v-create-page');if(root.querySelectorAll('.v-create-options a').length!==6)throw Error('Create choices');root.querySelector('a[href=\"/business?tab=website\"]').click();for(let i=0;i<120&&!document.querySelector('.website-page-draft');i++)await new Promise(r=>setTimeout(r,20));if(location.pathname!=='/business'||!document.querySelector('.website-page-draft'))throw Error('Website editor missing');return {createSix:true,originalWebsiteHandler:true};}"
+    }
+  ]
+}

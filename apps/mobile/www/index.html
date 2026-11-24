@@ -1,0 +1,9 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>AiMoneyPrinter</title>
+<style>body{margin:0;min-height:100vh;display:grid;place-items:center;font:16px system-ui,sans-serif;background:#fff;color:#1c1633}</style></head>
+<body><p>Opening AiMoneyPrinter...</p>
+<script>
+// Fallback page. The real app is the hosted web app: scripts/set-server.mjs writes its https address into capacitor.config.json
+// as server.url before each sync, so the phone loads it directly. If that has not been set, say so instead of showing a blank screen.
+document.body.firstElementChild.textContent = 'This build has no app address set yet. Set AIMP_APP_URL and run "npm run sync".';
+</script></body></html>

@@ -1,0 +1,35 @@
+{
+  "outDir": "~/Developer/VENTRA-MARKETING/posts/06-how-ai-books",
+  "items": [
+    { "template": "carousel", "name": "slide-01", "theme": "light", "slots": {
+      "eyebrow": "How AI books appointments", "title": "From enquiry to *booked*", "page": "01 / 06",
+      "body": "The five steps, in plain words.",
+      "points": ["Enquiry and questions", "Availability and booking", "Reminder"],
+      "cta": "Swipe →", "label": "Concept demonstration" } },
+    { "template": "carousel", "name": "slide-02", "theme": "light", "slots": {
+      "eyebrow": "1 · Enquiry", "title": "A customer *asks*", "page": "02 / 06",
+      "body": "By phone or by message, at any hour.",
+      "points": ["Customer: Can I get a quote for a bathroom repaint?"],
+      "cta": "Swipe →", "label": "Concept demonstration" } },
+    { "template": "carousel", "name": "slide-03", "theme": "light", "slots": {
+      "eyebrow": "2 · Questions", "title": "A few *right* questions", "page": "03 / 06",
+      "body": "Just enough to know the job fits.",
+      "points": ["Where is the job?", "How big is it?", "When do you need it done?"],
+      "cta": "Swipe →", "label": "Concept demonstration" } },
+    { "template": "carousel", "name": "slide-04", "theme": "light", "slots": {
+      "eyebrow": "3 · Availability", "title": "Real *times*, offered", "page": "04 / 06",
+      "body": "Open times are offered straight away, so there's no back-and-forth.",
+      "points": ["Tue 9:00 am", "Wed 2:30 pm", "Thu 11:00 am"],
+      "cta": "Swipe →", "label": "Concept demonstration" } },
+    { "template": "carousel", "name": "slide-05", "theme": "light", "slots": {
+      "eyebrow": "4 · Booked", "title": "*Confirmed*, and saved", "page": "05 / 06",
+      "body": "The customer picks a time. The booking and their details are saved for you.",
+      "points": ["Time confirmed", "Details on the customer record", "Or held for your approval, if you choose"],
+      "cta": "Swipe →", "label": "Concept demonstration" } },
+    { "template": "carousel", "name": "slide-06", "theme": "light", "slots": {
+      "eyebrow": "5 · Reminder", "title": "A *reminder* before the visit", "page": "06 / 06",
+      "body": "Planned, not built yet: a reminder before the appointment. Steps 1 to 4 are in sandbox testing today.",
+      "points": ["Steps 1-4: sandbox testing", "Step 5: planned", "Launching soon"],
+      "cta": "Follow for the launch", "label": "Concept demonstration" } }
+  ]
+}

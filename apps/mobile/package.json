@@ -1,0 +1,20 @@
+{
+  "name": "aimp-mobile",
+  "version": "0.1.0",
+  "private": true,
+  "description": "AiMoneyPrinter iOS and Android apps (Capacitor shell around the hosted web app).",
+  "scripts": {
+    "add:ios": "cap add ios",
+    "add:android": "cap add android",
+    "set-server": "node scripts/set-server.mjs",
+    "sync": "node scripts/set-server.mjs && cap sync",
+    "open:ios": "cap open ios",
+    "open:android": "cap open android"
+  },
+  "dependencies": {
+    "@capacitor/android": "6.1.2",
+    "@capacitor/cli": "6.1.2",
+    "@capacitor/core": "6.1.2",
+    "@capacitor/ios": "6.1.2"
+  }
+}

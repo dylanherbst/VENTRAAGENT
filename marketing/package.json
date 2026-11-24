@@ -1,0 +1,15 @@
+{
+  "name": "ventra-marketing",
+  "private": true,
+  "version": "0.1.0",
+  "description": "VENTRA marketing render pipeline (HTML templates -> PNG via Playwright, animated scenes -> MP4 via ffmpeg). Not part of the app build.",
+  "type": "module",
+  "scripts": {
+    "check": "node render.mjs --check",
+    "reel:check": "node reel.mjs --check"
+  },
+  "devDependencies": {
+    "ffmpeg-static": "^5.2.0",
+    "playwright-core": "1.58.2"
+  }
+}

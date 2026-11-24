@@ -1,0 +1,20 @@
+/* AiMoneyPrinter website tokens. High-key white/pearl field, controlled lavender and peach, charcoal primary button. */
+.amp {
+  --amp-bg: #f7f5fb; --amp-bg-2: #efebf7; --amp-surface: #ffffff; --amp-ink: #1c1a24; --amp-ink-2: #4a4657;
+  --amp-muted: #77728a; --amp-line: #e4dff0; --amp-lavender: #8b6fe0; --amp-lavender-soft: #ece6fb; --amp-peach: #f4c6a8;
+  --amp-charcoal: #22202a; --amp-radius: 18px; --amp-font: var(--amp-body, 'Inter'), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--amp-bg); color: var(--amp-ink); font-family: var(--amp-font); line-height: 1.55; -webkit-font-smoothing: antialiased;
+}
+.amp *, .amp *::before, .amp *::after { box-sizing: border-box; }
+.amp :where(p) { max-width: none; color: inherit; margin: 0 0 1rem; }
+.amp :where(h1, h2, h3) { color: var(--amp-ink); margin: 0; letter-spacing: -0.025em; font-weight: 650; }
+.amp-btn { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; min-height: 52px; padding: .85rem 1.5rem; border-radius: 999px; font: inherit; font-weight: 600; font-size: 1rem; text-decoration: none; cursor: pointer; border: 1px solid transparent; transition: transform .15s ease, background-color .15s ease; }
+.amp .amp-btn-primary { background: var(--amp-charcoal); color: #fff; border-color: var(--amp-charcoal); }
+.amp .amp-btn-primary:hover { background: #000; }
+.amp .amp-btn-secondary { background: transparent; color: var(--amp-ink); border-color: var(--amp-line); }
+.amp .amp-btn-secondary:hover { background: var(--amp-surface); }
+.amp .amp-btn:disabled { opacity: .45; cursor: not-allowed; }
+.amp :focus-visible { outline: 2px solid var(--amp-lavender); outline-offset: 3px; border-radius: 8px; }
+.amp-eyebrow { font-size: .78rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--amp-lavender); }
+.amp-wrap { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
+@media (min-width: 768px) { .amp-wrap { padding: 0 2rem; } }

@@ -1,0 +1,135 @@
+/*
+  VENTRA marketing templates: shared tokens and components.
+  Canvas sizes are authored at HALF the Instagram pixel size and rendered at deviceScaleFactor 2:
+    carousel 540x675  -> 1080x1350 PNG
+    post     540x540  -> 1080x1080 PNG
+    story    540x960  -> 1080x1920 PNG / reel frame
+    highlight 540x540 -> 1080x1080 PNG (content inside the centre circle)
+  Tokens come from docs/design/UI_BIBLE.md. Fonts: Outfit (headlines), Hanken Grotesk (body), Google Fonts (free, OFL).
+*/
+:root {
+  --onyx: #0a0a0a;
+  --plum: #76335c;
+  --periwinkle: #a592ee;
+  --peach: #fe86aa;
+  --white: #ffffff;
+  --action-a: #6d3df0;
+  --action-b: #9b6bff;
+  --ink-soft: rgba(255, 255, 255, 0.74);
+  --ink-mute: rgba(255, 255, 255, 0.52);
+  --glass-bg: rgba(255, 255, 255, 0.08);
+  --glass-border: rgba(255, 255, 255, 0.22);
+  --font-head: "Outfit", system-ui, sans-serif;
+  --font-body: "Hanken Grotesk", system-ui, sans-serif;
+  --pad: 44px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: var(--w); height: var(--h); overflow: hidden; }
+body {
+  font-family: var(--font-body);
+  color: var(--white);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
+}
+
+/* ---------- Canvas + background ---------- */
+.canvas {
+  position: relative;
+  width: var(--w);
+  height: var(--h);
+  overflow: hidden;
+  background:
+    radial-gradient(120% 80% at 0% 0%, rgba(118, 51, 92, 0.85) 0%, rgba(118, 51, 92, 0) 60%),
+    radial-gradient(90% 70% at 100% 100%, rgba(109, 61, 240, 0.55) 0%, rgba(109, 61, 240, 0) 65%),
+    linear-gradient(160deg, #1a0f22 0%, var(--onyx) 70%);
+  isolation: isolate;
+}
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(40px);
+  opacity: 0.55;
+  z-index: -1;
+  pointer-events: none;
+}
+.orb--peri { background: var(--periwinkle); }
+.orb--peach { background: var(--peach); }
+.orb--plum { background: var(--plum); }
+.grain {
+  position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: 0.06;
+  background-image: radial-gradient(rgba(255,255,255,0.9) 0.5px, transparent 0.6px);
+  background-size: 3px 3px;
+}
+
+/* Light theme: white canvas with soft plum/peach glows */
+.canvas[data-theme="light"] {
+  color: #1b1020;
+  background:
+    radial-gradient(90% 60% at 0% 0%, rgba(165, 146, 238, 0.45) 0%, rgba(165, 146, 238, 0) 60%),
+    radial-gradient(80% 60% at 100% 100%, rgba(254, 134, 170, 0.40) 0%, rgba(254, 134, 170, 0) 65%),
+    var(--white);
+  --ink-soft: rgba(27, 16, 32, 0.74);
+  --ink-mute: rgba(27, 16, 32, 0.5);
+  --glass-bg: rgba(255, 255, 255, 0.55);
+  --glass-border: rgba(118, 51, 92, 0.16);
+}
+
+/* ---------- Brand mark ---------- */
+.brand {
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--font-head); font-weight: 600; letter-spacing: 0.22em; font-size: 13px;
+}
+.brand img { height: 22px; width: auto; display: block; }
+
+/* ---------- Type ---------- */
+.eyebrow {
+  font-family: var(--font-body); font-weight: 700; font-size: 12px;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--peach);
+}
+.title {
+  font-family: var(--font-head); font-weight: 600; letter-spacing: -0.02em; line-height: 1.04;
+}
+.title em {
+  font-style: normal;
+  background: linear-gradient(90deg, var(--periwinkle), var(--peach));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.body { font-size: 17px; line-height: 1.5; color: var(--ink-soft); font-weight: 400; }
+.meta { font-size: 12px; color: var(--ink-mute); letter-spacing: 0.04em; }
+
+/* ---------- Glass card ---------- */
+.glass {
+  position: relative;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 28px;
+  -webkit-backdrop-filter: blur(22px) saturate(140%);
+  backdrop-filter: blur(22px) saturate(140%);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+.glass::before {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  background: linear-gradient(135deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0) 40%);
+}
+
+/* ---------- Pills / CTA ---------- */
+.pill {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 18px; border-radius: 999px;
+  font-family: var(--font-body); font-weight: 600; font-size: 14px;
+}
+.pill--action { background: linear-gradient(90deg, var(--action-a), var(--action-b)); color: var(--white); }
+.pill--ghost { border: 1px solid var(--glass-border); background: var(--glass-bg); }
+
+/* "Concept demonstration" label: required on any frame that is not real product footage */
+.label-concept {
+  position: absolute; z-index: 20;
+  padding: 6px 12px; border-radius: 999px;
+  background: rgba(10, 10, 10, 0.62); border: 1px solid rgba(255, 255, 255, 0.25);
+  color: var(--white); font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+}
+.label-concept:empty { display: none; }
+
+/* Hide any optional slot that ended up empty */
+[data-slot]:empty { display: none; }

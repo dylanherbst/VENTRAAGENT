@@ -1,0 +1,42 @@
+<!doctype html>
+<!-- Story / reel cover frame. CSS 540x960, rendered at deviceScaleFactor 2 -> 1080x1920 PNG.
+     Safe zone: keep text out of the top 125 CSS px (250 px) and bottom 170 CSS px (340 px), where Instagram draws its UI.
+     Slots: eyebrow, title, body, cta, label. Theme: "dark" (default) or "light". -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Hanken+Grotesk:wght@400;500;600;700&display=block">
+<link rel="stylesheet" href="base.css">
+<style>
+  :root { --w: 540px; --h: 960px; }
+  .canvas { padding: 125px var(--pad) 170px; display: flex; flex-direction: column; }
+  .brand { justify-content: center; }
+  .main { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; gap: 20px; }
+  .title { font-size: 52px; }
+  .card { padding: 28px 26px; width: 100%; }
+  /* inside the safe zone, just above Instagram's bottom UI */
+  .label-concept { bottom: 186px; left: 50%; transform: translateX(-50%); }
+</style>
+</head>
+<body>
+<div class="canvas" data-theme="dark">
+  <div class="orb orb--peri" style="width:340px;height:340px;left:-120px;top:160px"></div>
+  <div class="orb orb--peach" style="width:280px;height:280px;right:-100px;bottom:180px;opacity:.4"></div>
+  <div class="grain"></div>
+  <div class="label-concept" data-slot="label"></div>
+
+  <div class="brand"><img src="../../apps/web/public/brand/ventra-mark.png" alt="">VENTRA</div>
+  <div class="main">
+    <div class="eyebrow" data-slot="eyebrow">Launching soon</div>
+    <h1 class="title" data-slot="title">Every call <em>answered</em>.<br>Every enquiry <em>booked</em>.</h1>
+    <div class="glass card">
+      <p class="body" data-slot="body">VENTRA is an AI front office for service businesses: it answers, replies, qualifies and books.</p>
+    </div>
+    <div class="pill pill--action" data-slot="cta">Join the waitlist</div>
+  </div>
+</div>
+<script src="fill.js"></script>
+</body>
+</html>

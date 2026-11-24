@@ -1,0 +1,11 @@
+/* Product editor (AMP-084). Only layout details the glass library does not cover; colours and spacing come from its tokens. */
+.ape-back { display: inline-flex; align-items: center; min-block-size: 44px; }
+.ape-rows { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--plg-space-3); }
+.ape-rows > li { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 6px 16px; min-inline-size: 0; }
+.ape-rows > li > span { min-inline-size: 0; overflow-wrap: anywhere; }
+.ape-downloads > li { justify-content: flex-start; }
+.ape-downloads a { display: inline-flex; align-items: center; min-block-size: 44px; }
+.ape-actions { display: flex; flex-wrap: wrap; gap: var(--plg-space-3); }
+.ape-actions > * { min-inline-size: 0; }
+.ape-hash { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 14px; overflow-wrap: anywhere; }
+.ape-current { border-inline-start: 4px solid var(--plg-plum); padding-inline-start: 12px; }

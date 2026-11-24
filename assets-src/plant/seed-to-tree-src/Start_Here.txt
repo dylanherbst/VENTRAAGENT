@@ -1,0 +1,15 @@
+AIMONEYPRINTER
+Seed to Tree | Editable 3D recreation
+
+BLENDER
+Open AiMoneyPrinter_Seed_to_Tree.blend in Blender 4.3 or later.
+Use the Scene selector in the top-right to switch between Floating Seed, Planted Seed, Two-leaf Sprout and Three-leaf Tree. Each is a separate scene. The Outliner separates the subject from the landscape, camera and lights. Subject pieces are individually named.
+Use Render > Render Image to render the active scene. Each camera is set up for the 1672 × 941 reference aspect ratio and framing. The glow is adjustable in the Compositing workspace. The seed shells and leaf blades have editable Solidify thickness, and the coloured meshes use a Tint color attribute.
+
+NOMAD SCULPT
+Unzip the download. In Nomad, open File > Import and choose any one of the four GLB files in the Nomad folder. Use Add to bring a second stage into an open project. The GLBs contain the subject meshes and vertex colours. Terrain, cameras, lighting and compositor glow are part of the Blender scenes. You can save the imported project as a native Nomad file on your device.
+
+PREVIEWS
+The four images show the Blender scenes from their included cameras.
+
+The meshes were recreated from the four supplied PNG references. Shaping, surface colours and lighting are approximations based on those views. The four stages are individual editable poses.

@@ -1,0 +1,19 @@
+{
+  "name": "aimp-desktop",
+  "version": "0.1.0",
+  "private": true,
+  "description": "AiMoneyPrinter desktop app (a locked-down window around the hosted web app).",
+  "main": "main.js",
+  "author": "AiMoneyPrinter",
+  "scripts": {
+    "start": "electron .",
+    "test": "node --test test/*.test.js",
+    "dist:mac": "electron-builder --mac",
+    "dist:win": "electron-builder --win",
+    "dist:linux": "electron-builder --linux"
+  },
+  "devDependencies": {
+    "electron": "33.2.0",
+    "electron-builder": "25.1.8"
+  }
+}

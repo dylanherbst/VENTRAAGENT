@@ -1,0 +1,35 @@
+{
+  "outDir": "~/Developer/VENTRA-MARKETING/posts/04-ai-setter",
+  "items": [
+    { "template": "carousel", "name": "slide-01", "theme": "light", "slots": {
+      "eyebrow": "Meet the AI Setter", "title": "Replies in *minutes*, not hours", "page": "01 / 06",
+      "body": "Built to answer new enquiries quickly, ask the right questions and book the job in.",
+      "points": ["Replies", "Asks the right questions", "Books, or hands over to you"],
+      "cta": "Swipe →", "label": "" } },
+    { "template": "carousel", "name": "slide-02", "theme": "light", "slots": {
+      "eyebrow": "1 · Replies", "title": "A fast, *useful* first reply", "page": "02 / 06",
+      "body": "Example conversation:",
+      "points": ["Customer: Hi, do you do bathroom repaints?", "Reply: Yes, we do. Which suburb is the job in?"],
+      "cta": "Swipe →", "label": "Concept demonstration" } },
+    { "template": "carousel", "name": "slide-03", "theme": "light", "slots": {
+      "eyebrow": "2 · Asks the right questions", "title": "Gets the *details* you need", "page": "03 / 06",
+      "body": "Only what you would ask: the job, the place, the timing.",
+      "points": ["What do you need done?", "Where is the job?", "When suits you?"],
+      "cta": "Swipe →", "label": "Concept demonstration" } },
+    { "template": "carousel", "name": "slide-04", "theme": "light", "slots": {
+      "eyebrow": "3 · Offers times", "title": "Offers real *times*", "page": "04 / 06",
+      "body": "Instead of \"when are you free?\", it offers times that are open.",
+      "points": ["Tue 9:00 am", "Wed 2:30 pm", "Thu 11:00 am"],
+      "cta": "Swipe →", "label": "Concept demonstration" } },
+    { "template": "carousel", "name": "slide-05", "theme": "light", "slots": {
+      "eyebrow": "4 · Books or hands over", "title": "Booked, or *handed* to you", "page": "05 / 06",
+      "body": "When the customer picks a time, it's booked. When it needs your judgement, the conversation comes to you.",
+      "points": ["Booking confirmed", "Details saved to the customer record", "Hand-over to you when needed"],
+      "cta": "Swipe →", "label": "Concept demonstration" } },
+    { "template": "carousel", "name": "slide-06", "theme": "light", "slots": {
+      "eyebrow": "Where it's at", "title": "In sandbox *testing*", "page": "06 / 06",
+      "body": "Today the AI Setter runs practice conversations in our test lab. It isn't replying to real customers yet.",
+      "points": ["Practice conversations only", "No real customers yet", "Launching soon"],
+      "cta": "Follow for the launch", "label": "" } }
+  ]
+}

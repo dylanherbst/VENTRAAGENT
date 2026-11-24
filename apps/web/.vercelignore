@@ -1,0 +1,10 @@
+# Upload only what Vercel needs to build the app. Vercel installs dependencies itself.
+node_modules
+.next
+.next-*
+.next*
+*.tsbuildinfo
+.env*
+test
+*.log
+.vercel

@@ -1,0 +1,32 @@
+<!doctype html>
+<!-- Instagram profile picture. CSS 540x540, rendered at deviceScaleFactor 2 -> 1080x1080 PNG.
+     Instagram shows it as a circle (as small as ~110 px on the profile, ~32 px next to comments):
+     the mark sits in the centre 50 % of the canvas so it survives the circle crop with generous clear space.
+     Background: Onyx with soft plum / periwinkle / peach glows (calm, no pattern). Logo file used as is. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Hanken+Grotesk:wght@400;500;600;700&display=block">
+<link rel="stylesheet" href="../templates/base.css">
+<style>
+  :root { --w: 540px; --h: 540px; }
+  .canvas {
+    display: flex; align-items: center; justify-content: center;
+    background:
+      radial-gradient(60% 60% at 28% 22%, rgba(118, 51, 92, 0.95) 0%, rgba(118, 51, 92, 0) 70%),
+      radial-gradient(55% 55% at 78% 82%, rgba(109, 61, 240, 0.55) 0%, rgba(109, 61, 240, 0) 70%),
+      radial-gradient(40% 40% at 50% 54%, rgba(165, 146, 238, 0.22) 0%, rgba(165, 146, 238, 0) 70%),
+      linear-gradient(160deg, #1a0f22 0%, var(--onyx) 75%);
+  }
+  .mark { width: 270px; height: auto; display: block; transform: translateY(6px); }
+</style>
+</head>
+<body>
+<div class="canvas" data-theme="dark">
+  <img class="mark" src="../../apps/web/public/brand/ventra-mark.png" alt="VENTRA">
+</div>
+<script src="../templates/fill.js"></script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+#!/bin/sh
+# Start a disposable loopback Next server with an isolated NEXT_DIST_DIR, then run
+# apps/web/test/workspace-api-integration.mjs. Does not touch preexisting listeners.
+# Does not start/stop Supabase/Docker. Requires apps/web/.env.local (or TEST_* already exported).
+set -eu
+ROOT=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
+cd "$ROOT"
+exec ./scripts/project node "$ROOT/scripts/s01-api-integration.mjs" "$@"

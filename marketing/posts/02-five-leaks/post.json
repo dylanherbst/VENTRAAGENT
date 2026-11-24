@@ -1,0 +1,40 @@
+{
+  "outDir": "~/Developer/VENTRA-MARKETING/posts/02-five-leaks",
+  "items": [
+    { "template": "carousel", "name": "slide-01", "theme": "light", "slots": {
+      "eyebrow": "Why businesses lose leads", "title": "Five places your *leads* leak", "page": "01 / 07",
+      "body": "Good businesses lose work in the gap between an enquiry and a reply. Here are the five gaps to check.",
+      "points": ["Five gaps to check", "One question for each", "Fix the biggest first"],
+      "cta": "Swipe →", "label": "" } },
+    { "template": "carousel", "name": "slide-02", "theme": "light", "slots": {
+      "eyebrow": "Leak 1", "title": "The *slow* reply", "page": "02 / 07",
+      "body": "While the enquiry waits for an answer, the customer is free to ask someone else.",
+      "points": ["Ask: how long did your last reply take?", "Fix: a fast first reply, even a short one"],
+      "cta": "Swipe →", "label": "" } },
+    { "template": "carousel", "name": "slide-03", "theme": "light", "slots": {
+      "eyebrow": "Leak 2", "title": "The *missed* call", "page": "03 / 07",
+      "body": "The phone rings out while you're on a job. A caller who doesn't leave a message is hard to win back.",
+      "points": ["Ask: how many calls went unanswered last week?", "Fix: every call answered or called back"],
+      "cta": "Swipe →", "label": "" } },
+    { "template": "carousel", "name": "slide-04", "theme": "light", "slots": {
+      "eyebrow": "Leak 3", "title": "No *follow-up*", "page": "04 / 07",
+      "body": "A quote goes out, then silence. Without a follow-up, the enquiry quietly goes cold.",
+      "points": ["Ask: who follows up, and when?", "Fix: a simple follow-up plan for every quote"],
+      "cta": "Swipe →", "label": "" } },
+    { "template": "carousel", "name": "slide-05", "theme": "light", "slots": {
+      "eyebrow": "Leak 4", "title": "No easy way to *book*", "page": "05 / 07",
+      "body": "Interested people are ready to pick a time. If they can't, the back-and-forth starts.",
+      "points": ["Ask: can someone book without calling you?", "Fix: offer real times in the first reply"],
+      "cta": "Swipe →", "label": "" } },
+    { "template": "carousel", "name": "slide-06", "theme": "light", "slots": {
+      "eyebrow": "Leak 5", "title": "After-hours *silence*", "page": "06 / 07",
+      "body": "Enquiries arrive at night and on weekends. Silence until Monday can feel like a no.",
+      "points": ["Ask: what happens to a 9 pm enquiry?", "Fix: an instant, honest reply out of hours"],
+      "cta": "Swipe →", "label": "" } },
+    { "template": "carousel", "name": "slide-07", "theme": "light", "slots": {
+      "eyebrow": "Fix the leaks", "title": "One *front office* for all five", "page": "07 / 07",
+      "body": "VENTRA's AI Receptionist and AI Setter are built to close these gaps. Both are in sandbox testing; launching soon.",
+      "points": ["Calls answered", "Enquiries replied to", "Times offered and booked"],
+      "cta": "Follow for the launch", "label": "" } }
+  ]
+}

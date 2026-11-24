@@ -1,0 +1,14 @@
+/* Creative Studio review queue (AMP-130). Only layout details the glass library does not cover; colours and spacing come from its tokens. */
+.acs-link { display: inline-flex; align-items: center; min-block-size: 44px; }
+.acs-wrap { overflow-wrap: anywhere; }
+.acs-actions { display: flex; flex-wrap: wrap; gap: var(--plg-space-2); }
+.acs-queue { min-inline-size: 0; }
+.acs-list { display: grid; gap: var(--plg-space-4); list-style: none; padding: 0; margin: 0; }
+.acs-list > li { min-inline-size: 0; }
+.acs-fields { display: grid; gap: var(--plg-space-4); margin: 0; }
+.acs-field { display: grid; gap: 4px; min-inline-size: 0; overflow-wrap: anywhere; }
+.acs-field dt { font-size: 15px; font-weight: 650; color: var(--plg-plum); }
+.acs-field dd { margin: 0; white-space: pre-wrap; }
+.acs-field dd ul { white-space: normal; }
+.acs-panel { display: grid; gap: 12px; min-inline-size: 0; padding: 16px; border-radius: 16px; border: 2px solid var(--plg-plum); background: rgb(255 255 255 / .7); }
+.acs-panel:focus-visible { outline: 3px solid var(--plg-plum); outline-offset: 2px; }

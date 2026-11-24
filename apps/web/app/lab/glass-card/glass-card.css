@@ -1,0 +1,40 @@
+/* App background: same image as the glass kit (public/glass/bg-aurora.jpg). */
+.gcl-stage { position: relative; min-height: 100dvh; background: linear-gradient(rgba(20,17,43,.7), rgba(20,17,43,.7)) fixed, #14112b url('/glass/bg-aurora.jpg') center / cover no-repeat fixed; }
+/* Each card is centred by the library inside its own positioned slot. */
+.gcl-stage { overflow-x: clip; display: grid; grid-template-columns: 1fr; align-content: center; gap: 24px; padding: 24px 16px; }
+.gcl-slot { position: relative; height: 300px; }
+@media (min-width: 820px) { .gcl-stage { grid-template-columns: 1fr 1fr; } }
+/* AI Setter card content (inside the tinted glass card; the glass itself is liquid-glass-react) */
+.ais { display: grid; gap: 16px; color: #fff; font-family: "Hanken Grotesk Variable", system-ui, sans-serif; }
+.ais-top { display: grid; grid-template-columns: auto 1fr auto; gap: 16px; align-items: start; }
+.ais-icon { width: 64px; height: 64px; border-radius: 18px; display: grid; place-items: center; color: #fff;
+  background: linear-gradient(160deg, rgba(255,255,255,.34), rgba(255,255,255,.12));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.55), inset 0 0 0 1px rgba(255,255,255,.22), 0 6px 18px rgba(60,20,70,.18); }
+.ais-text h2 { font-family: "Outfit Variable", system-ui, sans-serif; font-size: 22px; font-weight: 600; line-height: 1.2; margin: 4px 0 6px; text-shadow: 0 1px 8px rgba(60,20,70,.25); }
+.ais-text p { font-size: 15px; line-height: 1.4; color: rgba(255,255,255,.92); text-shadow: 0 1px 6px rgba(60,20,70,.25); }
+.ais-more { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; color: #fff; cursor: pointer;
+  background: rgba(255,255,255,.2); box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 0 0 1px rgba(255,255,255,.2); }
+.ais-more:hover { background: rgba(255,255,255,.3); }
+.ais-status { display: flex; align-items: center; gap: 12px; padding: 12px 12px 12px 18px; border-radius: 18px;
+  background: rgba(255,255,255,.18); box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 0 0 1px rgba(255,255,255,.18); }
+.ais-dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,.55); }
+.ais-dot.on { background: #4ade80; box-shadow: 0 0 8px rgba(74,222,128,.8); }
+.ais-label { flex: 1; font-size: 16px; font-weight: 600; text-shadow: 0 1px 6px rgba(60,20,70,.25); }
+.ais-switch { width: 58px; height: 32px; border-radius: 999px; padding: 3px; cursor: pointer; display: flex; justify-content: flex-start; align-items: center; transition: background .2s;
+  background: rgba(255,255,255,.3); box-shadow: inset 0 1px 3px rgba(40,10,60,.25); }
+.ais-switch.on { background: linear-gradient(90deg, #6d3df0, #9b6bff); }
+.ais-knob { flex: none; width: 26px; height: 26px; border-radius: 50%; background: #fff; box-shadow: 0 2px 6px rgba(40,10,60,.3); transition: transform .2s; }
+.ais-switch.on .ais-knob { transform: translateX(26px); }
+.ais-switch:focus-visible, .ais-more:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+/* Home bottom nav (Liquid Glass React bar, centred by the library inside this fixed slot) */
+.gcl-stage { padding-bottom: 120px; }
+.bnav-slot { position: fixed; left: 0; right: 0; bottom: calc(16px + env(safe-area-inset-bottom)); height: 68px; z-index: 10; }
+.bnav { display: grid; grid-template-columns: repeat(5, 1fr); gap: 2px; font-family: "Hanken Grotesk Variable", system-ui, sans-serif; }
+.bnav-item { display: grid; justify-items: center; gap: 3px; padding: 7px 0 6px; border-radius: 22px; color: rgba(255,255,255,.82); cursor: pointer;
+  font-size: 11px; font-weight: 600; letter-spacing: .01em; text-shadow: 0 1px 6px rgba(60,20,70,.3); transition: background .2s, color .2s; }
+.bnav-item svg { filter: drop-shadow(0 1px 4px rgba(60,20,70,.3)); }
+.bnav-item:hover { color: #fff; }
+.bnav-item.on { color: #fff; background: rgba(255,255,255,.24); box-shadow: inset 0 1px 0 rgba(255,255,255,.55), inset 0 0 0 1px rgba(255,255,255,.2); }
+.bnav-item:focus-visible { outline: 2px solid #fff; outline-offset: -2px; }
+/* globals.css paints a decorative body::before that hangs 308px below the page; hide it on this lab page only. */
+body:has(.gcl-stage)::before { display: none; }

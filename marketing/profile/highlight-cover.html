@@ -1,0 +1,60 @@
+<!doctype html>
+<!-- Story Highlight cover at story size. CSS 540x960, rendered at deviceScaleFactor 2 -> 1080x1920 PNG.
+     Instagram crops the cover to a centre circle: every element sits inside the centre 300 CSS px (600 px) disc.
+     Data: window.__VENTRA__ = { icon: "mark|chat|phone|play|spark", slots: { name: "..." } }.
+     Icons are simple single-weight line drawings in white (no clip art); "mark" uses the logo file as is. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Hanken+Grotesk:wght@400;500;600;700&display=block">
+<link rel="stylesheet" href="../templates/base.css">
+<style>
+  :root { --w: 540px; --h: 960px; }
+  .canvas {
+    display: flex; align-items: center; justify-content: center;
+    background:
+      radial-gradient(60% 34% at 30% 34%, rgba(165, 146, 238, 0.9) 0%, rgba(165, 146, 238, 0) 70%),
+      radial-gradient(60% 34% at 74% 66%, rgba(254, 134, 170, 0.85) 0%, rgba(254, 134, 170, 0) 70%),
+      linear-gradient(160deg, var(--plum), #2a1430);
+  }
+  .disc {
+    width: 300px; height: 300px; border-radius: 50%;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px;
+  }
+  .icon { display: none; }
+  .icon.on { display: block; }
+  .icon svg { width: 104px; height: 104px; display: block; }
+  .icon svg * { fill: none; stroke: #fff; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+  .icon img { width: 150px; height: auto; display: block; }
+  .name { font-family: var(--font-body); font-weight: 700; font-size: 15px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.9); }
+</style>
+</head>
+<body>
+<div class="canvas" data-theme="dark">
+  <div class="glass disc">
+    <div class="icon" data-icon="mark"><img src="../../apps/web/public/brand/ventra-mark.png" alt=""></div>
+    <!-- chat bubble: AI Setter (replies to enquiries) -->
+    <div class="icon" data-icon="chat"><svg viewBox="0 0 48 48"><path d="M10 12h28a4 4 0 0 1 4 4v14a4 4 0 0 1-4 4H22l-8 7v-7h-4a4 4 0 0 1-4-4V16a4 4 0 0 1 4-4z"/><path d="M15 21h18"/><path d="M15 27h11"/></svg></div>
+    <!-- phone handset: AI Receptionist (answers calls) -->
+    <div class="icon" data-icon="phone"><svg viewBox="0 0 48 48"><path d="M15.5 7.5l5 7a2.5 2.5 0 0 1-.4 3.3l-3 2.5a24 24 0 0 0 10.6 10.6l2.5-3a2.5 2.5 0 0 1 3.3-.4l7 5a2.5 2.5 0 0 1 .6 3.4l-2 3a5 5 0 0 1-5.3 2.1C21.5 38.6 9.4 26.5 7 13.2a5 5 0 0 1 2.1-5.3l3-2a2.5 2.5 0 0 1 3.4.6z"/></svg></div>
+    <!-- play: Demos -->
+    <div class="icon" data-icon="play"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="17"/><path d="M20.5 16.5l10 7.5-10 7.5z"/></svg></div>
+    <!-- four-point spark: Updates -->
+    <div class="icon" data-icon="spark"><svg viewBox="0 0 48 48"><path d="M24 6c1.4 9.2 4.8 12.6 14 14-9.2 1.4-12.6 4.8-14 14-1.4-9.2-4.8-12.6-14-14 9.2-1.4 12.6-4.8 14-14z"/><path d="M37 32c.5 3 1.5 4 4.5 4.5-3 .5-4 1.5-4.5 4.5-.5-3-1.5-4-4.5-4.5 3-.5 4-1.5 4.5-4.5z"/></svg></div>
+    <div class="name" data-slot="name">Start here</div>
+  </div>
+</div>
+<script>
+  (function () {
+    var d = window.__VENTRA__ || {};
+    var want = d.icon || "mark";
+    document.querySelectorAll("[data-icon]").forEach(function (el) {
+      if (el.getAttribute("data-icon") === want) el.classList.add("on");
+    });
+  })();
+</script>
+<script src="../templates/fill.js"></script>
+</body>
+</html>

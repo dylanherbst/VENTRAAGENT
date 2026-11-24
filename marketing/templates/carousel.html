@@ -1,0 +1,60 @@
+<!doctype html>
+<!-- Carousel slide. CSS 540x675, rendered at deviceScaleFactor 2 -> 1080x1350 PNG.
+     Slots: eyebrow, title, body, points (array), cta, page, label. Theme: "dark" (default) or "light". -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Hanken+Grotesk:wght@400;500;600;700&display=block">
+<link rel="stylesheet" href="base.css">
+<style>
+  :root { --w: 540px; --h: 675px; }
+  .canvas { padding: var(--pad); display: flex; flex-direction: column; }
+  .top { display: flex; justify-content: space-between; align-items: center; }
+  .main { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 18px; }
+  .title { font-size: 46px; }
+  .card { padding: 24px 26px; margin-top: 6px; }
+  .points { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .points li { font-size: 16px; line-height: 1.4; color: var(--ink-soft); padding-left: 22px; position: relative; }
+  .points li::before {
+    content: ""; position: absolute; left: 0; top: 7px; width: 9px; height: 9px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--periwinkle), var(--peach));
+  }
+  .bottom { display: flex; justify-content: space-between; align-items: center; }
+  .label-concept { top: 18px; left: 50%; transform: translateX(-50%); }
+</style>
+</head>
+<body>
+<div class="canvas" data-theme="dark">
+  <div class="orb orb--peri" style="width:260px;height:260px;right:-80px;top:120px"></div>
+  <div class="orb orb--peach" style="width:200px;height:200px;left:-70px;bottom:40px;opacity:.35"></div>
+  <div class="grain"></div>
+  <div class="label-concept" data-slot="label"></div>
+
+  <div class="top">
+    <div class="brand"><img src="../../apps/web/public/brand/ventra-mark.png" alt="">VENTRA</div>
+    <div class="meta" data-slot="page">01 / 07</div>
+  </div>
+
+  <div class="main">
+    <div class="eyebrow" data-slot="eyebrow">AI front office</div>
+    <h1 class="title" data-slot="title">Never miss the <em>next</em> enquiry</h1>
+    <p class="body" data-slot="body">Calls answered, enquiries replied to and jobs booked, even when you are on the tools.</p>
+    <div class="glass card">
+      <ul class="points" data-slot="points">
+        <li>Answers calls and books them in</li>
+        <li>Replies to enquiries in minutes</li>
+        <li>Follows up so leads do not go cold</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="bottom">
+    <div class="meta">Built in Australia · launching soon</div>
+    <div class="pill pill--ghost" data-slot="cta">Swipe →</div>
+  </div>
+</div>
+<script src="fill.js"></script>
+</body>
+</html>

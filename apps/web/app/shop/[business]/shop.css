@@ -1,0 +1,16 @@
+.shop { max-width: 640px; margin: 0 auto; padding: 24px 16px 120px; font: 16px/1.5 system-ui, sans-serif; color: #1c1633; }
+.shop h1 { font-size: clamp(1.7rem, 6vw, 2.4rem); line-height: 1.15; margin: .2rem 0 .6rem; }
+.shop h2 { font-size: 1.2rem; margin-top: 2rem; }
+.shop-for { margin: 0; color: #5b4bb0; font-weight: 600; }
+.shop-pitch { font-size: 1.05rem; }
+.shop-price { font-size: 2rem; font-weight: 700; margin: .5rem 0; }
+.shop-buy { display: grid; gap: .5rem; margin: 1rem 0; }
+.shop-buy input { min-height: 48px; padding: 0 .8rem; border: 1px solid #cfc8e6; border-radius: 10px; font: inherit; }
+.shop-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 0 1.4rem; border: 0; border-radius: 12px; background: #5b3fd0; color: #fff; font: inherit; font-weight: 700; text-decoration: none; cursor: pointer; }
+.shop-btn[disabled], .shop-btn[aria-disabled="true"] { opacity: .55; cursor: not-allowed; }
+.shop-btn-alt { background: #fff; color: #5b3fd0; border: 2px solid #5b3fd0; }
+.shop-note { margin: 0; font-size: .9rem; opacity: .8; }
+.shop-facts { color: #5a5470; font-size: .95rem; }
+.shop-bar { position: fixed; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 10px 16px calc(10px + env(safe-area-inset-bottom)); background: #fff; border-top: 1px solid #e3def5; }
+.shop-bar-price { font-weight: 700; font-size: 1.2rem; }
+@media (min-width: 720px) { .shop-bar { display: none; } .shop { padding-bottom: 48px; } }

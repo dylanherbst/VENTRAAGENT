@@ -1,0 +1,9 @@
+/* Child cards on every page (imported by child-card.tsx, so sub-pages get it too, not only the Overview).
+   Soft colour fading to white glass: no border, no black layers, no dark shadow. */
+.amg-child { margin-block-end: 10px; }
+.amg-child .bg-black { background: transparent !important; opacity: 0 !important; }
+.amg-child .opacity-0 { opacity: 0 !important; }
+.amg-child .glass { isolation: isolate; box-shadow: 0 10px 30px rgb(120 90 170 / .14) !important; border: 0 !important; outline: 0 !important; }
+.amg-child .glass__warp { filter: none !important; border: 0 !important; outline: 0 !important; }
+/* liquid-glass-react's rim-highlight layers draw the border; remove them. */
+.amg-child > span, .amg-child span[style*="mix-blend-mode"] { display: none !important; }

@@ -1,0 +1,21 @@
+/* Owner workspace (AMP-081). Only layout details the glass library does not cover; colours and spacing come from its tokens. */
+.ao-section { display: grid; gap: var(--plg-space-3); min-inline-size: 0; }
+.ao-facts { display: grid; gap: var(--plg-space-1); font-size: 15px; color: var(--plg-text); }
+.ao-facts > div { display: flex; flex-wrap: wrap; gap: var(--plg-space-2); }
+.ao-facts dt { font-weight: 650; color: var(--plg-plum); }
+.ao-facts dd { overflow-wrap: anywhere; min-inline-size: 0; }
+.ao-value { font-size: 22px; font-weight: 700; line-height: 1.2; color: var(--plg-plum); overflow-wrap: anywhere; font-variant-numeric: tabular-nums; }
+.ao-value[data-unknown="true"] { font-size: 17px; font-weight: 650; }
+.ao-needs { display: grid; gap: var(--plg-space-4); list-style: none; padding: 0; margin: 0; }
+.ao-needs > li { display: grid; gap: var(--plg-space-2); padding-block-end: var(--plg-space-4); border-block-end: 1px solid rgb(63 54 90 / .16); min-inline-size: 0; }
+.ao-needs > li:last-child { padding-block-end: 0; border-block-end: 0; }
+.ao-needs-head { display: flex; flex-wrap: wrap; align-items: center; gap: var(--plg-space-2); }
+.ao-needs-title { font-size: 17px; font-weight: 650; color: var(--plg-plum); overflow-wrap: anywhere; }
+.ao-link { display: inline-flex; flex-wrap: wrap; align-items: center; gap: var(--plg-space-2); }
+/* The primary control while its page is not built: focusable (so its description is announced) but visibly unavailable. Text stays AA. */
+.ao-unavailable[aria-disabled="true"], .ao-unavailable[aria-disabled="true"]:hover { cursor: not-allowed; background: rgb(255 255 255 / .55); box-shadow: none; border: 1px dashed var(--plg-plum); color: var(--plg-plum); filter: none; transform: none; }
+.ao-secondary { display: grid; gap: var(--plg-space-1); min-inline-size: 0; }
+.ao-steps { display: grid; gap: var(--plg-space-1); list-style: none; padding: 0; margin: 0; }
+.ao-steps > li { display: flex; align-items: center; gap: var(--plg-space-2); min-block-size: 44px; }
+.ao-steps .plg-link { display: inline-flex; align-items: center; min-block-size: 44px; }
+.ao-tick { inline-size: 20px; text-align: center; color: var(--plg-plum); font-weight: 700; }

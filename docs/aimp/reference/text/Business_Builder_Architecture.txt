@@ -1,0 +1,135 @@
+AiMoneyPrinter                                                                                                                   CUSTOMER WORKFLOW
+
+
+
+
+Choose a business. AI builds it.
+Five researched ideas in. A branded store with products, checkout and a launch campaign out.
+
+
+
+  AI RESEARCH                                            CUSTOMER DECISION                                       AUTOMATIC PROVISIONING
+
+  Find five ideas                                        Choose one business                                     Create the business
+  Buyer, demand evidence, cost,                          The customer picks the idea.                            Load one versioned blueprint and
+  workload and route to first buyers.                    AiMoneyPrinter fills in the setup.                      create an isolated store record.
+
+
+
+
+                                                                  BUSINESS OPERATOR
+
+                                     Build, run and improve each store
+                                         Starts jobs / Tracks progress / Retries failures / Requests owner action
+
+
+
+
+    01    Product & Brand                    02   Website & Launch                 03    Growth & Leads                    04   Sales & Support
+
+     Create brand, offer and                 Generate site and SEO                  Create Pins, copy and                  Confirm payment and
+     price                                                                          samples                                deliver
+     Render a real PDF or ZIP                Preview and validate pages             Schedule authorised posts              Resend links and answer
+                                                                                                                           FAQs
+     Check files and listing                 Publish on a store                     Capture opt-ins and source             Escalate unresolved issues
+     claims                                  subdomain
+
+    Product files + listing                  Live store URL                        Campaign + traffic data                 Orders + buyer feedback
+
+
+
+
+HOW THE WORKFLOWS HAND OFF
+
+
+  Product passes checks                    Store goes live                       Buyer pays at checkout                  Results come back
+  Website receives the file, price         Growth receives the product           A verified payment triggers one         Use funnel data and support
+  and listing.                             URL.                                  delivery.                               themes for the next experiment.
+
+
+
+
+   BUSINESS AUTOMATION CONTROL                                                                   OWNER ACTION WHEN REQUIRED
+
+   What the customer sees                                                                        Connect and authorise
+     Store status and the one action needed, if any                                              Complete seller verification, grant access to
+                                                                                                 social accounts, or approve new spend. The
+     Products, scheduled posts and orders delivered
+                                                                                                 affected step waits while independent work
+     Visits, checkout starts, sales and estimated margin                                         continues.
+     Pause marketing, set limits and resume failed tasks
+
+
+
+
+Each store has its own data, credentials and permissions. The workers, templates and workflows are shared.
+
+
+
+AiMoneyPrinter / Proposed architecture                                                                                                               01 / 02
+AiMoneyPrinter                                                                                                       TECHNICAL ARCHITECTURE
+
+
+
+
+What runs behind the app
+The proposed launch stack pairs AI generation with application code for publishing, payments and delivery.
+
+
+
+           APP             Customer workspace and storefront
+         Next.js           Next.js, React and TypeScript. The customer chooses an idea and follows live build progress. The in-house
+      Vercel hosting       website generator serves branded stores on managed subdomains using published site versions.
+
+
+
+
+      WORKFLOWS            Durable background jobs
+      Existing runner      Reuse the existing runner if it can persist and resume jobs. Otherwise use Trigger.dev for schedules, bounded
+      or Trigger.dev       retries and per-business concurrency. Save checkpoints and resume from completed outputs.
+
+
+
+
+            AI             Research, generation and analysis
+      Vercel AI SDK        Vercel AI SDK + Claude API with schema validation. Use cited web research for demand evidence, a document
+       Claude API          renderer for usable PDFs and ZIPs, and an image API where visuals add value.
+
+
+
+
+    BUSINESS DATA          One isolated record per business
+        Supabase           Supabase Postgres, Auth and private Storage hold blueprint version, products, files, orders, approvals and run
+      Postgres + RLS       history. Backend tools enforce business access and limits on every action.
+
+
+
+
+PROVIDER CONNECTIONS
+
+
+  Stripe Connect + Checkout                         Pinterest + Resend                              Analytics + Search Console
+  Verify payment events, record orders and          Publish approved Pins after authorisation.      Use Search Console for search visibility
+  issue secure downloads once.                      Send order and opt-in emails.                   and store events for checkout and sales.
+
+
+
+
+   FIRST RELEASE TEST
+
+   Two stores. One shared blueprint.
+   Prove that one Stripe test purchase delivers the correct file once even when the payment event is replayed. Restart a build and verify it
+   resumes. Verify that the stores cannot read each other’s files or orders.
+
+
+
+Start with downloadable products and one organic channel. Use visits, product views and paid orders to choose the next experiment.
+Track refunds and costs alongside sales. Add paid ads when the owner authorises a capped budget.
+
+AI SDK       Trigger.dev     Supabase RLS       Stripe fulfilment    Pinterest access
+
+
+
+
+AiMoneyPrinter / Proposed architecture                                                                                                      02 / 02
+

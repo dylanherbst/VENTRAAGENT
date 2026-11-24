@@ -1,0 +1,35 @@
+{
+  "outDir": "~/Developer/VENTRA-MARKETING/posts/08-how-ventra-helps-grow",
+  "items": [
+    { "template": "carousel", "name": "slide-01", "theme": "light", "slots": {
+      "eyebrow": "How VENTRA helps you grow", "title": "Fewer leaks, more *booked work*", "page": "01 / 06",
+      "body": "A simple path in four steps.",
+      "points": ["Audit", "Fix the leaks", "More booked work, and time back"],
+      "cta": "Swipe →", "label": "" } },
+    { "template": "carousel", "name": "slide-02", "theme": "light", "slots": {
+      "eyebrow": "1 · Audit", "title": "Start with a *Growth Audit*", "page": "02 / 06",
+      "body": "A guided check of your business that shows where enquiries slip through.",
+      "points": ["Your business and what you offer", "Where enquiries come from", "Where they get stuck"],
+      "cta": "Swipe →", "label": "" } },
+    { "template": "carousel", "name": "slide-03", "theme": "light", "slots": {
+      "eyebrow": "2 · Fix the leaks", "title": "Fix the *biggest* gap first", "page": "03 / 06",
+      "body": "Start where it matters most, with your audit answers already filled in.",
+      "points": ["Missed calls: AI Receptionist", "Slow replies: AI Setter", "Set up from your audit"],
+      "cta": "Swipe →", "label": "" } },
+    { "template": "carousel", "name": "slide-04", "theme": "light", "slots": {
+      "eyebrow": "3 · More booked work", "title": "More enquiries become *bookings*", "page": "04 / 06",
+      "body": "That's the aim: calls answered and enquiries replied to, so fewer people go elsewhere.",
+      "points": ["Calls answered", "Replies that offer times", "Follow-ups that don't get forgotten"],
+      "cta": "Swipe →", "label": "" } },
+    { "template": "carousel", "name": "slide-05", "theme": "light", "slots": {
+      "eyebrow": "4 · Time back", "title": "Get your *evenings* back", "page": "05 / 06",
+      "body": "Less chasing, less phone tag, more time on the work itself.",
+      "points": ["Less phone tag", "Less chasing quotes", "More time on the job"],
+      "cta": "Swipe →", "label": "" } },
+    { "template": "carousel", "name": "slide-06", "theme": "light", "slots": {
+      "eyebrow": "Where to start", "title": "The audit comes *first*", "page": "06 / 06",
+      "body": "When VENTRA launches, every business starts with the Growth Audit. In development now; launching soon.",
+      "points": ["Growth Audit", "AI Receptionist", "AI Setter"],
+      "cta": "Follow for the launch", "label": "" } }
+  ]
+}

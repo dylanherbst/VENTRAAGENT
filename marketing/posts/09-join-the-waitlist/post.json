@@ -1,0 +1,30 @@
+{
+  "outDir": "~/Developer/VENTRA-MARKETING/posts/09-join-the-waitlist",
+  "items": [
+    { "template": "carousel", "name": "slide-01", "theme": "dark", "slots": {
+      "eyebrow": "Launching soon", "title": "Be first to *know*", "page": "01 / 05",
+      "body": "Join the VENTRA waitlist to hear the moment the AI Receptionist and AI Setter are ready.",
+      "points": ["For service businesses", "Built in Australia", "Launch news first"],
+      "cta": "Swipe →", "label": "" } },
+    { "template": "carousel", "name": "slide-02", "theme": "dark", "slots": {
+      "eyebrow": "What happens next · 1", "title": "You *join* the list", "page": "02 / 05",
+      "body": "One link in our bio. Tell us a little about your business.",
+      "points": ["Link in bio", "A few details about your business", "No obligation"],
+      "cta": "Swipe →", "label": "" } },
+    { "template": "carousel", "name": "slide-03", "theme": "dark", "slots": {
+      "eyebrow": "What happens next · 2", "title": "We keep you *posted*", "page": "03 / 05",
+      "body": "Build updates and the launch date, straight from us.",
+      "points": ["The launch date", "What's working", "What's next"],
+      "cta": "Swipe →", "label": "" } },
+    { "template": "carousel", "name": "slide-04", "theme": "dark", "slots": {
+      "eyebrow": "What happens next · 3", "title": "See it on *your* business", "page": "04 / 05",
+      "body": "When it's ready, we'll show you a demo set up for a business like yours.",
+      "points": ["Your services", "Your hours", "Your customers' questions"],
+      "cta": "Swipe →", "label": "" } },
+    { "template": "carousel", "name": "slide-05", "theme": "dark", "slots": {
+      "eyebrow": "One step", "title": "Join the *waitlist*", "page": "05 / 05",
+      "body": "The link is in our bio.",
+      "points": ["AI Receptionist: answers and books calls", "AI Setter: replies and books enquiries", "In sandbox testing; launching soon"],
+      "cta": "Join the waitlist", "label": "" } }
+  ]
+}

@@ -1,0 +1,15 @@
+/* Integrations (AMP-132). Only layout details the glass library does not cover; colours and spacing come from its tokens. */
+.ain-facts { display: grid; gap: var(--plg-space-3); margin: 0; padding: 0; }
+.ain-fact { display: grid; gap: 6px; min-inline-size: 0; }
+.ain-fact dt { font-size: 15px; font-weight: 600; color: var(--plg-plum); }
+.ain-fact dd { margin: 0; display: grid; gap: 6px; min-inline-size: 0; overflow-wrap: anywhere; }
+.ain-badges { display: flex; flex-wrap: wrap; gap: 6px; min-inline-size: 0; }
+.ain-list { display: grid; gap: 4px; margin: 0; padding-inline-start: 20px; overflow-wrap: anywhere; }
+.ain-services { display: grid; gap: var(--plg-space-3); margin: 0; padding: 0; list-style: none; grid-template-columns: minmax(0, 1fr); }
+.ain-service { display: grid; gap: 8px; min-inline-size: 0; overflow-wrap: anywhere; padding-block-start: var(--plg-space-3); border-block-start: 1px solid color-mix(in srgb, var(--plg-plum) 14%, transparent); }
+.ain-service h3 { margin: 0; font-size: 17px; color: var(--plg-plum); }
+.ain-service p { margin: 0; }
+.ain-link { display: inline-flex; align-items: center; min-block-size: 44px; }
+@media (min-width: 900px) {
+  .ain-services { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--plg-space-4, 24px); }
+}

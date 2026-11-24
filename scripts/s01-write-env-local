@@ -1,0 +1,88 @@
+#!/bin/sh
+# Bootstrap untracked apps/web/.env.local from an already-running isolated local Supabase.
+# Does NOT install CLI/Docker, start/stop services, or overwrite existing dest files.
+# Noclobber creation: preflight refuse if either destination exists; set -C on final redirect
+# (redirect is not atomic content replacement — it refuses clobber, it does not swap-in-place).
+set -eu
+ROOT=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
+ENV_FILE="$ROOT/apps/web/.env.local"
+SECRET_FILE="$ROOT/apps/web/.env.s01-integration"
+EXAMPLE="$ROOT/apps/web/.env.example"
+
+if [ -e "$ENV_FILE" ] || [ -e "$SECRET_FILE" ]; then
+  echo "Refusing to overwrite: one or both destinations already exist ($ENV_FILE / $SECRET_FILE)." >&2
+  exit 1
+fi
+
+if ! command -v supabase >/dev/null 2>&1; then
+  echo "supabase CLI not on PATH. Coordinator must install/start local Supabase first." >&2
+  exit 1
+fi
+
+# Parse `supabase status -o env` without printing secrets to the terminal.
+STATUS_ENV=$(cd "$ROOT" && supabase status -o env 2>/dev/null) || {
+  echo "Unable to read local supabase status. Start the isolated local stack first (coordinator-owned)." >&2
+  exit 1
+}
+
+API_URL=$(printf '%s\n' "$STATUS_ENV" | sed -n 's/^API_URL=//p' | tr -d '"' | head -n1)
+ANON_KEY=$(printf '%s\n' "$STATUS_ENV" | sed -n 's/^ANON_KEY=//p' | tr -d '"' | head -n1)
+SERVICE_KEY=$(printf '%s\n' "$STATUS_ENV" | sed -n 's/^SERVICE_ROLE_KEY=//p' | tr -d '"' | head -n1)
+
+if [ -z "$API_URL" ] || [ -z "$ANON_KEY" ]; then
+  echo "Local supabase status did not provide API_URL/ANON_KEY." >&2
+  exit 1
+fi
+
+HOST=$(printf '%s\n' "$API_URL" | sed -E 's#^[a-z]+://([^/:]+).*#\1#')
+case "$HOST" in
+  127.0.0.1|localhost|'[::1]') ;;
+  *)
+    echo "Refusing non-loopback API_URL host: $HOST" >&2
+    exit 1
+    ;;
+esac
+
+umask 077
+TMP=$(mktemp "${ENV_FILE}.tmp.XXXXXX")
+TMP_SECRET=$(mktemp "${SECRET_FILE}.tmp.XXXXXX")
+trap 'rm -f "$TMP" "$TMP_SECRET"' EXIT
+{
+  echo "# Generated for isolated local S01 only. Do not commit. Mode 0600."
+  echo "# Application + publishable test keys only. Admin fixture key lives in .env.s01-integration."
+  echo "NEXT_PUBLIC_SUPABASE_URL=$API_URL"
+  echo "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=$ANON_KEY"
+  echo "LAUNCHPAD_APP_ORIGIN=http://127.0.0.1:3100"
+  echo "TEST_SUPABASE_URL=$API_URL"
+  echo "TEST_SUPABASE_PUBLISHABLE_KEY=$ANON_KEY"
+} > "$TMP"
+chmod 600 "$TMP"
+
+# Noclobber creation: fails if the dest appeared after preflight (not an atomic replace).
+set -C
+if ! cat "$TMP" > "$ENV_FILE"; then
+  echo "Refusing to overwrite existing $ENV_FILE (noclobber)." >&2
+  exit 1
+fi
+chmod 600 "$ENV_FILE"
+
+if [ -n "$SERVICE_KEY" ]; then
+  {
+    echo "# Local-only admin key for integration staff fixtures — never NEXT_PUBLIC / never Next runtime."
+    echo "# Not auto-loaded by Next.js (custom filename). Loaded only by S01 integration runners."
+    echo "TEST_SUPABASE_SECRET_KEY=$SERVICE_KEY"
+  } > "$TMP_SECRET"
+  chmod 600 "$TMP_SECRET"
+  if ! cat "$TMP_SECRET" > "$SECRET_FILE"; then
+    echo "Refusing to overwrite existing $SECRET_FILE (noclobber)." >&2
+    exit 1
+  fi
+  chmod 600 "$SECRET_FILE"
+fi
+
+echo "Wrote $ENV_FILE (mode 0600) from local supabase status."
+if [ -n "$SERVICE_KEY" ]; then
+  echo "Wrote $SECRET_FILE (mode 0600) for staff fixtures only."
+fi
+echo "Keys were not printed. See $EXAMPLE for variable names only."
+echo "Next: ./scripts/project npm --prefix apps/web run test:integration"

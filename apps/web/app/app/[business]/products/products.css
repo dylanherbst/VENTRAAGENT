@@ -1,0 +1,20 @@
+/* Products (AMP-083). Only layout details the glass library does not cover; colours and spacing come from its tokens. */
+.apr-filters { display: flex; flex-wrap: wrap; gap: var(--plg-space-2); list-style: none; padding: 0; margin: 0; }
+.apr-filter { display: inline-flex; align-items: center; gap: 8px; min-block-size: 44px; padding-inline: 16px; border-radius: 999px; border: 1px solid var(--plg-control-border); background: rgb(255 255 255 / .6); color: var(--plg-plum); font-size: 15px; font-weight: 600; text-decoration: none; }
+.apr-filter[aria-current="page"] { background: var(--plg-plum); color: var(--plg-white); border-color: var(--plg-plum); }
+.apr-filter:focus-visible { outline: 3px solid var(--plg-plum); outline-offset: 2px; }
+.apr-list { display: grid; gap: var(--plg-space-3); list-style: none; padding: 0; margin: 0; }
+.apr-item { display: grid; gap: 6px; min-inline-size: 0; }
+.apr-item h3 { font-size: 17px; line-height: 1.3; overflow-wrap: anywhere; }
+.apr-meta { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 15px; color: var(--plg-plum); }
+.apr-meta > span { min-inline-size: 0; overflow-wrap: anywhere; }
+.apr-back { display: inline-flex; align-items: center; min-block-size: 44px; }
+/* Archive and restore (AMP-097). Buttons keep the library's 44px height and wrap instead of overflowing on narrow screens. */
+.apr-actions { display: flex; flex-wrap: wrap; gap: var(--plg-space-2); min-inline-size: 0; }
+.apr-actions > * { min-block-size: 44px; max-inline-size: 100%; }
+.apr-confirm { display: grid; gap: var(--plg-space-2); padding: var(--plg-space-3); border: 1px solid var(--plg-control-border); border-radius: 16px; background: rgb(255 255 255 / .6); min-inline-size: 0; }
+.apr-confirm p { overflow-wrap: anywhere; }
+.apr-result { display: grid; gap: var(--plg-space-3); min-inline-size: 0; }
+.apr-result:empty { display: none; }
+.apr-result:focus { outline: none; }
+.apr-result:focus-visible { outline: 3px solid var(--plg-plum); outline-offset: 4px; border-radius: 16px; }

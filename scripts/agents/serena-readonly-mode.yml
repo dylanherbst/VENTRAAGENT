@@ -1,0 +1,23 @@
+description: VENTRA read-only code navigation. Serena is used only to find and read symbols token-efficiently; every file change goes through the guarded Edit/Write tools and ventra-git.
+prompt: |
+  In this project Serena is for code NAVIGATION only: get_symbols_overview, find_symbol, find_referencing_symbols,
+  find_implementations, find_declaration and get_diagnostics_for_file. Prefer them to reading whole files.
+  Never edit files through Serena. Use the built-in Edit and Write tools, which are guarded.
+excluded_tools:
+  - replace_content
+  - replace_in_files
+  - replace_symbol_body
+  - insert_after_symbol
+  - insert_before_symbol
+  - rename_symbol
+  - safe_delete_symbol
+  - write_memory
+  - delete_memory
+  - rename_memory
+  - edit_memory
+  - onboarding
+  - create_text_file
+  - delete_lines
+  - replace_lines
+  - insert_at_line
+  - execute_shell_command

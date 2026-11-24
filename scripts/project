@@ -1,0 +1,14 @@
+#!/bin/sh
+set -eu
+ROOT=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
+NODE_HOME="$HOME/.local/opt/node/bin"
+EXPECTED=$(cat "$ROOT/.node-version")
+ACTUAL=$("$NODE_HOME/node" --version)
+if [ "$ACTUAL" != "v$EXPECTED" ]; then
+  echo "Expected Node $EXPECTED; found $ACTUAL" >&2
+  exit 1
+fi
+export PATH="$NODE_HOME:$PATH"
+export NEXT_TELEMETRY_DISABLED=1
+cd "$ROOT"
+exec "$@"

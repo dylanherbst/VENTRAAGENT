@@ -1,0 +1,8 @@
+/* Domains and availability (AMP-088). Only layout details the glass library does not cover; colours and spacing come from its tokens. */
+.apd-facts { display: grid; gap: var(--plg-space-3); margin: 0; padding: 0; }
+.apd-fact { display: grid; gap: 6px; min-inline-size: 0; }
+.apd-fact dt { font-size: 15px; font-weight: 600; color: var(--plg-plum); }
+.apd-fact dd { margin: 0; display: grid; gap: 6px; min-inline-size: 0; overflow-wrap: anywhere; }
+.apd-value { font-size: 17px; font-weight: 600; overflow-wrap: anywhere; word-break: break-word; }
+.apd-pages { display: grid; gap: 4px; margin: 0; padding-inline-start: 20px; }
+.apd-link { display: inline-flex; align-items: center; min-block-size: 44px; overflow-wrap: anywhere; }

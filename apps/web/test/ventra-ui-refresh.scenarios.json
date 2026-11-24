@@ -1,0 +1,162 @@
+{
+  "description": "Current UI guide navigation/keyboard/history regression. Real supported browser, candidate origin only; no records changed. Existing former seven-label test adapted to real visible mobile Create and menu mappings.",
+  "steps": [
+    {
+      "action": "navigate",
+      "url": "/business"
+    },
+    {
+      "action": "act",
+      "kind": "resize",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "action": "act",
+      "kind": "evaluate",
+      "fn": "async()=>{const input=[...document.querySelectorAll('header input[type=search]')].find(e=>e.getBoundingClientRect().width);Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(input,'offers');input.dispatchEvent(new Event('input',{bubbles:true}));for(let i=0;i<100&&!document.querySelector('.v-search-results');i++)await new Promise(r=>setTimeout(r,20));document.querySelector('.v-skip').focus();return true;}"
+    },
+    {
+      "action": "act",
+      "kind": "press",
+      "key": "Enter"
+    },
+    {
+      "action": "act",
+      "kind": "resize",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "action": "act",
+      "kind": "evaluate",
+      "fn": "()=>{const input=[...document.querySelectorAll('header input')].find(e=>e.getBoundingClientRect().width);const result={path:location.pathname,focus:document.activeElement.id,query:input.value,announced:document.querySelector('.v-search-results [role=status]')?.textContent,rendered:document.querySelectorAll('.v-search-results>a').length};if(result.path!=='/business'||result.focus!=='ventra-main'||result.query!=='offers'||result.announced!=='1 matching page'||result.rendered!==1)throw Error(JSON.stringify(result));document.querySelector('.v-create-dock').focus();return result;}"
+    },
+    {
+      "action": "act",
+      "kind": "press",
+      "key": "Enter"
+    },
+    {
+      "action": "act",
+      "kind": "evaluate",
+      "fn": "()=>{const d=document.querySelector('dialog');if(!d.open||!d.contains(document.activeElement)||!document.querySelector('.v-shell-background').inert||d.querySelectorAll('a').length!==6)throw Error('Create dialog initial focus failed');return {open:true,focusInside:true,options:6};}"
+    },
+    {
+      "action": "act",
+      "kind": "press",
+      "key": "Shift+Tab"
+    },
+    {
+      "action": "act",
+      "kind": "evaluate",
+      "fn": "()=>{if(document.activeElement!==document.querySelector('.v-create-options a:last-child'))throw Error('Reverse focus escaped');return {reverseWrapped:true};}"
+    },
+    {
+      "action": "act",
+      "kind": "press",
+      "key": "Tab"
+    },
+    {
+      "action": "act",
+      "kind": "evaluate",
+      "fn": "()=>{if(document.activeElement.getAttribute('aria-label')!=='Close Create')throw Error('Forward focus escaped');return {forwardWrapped:true};}"
+    },
+    {
+      "action": "act",
+      "kind": "press",
+      "key": "Escape"
+    },
+    {
+      "action": "act",
+      "kind": "evaluate",
+      "fn": "()=>{if(document.querySelector('dialog').open||document.querySelector('.v-shell-background').inert||document.activeElement!==document.querySelector('.v-create-dock'))throw Error('Escape restore failed');return {closed:true,focusRestored:true};}"
+    },
+    {
+      "action": "navigate",
+      "url": "/customers"
+    },
+    {
+      "action": "act",
+      "kind": "evaluate",
+      "fn": "async()=>{document.querySelector('button[aria-label=\"Open navigation\"]').click();await new Promise(requestAnimationFrame);document.querySelector('.v-mobile-menu a[href=\"/business\"]').click();for(let i=0;i<120&&location.pathname!=='/business';i++)await new Promise(r=>setTimeout(r,20));if(location.pathname!=='/business')throw Error('Navigation failed');history.back();for(let i=0;i<120&&(location.pathname!=='/customers'||document.querySelector('main h1')?.textContent!=='Customers');i++)await new Promise(r=>setTimeout(r,20));if(location.pathname!=='/customers')throw Error('Back failed');return {back:true,path:location.pathname};}"
+    },
+    {
+      "action": "act",
+      "kind": "resize",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "action": "act",
+      "kind": "evaluate",
+      "fn": "()=>{const client=document.documentElement.clientWidth,scroll=document.documentElement.scrollWidth;if(scroll>client)throw Error('Page overflow at '+innerWidth);const header=[...document.querySelectorAll('header a,header button,header input')].filter(e=>e.getBoundingClientRect().width>0).map(e=>e.getBoundingClientRect().top);if(header.some((y,i)=>i>0&&y<header[i-1]-10))throw Error('Header reading order mismatch');return {width:innerWidth,client,scroll,readingOrder:true};}"
+    },
+    {
+      "action": "act",
+      "kind": "resize",
+      "width": 1280,
+      "height": 900
+    },
+    {
+      "action": "act",
+      "kind": "evaluate",
+      "fn": "()=>{const client=document.documentElement.clientWidth,scroll=document.documentElement.scrollWidth;if(scroll>client)throw Error('Page overflow at '+innerWidth);const header=[...document.querySelectorAll('header a,header button,header input')].filter(e=>e.getBoundingClientRect().width>0).map(e=>e.getBoundingClientRect().top);if(header.some((y,i)=>i>0&&y<header[i-1]-10))throw Error('Header reading order mismatch');return {width:innerWidth,client,scroll,readingOrder:true};}"
+    },
+    {
+      "action": "act",
+      "kind": "resize",
+      "width": 1024,
+      "height": 900
+    },
+    {
+      "action": "act",
+      "kind": "evaluate",
+      "fn": "()=>{const client=document.documentElement.clientWidth,scroll=document.documentElement.scrollWidth;if(scroll>client)throw Error('Page overflow at '+innerWidth);const header=[...document.querySelectorAll('header a,header button,header input')].filter(e=>e.getBoundingClientRect().width>0).map(e=>e.getBoundingClientRect().top);if(header.some((y,i)=>i>0&&y<header[i-1]-10))throw Error('Header reading order mismatch');return {width:innerWidth,client,scroll,readingOrder:true};}"
+    },
+    {
+      "action": "act",
+      "kind": "resize",
+      "width": 768,
+      "height": 900
+    },
+    {
+      "action": "act",
+      "kind": "evaluate",
+      "fn": "()=>{const client=document.documentElement.clientWidth,scroll=document.documentElement.scrollWidth;if(scroll>client)throw Error('Page overflow at '+innerWidth);const header=[...document.querySelectorAll('header a,header button,header input')].filter(e=>e.getBoundingClientRect().width>0).map(e=>e.getBoundingClientRect().top);if(header.some((y,i)=>i>0&&y<header[i-1]-10))throw Error('Header reading order mismatch');return {width:innerWidth,client,scroll,readingOrder:true};}"
+    },
+    {
+      "action": "act",
+      "kind": "resize",
+      "width": 390,
+      "height": 900
+    },
+    {
+      "action": "act",
+      "kind": "evaluate",
+      "fn": "()=>{const client=document.documentElement.clientWidth,scroll=document.documentElement.scrollWidth;if(scroll>client)throw Error('Page overflow at '+innerWidth);const header=[...document.querySelectorAll('header a,header button,header input')].filter(e=>e.getBoundingClientRect().width>0).map(e=>e.getBoundingClientRect().top);if(header.some((y,i)=>i>0&&y<header[i-1]-10))throw Error('Header reading order mismatch');return {width:innerWidth,client,scroll,readingOrder:true};}"
+    },
+    {
+      "action": "act",
+      "kind": "resize",
+      "width": 375,
+      "height": 900
+    },
+    {
+      "action": "act",
+      "kind": "evaluate",
+      "fn": "()=>{const client=document.documentElement.clientWidth,scroll=document.documentElement.scrollWidth;if(scroll>client)throw Error('Page overflow at '+innerWidth);const header=[...document.querySelectorAll('header a,header button,header input')].filter(e=>e.getBoundingClientRect().width>0).map(e=>e.getBoundingClientRect().top);if(header.some((y,i)=>i>0&&y<header[i-1]-10))throw Error('Header reading order mismatch');return {width:innerWidth,client,scroll,readingOrder:true};}"
+    },
+    {
+      "action": "act",
+      "kind": "resize",
+      "width": 320,
+      "height": 900
+    },
+    {
+      "action": "act",
+      "kind": "evaluate",
+      "fn": "()=>{const client=document.documentElement.clientWidth,scroll=document.documentElement.scrollWidth;if(scroll>client)throw Error('Page overflow at '+innerWidth);const header=[...document.querySelectorAll('header a,header button,header input')].filter(e=>e.getBoundingClientRect().width>0).map(e=>e.getBoundingClientRect().top);if(header.some((y,i)=>i>0&&y<header[i-1]-10))throw Error('Header reading order mismatch');return {width:innerWidth,client,scroll,readingOrder:true};}"
+    }
+  ]
+}

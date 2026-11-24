@@ -1,0 +1,35 @@
+{
+  "outDir": "~/Developer/VENTRA-MARKETING/posts/07-behind-the-scenes",
+  "items": [
+    { "template": "carousel", "name": "slide-01", "theme": "dark", "slots": {
+      "eyebrow": "Behind the scenes · in development", "title": "How we're *building* VENTRA", "page": "01 / 06",
+      "body": "An honest look at where things stand. Everything here is still in development.",
+      "points": ["Test labs, not live customers", "Nothing is sent to real people", "Progress shared as it happens"],
+      "cta": "Swipe →", "label": "Concept demonstration" } },
+    { "template": "carousel", "name": "slide-02", "theme": "dark", "slots": {
+      "eyebrow": "Test lab 1 · in development", "title": "The Receptionist *lab*", "page": "02 / 06",
+      "body": "We run simulated calls through the Receptionist and check every step it takes.",
+      "points": ["What the caller says", "The transcript and actions", "What would be booked"],
+      "cta": "Swipe →", "label": "Concept demonstration" } },
+    { "template": "carousel", "name": "slide-03", "theme": "dark", "slots": {
+      "eyebrow": "Test lab 2 · in development", "title": "The Setter *lab*", "page": "03 / 06",
+      "body": "We type practice enquiries and check the reply, the questions and the booking.",
+      "points": ["The reply", "The details it picked up", "The follow-up plan"],
+      "cta": "Swipe →", "label": "Concept demonstration" } },
+    { "template": "carousel", "name": "slide-04", "theme": "dark", "slots": {
+      "eyebrow": "Safety first", "title": "Nothing goes out *by accident*", "page": "04 / 06",
+      "body": "In the labs, no messages are sent and no real calendars are touched.",
+      "points": ["Practice conversations only", "Simulated bookings", "Owner approval built in"],
+      "cta": "Swipe →", "label": "Concept demonstration" } },
+    { "template": "carousel", "name": "slide-05", "theme": "dark", "slots": {
+      "eyebrow": "What's next", "title": "From the lab to *real* calls", "page": "05 / 06",
+      "body": "Next up: a real test call on a real number, and real calendar connections, before any customer uses it.",
+      "points": ["A real test call", "Calendar connection", "Then launch news, here"],
+      "cta": "Swipe →", "label": "Concept demonstration" } },
+    { "template": "carousel", "name": "slide-06", "theme": "dark", "slots": {
+      "eyebrow": "Follow along", "title": "Built in the *open*", "page": "06 / 06",
+      "body": "Real screens from the labs will be shared here once they're ready to show.",
+      "points": ["Honest progress", "No made-up results", "Launching soon"],
+      "cta": "Follow for the launch", "label": "Concept demonstration" } }
+  ]
+}

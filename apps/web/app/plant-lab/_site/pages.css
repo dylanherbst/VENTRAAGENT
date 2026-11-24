@@ -1,0 +1,71 @@
+/* Public pages under /plant-lab (how it works, pricing, FAQ, contact). Reuses tokens.css and plant.css; only what those lack is here. */
+.amp-sub .amp-header { position: static; }
+.amp-sub .amp-header-inner { flex-wrap: wrap; gap: .5rem 1.25rem; padding-top: .6rem; padding-bottom: .6rem; }
+.amp-sub .amp-header .amp-btn { margin-left: auto; min-height: 44px; }
+.amp-pnav { order: 3; flex: 1 1 100%; display: flex; flex-wrap: wrap; gap: 0 1.25rem; font-size: .95rem; }
+.amp-pnav a, .amp-fnav a { display: inline-flex; align-items: center; min-height: 44px; color: var(--amp-ink-2); text-decoration: none; }
+.amp-pnav a:hover, .amp-fnav a:hover { color: var(--amp-ink); text-decoration: underline; text-underline-offset: 4px; }
+.amp-pnav a[aria-current='page'] { color: var(--amp-ink); font-weight: 600; text-decoration: underline; text-underline-offset: 6px; text-decoration-color: var(--amp-lavender); }
+/* Visible keyboard focus: dark lavender (about 7:1 on the page background), never removed. */
+.amp-sub .amp-pnav a:focus-visible, .amp-sub .amp-fnav a:focus-visible, .amp-sub .amp-logo:focus-visible, .amp-sub .amp-btn:focus-visible, .amp-sub .amp-faq summary:focus-visible, .amp-footer-links a:focus-visible {
+  outline: 3px solid #5a3fbf; outline-offset: 3px; border-radius: 8px; box-shadow: 0 0 0 6px #fff;
+}
+/* Narrow screens (320px): tighter gaps, let the header button text wrap rather than push the page wider. */
+@media (max-width: 400px) {
+  .amp-sub .amp-header-inner { gap: .25rem .75rem; }
+  .amp-sub .amp-header .amp-btn { max-width: 100%; white-space: normal; text-align: center; line-height: 1.25; padding-left: .9rem; padding-right: .9rem; }
+  .amp-pnav, .amp-fnav { gap: 0 .9rem; }
+}
+@media (min-width: 900px) {
+  .amp-pnav { order: 0; flex: 0 1 auto; margin-left: auto; gap: 0 1.75rem; }
+  .amp-sub .amp-header .amp-btn { margin-left: 0; }
+}
+
+.amp-page-head { padding: clamp(2.5rem, 7vw, 5rem) 0 clamp(1.5rem, 4vw, 2.5rem); }
+.amp-page-head .amp-display { font-size: clamp(2.2rem, 5vw, 3.8rem); margin-bottom: 1rem; overflow-wrap: anywhere; }
+.amp-page-head .amp-lead { max-width: 40rem; }
+.amp-page-body { padding-bottom: clamp(3.5rem, 8vw, 6rem); display: grid; gap: clamp(2.5rem, 6vw, 4rem); }
+.amp-page-body > section > .amp-h3 { font-size: clamp(1.4rem, 2.4vw, 1.8rem); margin-bottom: 1rem; }
+.amp-page-body p, .amp-page-body li, .amp-page-body dd { color: var(--amp-ink-2); overflow-wrap: anywhere; }
+.amp-page-body a { text-decoration: underline; text-underline-offset: 4px; }
+
+.amp-notice { margin: 0 0 1.25rem; padding: .85rem 1.1rem; border-radius: 12px; background: var(--amp-lavender-soft); color: var(--amp-ink); font-weight: 600; border: 1px solid #d5c9f5; max-width: 40rem; }
+.amp-sub .amp-steps .amp-step-n { color: #5a3fbf; }
+.amp-sub .amp-steps li { display: grid; gap: .5rem; align-content: start; }
+.amp-sub .amp-steps h3 { margin: 0; }
+.amp-sub .amp-steps p { margin: 0; }
+.amp-sub .amp-status { width: fit-content; }
+@media (min-width: 900px) { .amp-sub .amp-steps { grid-template-columns: repeat(2, 1fr); } }
+.amp-sub .amp-after { margin-top: 0; }
+@media (max-width: 559px) { .amp-sub .amp-after li { flex-direction: column; gap: .6rem; } }
+
+.amp-plainlist { margin: 0; padding-left: 1.2rem; display: grid; gap: .6rem; max-width: 44rem; }
+
+/* plan comparison: one card per plan at every width, so nothing scrolls sideways */
+.amp-compare { list-style: none; padding: 0; margin: 0; display: grid; gap: 1rem; }
+.amp-compare > li { min-width: 0; background: var(--amp-surface); border-radius: 16px; padding: 1.5rem 1.25rem; box-shadow: 0 1px 2px rgba(40, 30, 80, .05), 0 12px 32px -20px rgba(40, 30, 80, .18); display: flex; flex-direction: column; gap: .75rem; }
+.amp-compare h3 { font-family: var(--amp-head); font-size: 1.3rem; }
+.amp-compare .amp-price { font-size: 2rem; }
+.amp-compare .amp-price span { color: var(--amp-ink-2); }
+.amp-compare .amp-plan-blurb { min-height: 0; }
+.amp-compare dl { margin: 0; display: grid; flex: 1; align-content: start; }
+.amp-compare dl > div { padding: .7rem 0; border-top: 1px solid var(--amp-line); display: grid; gap: .15rem; }
+.amp-compare dt { font-size: .85rem; color: var(--amp-ink-2); }
+.amp-compare dd { margin: 0; font-weight: 600; color: var(--amp-ink); }
+.amp-compare dd.is-off { font-weight: 400; color: var(--amp-ink-2); }
+.amp-compare .amp-btn { width: 100%; text-align: center; }
+@media (min-width: 720px) { .amp-compare { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1100px) { .amp-compare { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+.amp-sub .amp-faq { display: block; max-width: 48rem; }
+.amp-sub .amp-faq summary { min-height: 44px; align-items: flex-start; }
+.amp-sub .amp-faq summary svg { color: var(--amp-ink-2); }
+@media (prefers-reduced-motion: reduce) { .amp-sub .amp-faq summary svg, .amp-sub .amp-btn { transition: none; } }
+
+.amp-contact-email { font-family: var(--amp-head); font-size: clamp(1.15rem, 4.6vw, 1.6rem); font-weight: 600; overflow-wrap: anywhere; }
+
+.amp-page-cta { padding: clamp(3rem, 7vw, 5rem) 0; background: var(--amp-surface); border-top: 1px solid var(--amp-line); }
+.amp-page-cta .amp-h2 { font-size: clamp(1.7rem, 3.4vw, 2.5rem); margin-bottom: .75rem; }
+.amp-page-cta .amp-lead { margin-bottom: 1.5rem; }
+.amp-fnav { display: flex; flex-wrap: wrap; gap: 0 1.25rem; }
+.amp-sub .amp-footer .amp-small { color: var(--amp-ink-2); font-size: .85rem; }

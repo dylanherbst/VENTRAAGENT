@@ -1,0 +1,21 @@
+#!/bin/bash
+# Owner-only control for the safety guard. Run this in a real Terminal, never through an agent
+# (the Bash guard refuses `ventra-guard unlock` from agents).
+#   ventra-guard unlock [minutes]   allow edits to the guard/policy/settings files for a short window
+#   ventra-guard lock               close the window now
+#   ventra-guard status             show the window, the policy and the last blocked actions
+HOME_DIR="${VENTRA_DASHBOARD_HOME:-$HOME/.ventra-dashboard}"
+FILE="$HOME_DIR/control-unlock"
+mkdir -p "$HOME_DIR" && chmod 700 "$HOME_DIR"
+case "$1" in
+  unlock)
+    mins="${2:-10}"; [[ "$mins" =~ ^[0-9]+$ ]] && [ "$mins" -le 60 ] || { echo "Minutes must be 1 to 60." >&2; exit 2; }
+    echo $(( ($(date +%s) + mins * 60) * 1000 )) > "$FILE"; chmod 600 "$FILE"
+    echo "Guard files can be edited for $mins minutes. Close early with: ventra-guard lock" ;;
+  lock) rm -f "$FILE"; echo "Guard files are locked." ;;
+  status)
+    if [ -f "$FILE" ] && [ "$(cat "$FILE")" -gt "$(( $(date +%s) * 1000 ))" ]; then echo "Edit window: OPEN"; else echo "Edit window: closed"; fi
+    [ -f "$HOME_DIR/git-policy.json" ] && echo "Policy: $HOME_DIR/git-policy.json" || echo "Policy: MISSING (defaults apply)"
+    [ -f "$HOME_DIR/actions.jsonl" ] && { echo "Last blocked or confirmed actions:"; grep -E '"decision":"(deny|ask)"' "$HOME_DIR/actions.jsonl" | tail -5 | cut -c1-220; } ;;
+  *) echo "usage: ventra-guard unlock [minutes] | lock | status" >&2; exit 2 ;;
+esac

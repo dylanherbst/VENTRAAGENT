@@ -1,0 +1,68 @@
+diff --git a/apps/web/app/design-system/theme.css b/apps/web/app/design-system/theme.css
+index 0935b1b..9046de6 100644
+--- a/apps/web/app/design-system/theme.css
++++ b/apps/web/app/design-system/theme.css
+@@ -622,3 +622,63 @@ body:has(.ventra-app[data-theme=light]){background:#EDE7FB;color-scheme:light}
+ .ventra-app :is(.v-feature-copy strong,.v-hub-group h3,.v-service-copy strong){font-size:16px;line-height:1.35;font-weight:600}
+ .ventra-app :is(.v-button-primary,.v-action-btn,.v-button[aria-pressed=true]){font-size:15px;font-weight:600}
+ .ventra-app :is(p,li){font-size:max(14px,1em)}
++
++/* ======== Glass tokens (all cards 25% more transparent, real glassmorphism). Last block: it wins. ======== */
++.ventra-app[data-theme=light]{
++ --v-text-muted:#3A3970; --v-text-faint:#4B497C;
++ --v-glass:rgba(255,255,255,.41); --v-glass-strong:rgba(255,255,255,.585); --v-field:rgba(255,255,255,.54);
++ --v-g-fill:linear-gradient(180deg,rgba(255,255,255,.30) 0,rgba(255,255,255,0) 26%),linear-gradient(145deg,rgba(255,255,255,.555),rgba(255,255,255,.33));
++ --v-g-flat:rgba(255,255,255,.42); --v-g-border:rgba(255,255,255,.74);
++ --v-g-shadow:0 16px 44px rgba(109,40,217,.12),inset 0 1px 0 rgba(255,255,255,.9),inset 0 -1px 0 rgba(255,255,255,.28);
++ --v-g-blur:20px; --v-g-sat:160%; --v-g-solid:#F3EEFF;
++ --v-g-side:linear-gradient(160deg,rgba(255,255,255,.465),rgba(255,255,255,.21));
++ --v-g-frame:linear-gradient(150deg,rgba(255,255,255,.345),rgba(255,255,255,.165));
++ --v-g-dock:linear-gradient(150deg,rgba(255,255,255,.66),rgba(243,237,255,.62));
++}
++.ventra-app[data-theme=dark]{
++ --v-text-muted:#D6CCC2; --v-text-faint:#C2B7AC;
++ --v-glass:rgba(255,255,255,.05); --v-glass-strong:rgba(255,255,255,.09); --v-field:rgba(255,255,255,.06);
++ --v-g-fill:linear-gradient(180deg,rgba(255,255,255,.10) 0,rgba(255,255,255,0) 24%),linear-gradient(150deg,rgba(124,102,86,.30),rgba(74,58,48,.375));
++ --v-g-flat:rgba(255,255,255,.055); --v-g-border:rgba(255,255,255,.20);
++ --v-g-shadow:0 18px 48px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.22),inset 0 -1px 0 rgba(255,255,255,.05);
++ --v-g-blur:20px; --v-g-sat:150%; --v-g-solid:#3a2f28;
++ --v-g-side:rgba(0,0,0,.06);
++ --v-g-frame:linear-gradient(150deg,rgba(130,106,88,.225),rgba(60,46,38,.315));
++ --v-g-dock:linear-gradient(150deg,rgba(104,84,70,.615),rgba(52,40,33,.675));
++}
++@media(max-width:639px){.ventra-app{--v-g-blur:12px;--v-g-sat:150%}}
++.ventra-app[data-theme] :is(.v-glass,.v-glass-strong,.v-plain-card){background:var(--v-g-fill);border:1px solid var(--v-g-border);box-shadow:var(--v-g-shadow);-webkit-backdrop-filter:blur(var(--v-g-blur)) saturate(var(--v-g-sat));backdrop-filter:blur(var(--v-g-blur)) saturate(var(--v-g-sat))}
++/* nested glass is flat: no second blur */
++.ventra-app[data-theme] .v-glass .v-glass:not(.v-stat),.ventra-app[data-theme] .v-editor .v-glass,.ventra-app[data-theme] .v-feature.v-glass{background:var(--v-g-flat);-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:inset 0 1px 0 var(--v-g-border)}
++/* phones: stat and panel cards use a flat fill so only a handful of layers blur at once */
++@media(max-width:767px){.ventra-app[data-theme] :is(.v-stat,.v-panel){background:var(--v-g-fill);-webkit-backdrop-filter:none;backdrop-filter:none}}
++/* chrome */
++.ventra-app[data-theme] .v-sidebar{background:var(--v-g-side);-webkit-backdrop-filter:blur(var(--v-g-blur)) saturate(var(--v-g-sat));backdrop-filter:blur(var(--v-g-blur)) saturate(var(--v-g-sat))}
++@media(min-width:1024px){.ventra-app[data-theme] .v-shell-background{background:var(--v-g-frame);border:1px solid var(--v-g-border);-webkit-backdrop-filter:blur(calc(var(--v-g-blur) + 6px)) saturate(var(--v-g-sat));backdrop-filter:blur(calc(var(--v-g-blur) + 6px)) saturate(var(--v-g-sat))}
++ .ventra-app[data-theme] .v-sidebar{-webkit-backdrop-filter:none;backdrop-filter:none}}
++.ventra-app[data-theme] .v-dock{background:var(--v-g-dock);border:1px solid var(--v-g-border);box-shadow:var(--v-g-shadow);-webkit-backdrop-filter:blur(var(--v-g-blur)) saturate(var(--v-g-sat));backdrop-filter:blur(var(--v-g-blur)) saturate(var(--v-g-sat))}
++.ventra-app[data-theme=light] .v-search{background:rgba(255,255,255,.585);border:1px solid var(--v-g-border)}
++.ventra-app[data-theme=light] .v-button{background:rgba(255,255,255,.585)}
++.ventra-app[data-theme=light] .v-local-tabs a,.ventra-app[data-theme=light] .v-steps li>a,.ventra-app[data-theme=light] .v-steps li>div{background:rgba(255,255,255,.525)}
++.ventra-app[data-theme=light] .v-export{background:rgba(255,255,255,.525)}
++.ventra-app[data-theme=light] .v-ws{background:rgba(255,255,255,.45)}
++.ventra-app[data-theme=light] .v-feature{background:var(--v-g-flat)}
++.ventra-app[data-theme=light] .v-feature.is-disabled{background:rgba(255,255,255,.2)}
++.ventra-app[data-theme=dark] .v-search{background:rgba(255,255,255,.06)}
++/* accent column: translucent but still vivid enough for white text (>= 4.5:1) */
++.ventra-app[data-theme] .v-accent-card{-webkit-backdrop-filter:blur(var(--v-g-blur)) saturate(var(--v-g-sat));backdrop-filter:blur(var(--v-g-blur)) saturate(var(--v-g-sat))}
++.ventra-app[data-theme=light] .v-accent-card{background:linear-gradient(160deg,rgba(91,33,182,.94),rgba(110,45,222,.90))}
++.ventra-app[data-theme=light] .v-gold-card{background:linear-gradient(135deg,rgba(252,231,243,.71),rgba(237,233,254,.69))}
++.ventra-app[data-theme=light] .v-dark-card{background:linear-gradient(160deg,rgba(67,56,202,.92),rgba(49,46,129,.92))}
++.ventra-app[data-theme=dark] .v-accent-card{background:linear-gradient(165deg,rgba(63,88,196,.92),rgba(124,149,234,.88))}
++.ventra-app[data-theme=dark] .v-gold-card{background:var(--v-gold-card),rgba(90,70,50,.38)}
++.ventra-app[data-theme=dark] .v-dark-card{background:linear-gradient(160deg,rgba(60,48,42,.6),rgba(34,26,22,.66))}
++/* opaque where legibility matters */
++.ventra-app[data-theme] :is(.v-account-menu,.v-create-dialog,.v-mobile-menu).v-glass{background:var(--v-g-solid);-webkit-backdrop-filter:none;backdrop-filter:none}
++.ventra-app[data-theme=light] :is(input:not([type=checkbox]):not([type=radio]),textarea,select){background:rgba(255,255,255,.92)}
++/* no backdrop-filter support: solid-ish surfaces so nothing becomes unreadable */
++@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
++ .ventra-app[data-theme] :is(.v-glass,.v-glass-strong,.v-plain-card,.v-dock,.v-sidebar,.v-stat,.v-panel){background:var(--v-g-solid)}
++ .ventra-app[data-theme] .v-feature.v-glass{background:var(--v-g-flat)}
++ .ventra-app[data-theme] .v-shell-background{background:var(--v-g-solid)}
++}
